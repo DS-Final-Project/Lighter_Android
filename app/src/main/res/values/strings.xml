@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Test_Android2</string>
+    <string name="app_name">Test_Android</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signup">회원가입</string>
+    <string name="signup_description">회원가입하고 라-이터를 이용해보세요</string>
+    <string name="id">아이디</string>
+    <string name="pw">비밀번호</string>
+    <string name="signup_done">가입 완료</string>
 </resources>
