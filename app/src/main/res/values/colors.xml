@@ -9,7 +9,8 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="highlight_darkest">#F4AC3F</color>
-    <color name="neutral_dark_dark">#1E1E1E</color>
+    <color name="neutral_dark_darkest">#1E1E1E</color>
+    <color name="neutral_dark_dark">#2F3036</color>
     <color name="neutral_dark_light">#71727A</color>
     <color name="neutral_dark_lightest">#8F9098</color>
     <color name="neutral_light_darkest">#C5C6CC</color>
