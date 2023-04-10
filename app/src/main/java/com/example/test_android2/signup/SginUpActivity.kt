@@ -11,6 +11,7 @@ import com.example.test_android2.data.ResponseData
 import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.data.UserData
 import com.example.test_android2.databinding.ActivitySginUpBinding
+import com.example.test_android2.login.LogInActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,8 +50,8 @@ class SignUpActivity : AppCompatActivity() {
                     val result = response.body()
                     Log.d("회원가입 성공", "$result")
                     Toast.makeText(this@SignUpActivity, "가입 완료 되었습니다.", Toast.LENGTH_LONG).show()
-                    //val intent = Intent(this@SignUpActivity, LogInActivity::class.java)
-                    //startActivity(intent)
+                    val intent = Intent(this@SignUpActivity, LogInActivity::class.java)
+                    startActivity(intent)
                 }
             }
 
