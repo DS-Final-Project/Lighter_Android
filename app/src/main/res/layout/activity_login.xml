@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="154dp"
+            android:text="로그인"
+            android:textColor="@color/black"
+            android:fontFamily="@font/heading_bold"
+            android:textSize="24sp"/>
+
+        <EditText
+            android:id="@+id/lgnId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="174dp"
+            android:background="@drawable/login_edittext"
+            android:ems="10"
+            android:hint="아이디"
+            android:fontFamily="@font/body_medium"
+            android:textColorHint="#8F9098"
+            android:inputType="textEmailAddress"
+            android:padding="14dp"
+            android:singleLine="true"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/lgnPw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/login_edittext"
+            android:ems="10"
+            android:hint="비밀번호"
+            android:fontFamily="@font/body_medium"
+            android:textColorHint="#8F9098"
+            android:inputType="textPassword"
+            android:padding="14dp"
+            android:singleLine="true"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/lgnBt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/login_btn"
+            android:padding="12dp"
+            android:text="로그인"
+            android:fontFamily="@font/action_semi_bold"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/signBt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:layout_marginTop="16dp"
+            android:background="#00ff0000"
+            android:gravity="center"
+            android:text="회원가입"
+            android:fontFamily="@font/action_semi_bold"
+            android:textAlignment="center"
+            android:textColor="#1E1E1E"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>
