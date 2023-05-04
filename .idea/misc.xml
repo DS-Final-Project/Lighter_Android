@@ -4,8 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/login_btn.xml" value="0.132" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.11911231884057971" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_main.xml" value="0.11911231884057971" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_sgin_up.xml" value="0.1" />
       </map>
     </option>
   </component>
