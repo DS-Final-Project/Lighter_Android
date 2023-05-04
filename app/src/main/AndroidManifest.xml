@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Test_Android2"
         tools:targetApi="33">
         <activity
-            android:name=".login.LogInActivity"
+            android:name=".login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".signup.SignUpActivity"
+            android:name=".signup.SginUpActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
