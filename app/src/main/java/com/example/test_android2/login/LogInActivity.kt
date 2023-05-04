@@ -12,13 +12,13 @@ import com.example.test_android2.data.ResponseData
 import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.data.UserData
 import com.example.test_android2.databinding.ActivityLoginBinding
-import com.example.test_android2.signup.SginUpActivity
+import com.example.test_android2.signup.SignUpActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class LoginActivity : AppCompatActivity() {
+class LogInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         binding.signUpBt.setOnClickListener(){
-            val intent = Intent(this@LoginActivity, SginUpActivity::class.java)
+            val intent = Intent(this@LogInActivity, SignUpActivity::class.java)
             startActivity(intent)
         }
 
@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         val pw = binding.lgnPw.text.toString().trim()
         val userData = UserData(id, pw)
         if (id == "" || pw == "") {
-            Toast.makeText(this@LoginActivity, "로그인 정보를 모두 입력해주세요.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@LogInActivity, "로그인 정보를 모두 입력해주세요.", Toast.LENGTH_LONG).show()
         } else {
             loginNetwork(userData)
         }
@@ -54,8 +54,8 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val result = response.body()
                     Log.d("로그인 성공", "$result")
-                    Toast.makeText(this@LoginActivity, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    Toast.makeText(this@LogInActivity, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this@LogInActivity, MainActivity::class.java)
                     startActivity(intent)
                 }
             }
