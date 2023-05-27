@@ -1,31 +1,62 @@
 package com.example.test_android2
 
-import android.app.Activity
-import android.graphics.Color
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
-import android.widget.TextView
+import androidx.viewpager2.widget.ViewPager2
+import com.example.test_android2.databinding.ActivityMainBinding
 
-class MainActivity : Activity() {
-    // TextView 변수
-    lateinit var textView: TextView
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // 1. TextView 참조
-        textView = findViewById(R.id.textViewSpannable)
-        // 2. String 문자열 데이터 취득
-        val textData: String = textView.text.toString()
-        // 3. SpannableStringBuilder 타입으로 변환
-        val builder = SpannableStringBuilder(textData)
-        val colorBlueSpan = ForegroundColorSpan(Color.rgb(244,172,63))
-        builder.setSpan(colorBlueSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        // 5. TextView에 적용
-        textView.text = builder
+        initAdapter()
+        initBottomNavi()
+
+    }
+
+    private fun initAdapter(){
+        val fragmentList = listOf(UploadFragment(),InfoFragment(),MyPageFragment())
+        viewPagerAdapter = ViewPagerAdapter(this)
+        viewPagerAdapter.fragments.addAll(fragmentList)
+
+        binding.vpMain.adapter = viewPagerAdapter
+    }
+
+    private fun initBottomNavi(){
+        binding.bnvMain.itemIconTintList = null
+        binding.vpMain.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                binding.bnvMain.menu.getItem(position).isChecked = true
+            }
+        })
+
+        binding.bnvMain.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.menu_upload -> {
+                    binding.vpMain.currentItem = UPLOAD_FRAGMENT
+                    true
+                }
+                R.id.menu_info -> {
+                    binding.vpMain.currentItem = INFO_FRAGMENT
+                    true
+                }
+                else -> {
+                    binding.vpMain.currentItem = MY_PAGE_FRAGMENT
+                    true
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val UPLOAD_FRAGMENT = 0
+        const val MY_PAGE_FRAGMENT = 1
+        const val INFO_FRAGMENT = 2
     }
 }

@@ -14,4 +14,10 @@
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="TextAppearance.AppCompat.Icon.ic2" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/action_semi_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">10sp</item>
+    </style>
 </resources>
