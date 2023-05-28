@@ -12,4 +12,12 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
 
     override fun createFragment(position: Int): Fragment = fragments[position]
 
+    fun addFragment(fragment: Fragment) {
+        fragments.add(fragment)
+        notifyItemInserted(fragments.size -1)
+    }
+    fun removeFragment(){
+        fragments.removeLast()
+        notifyItemRemoved(fragments.size)
+    }
 }

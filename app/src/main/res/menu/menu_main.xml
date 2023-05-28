@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_upload"
-        android:icon="@drawable/selector_ic_upload"
+        android:icon="@drawable/ic_nav_upload"
         android:title="@string/upload" />
     <item
         android:id="@+id/menu_info"
-        android:icon="@drawable/selector_ic_info"
+        android:icon="@drawable/ic_nav_info"
         android:title="@string/info" />
     <item
         android:id="@+id/menu_mypage"
-        android:icon="@drawable/selector_ic_mypage"
+        android:icon="@drawable/ic_nav_mypage"
         android:title="@string/mypage" />
 </menu>
