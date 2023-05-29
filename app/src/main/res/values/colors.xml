@@ -14,4 +14,7 @@
     <color name="neutral_dark_light">#71727A</color>
     <color name="neutral_dark_lightest">#8F9098</color>
     <color name="neutral_light_darkest">#C5C6CC</color>
+    <color name="neutral_light_light">#F8F9FE</color>
+    <color name="neutral_light_medium">#E8E9F1</color>
+    <color name="neutral_light_dark">#D4D6DD</color>
 </resources>

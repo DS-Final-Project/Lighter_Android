@@ -44,7 +44,10 @@ class UploadFragment : Fragment() {
         })
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = "Tab ${position+1}"
+            when(position) {
+                0 -> tab.text = "파일"
+                1 -> tab.text = "사진"
+            }
         }.attach()
     }
 
