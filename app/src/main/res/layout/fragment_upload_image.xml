@@ -15,54 +15,50 @@
 
         <EditText
             android:id="@+id/et_text"
+            style="@style/TextAppearance.AppCompat.Body.M"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_round_edittext"
-            android:fontFamily="@font/body_regular"
             android:hint="문장을 입력해 주세요"
             android:padding="10dp"
-            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_explain1"
+            style="@style/TextAppearance.AppCompat.Headline.H2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/heading_black"
             android:text="문장을 입력해 주세요"
             android:textColor="@color/neutral_dark_darkest"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_text" />
 
         <TextView
             android:id="@+id/tv_explain2"
+            style="@style/TextAppearance.AppCompat.Body.M"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/body_regular"
             android:text="의심되는 대화 내용을 입력해 주세요"
             android:textColor="@color/neutral_dark_light"
-            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_explain1" />
 
         <Button
+            style="@style/TextAppearance.AppCompat.Action.M"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_marginTop="44dp"
             android:background="@drawable/shape_round_button"
             android:backgroundTint="@color/highlight_darkest"
-            android:fontFamily="@font/action_semi_bold"
             android:stateListAnimator="@null"
             android:text="문장 분석"
             android:textColor="@color/white"
-            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_explain2" />
