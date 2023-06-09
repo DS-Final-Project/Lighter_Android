@@ -4,11 +4,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.*
 
 object ServiceCreator {
     //서버에서 준 URL 입력
-    private const val BASE_URL = "http://172.20.10.2:8080" +
-            ""
+    private const val BASE_URL = "http://172.20.10.2:8080"
 
     private val userRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -17,6 +17,9 @@ object ServiceCreator {
         .build()
 
     private fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+        .connectTimeout(100, TimeUnit.SECONDS)
+        .readTimeout(100,TimeUnit.SECONDS)
+        .writeTimeout(100,TimeUnit.SECONDS)
         .run {
             addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
@@ -25,4 +28,5 @@ object ServiceCreator {
         }
 
     val userService: UserService = userRetrofit.create(UserService::class.java)
+    val chatService: ChatService = userRetrofit.create(ChatService::class.java)
 }
