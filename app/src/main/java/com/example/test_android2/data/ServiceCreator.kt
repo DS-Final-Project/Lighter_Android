@@ -7,7 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceCreator {
     //서버에서 준 URL 입력
-    private const val BASE_URL = ""
+    private const val BASE_URL = "http://172.20.10.2:8080" +
+            ""
 
     private val userRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
