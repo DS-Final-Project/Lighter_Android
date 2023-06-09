@@ -14,11 +14,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/et_text"
+            android:id="@+id/et_chat_words"
             style="@style/TextAppearance.AppCompat.Body.M"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_round_edittext"
+            android:elevation="2dp"
             android:hint="문장을 입력해 주세요"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +36,7 @@
             android:textColor="@color/neutral_dark_darkest"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_text" />
+            app:layout_constraintTop_toBottomOf="@id/et_chat_words" />
 
         <TextView
             android:id="@+id/tv_explain2"
@@ -50,6 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_explain1" />
 
         <Button
+            android:id="@+id/btn_analysis"
             style="@style/TextAppearance.AppCompat.Action.M"
             android:layout_width="80dp"
             android:layout_height="40dp"
