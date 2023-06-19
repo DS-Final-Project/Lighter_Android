@@ -11,10 +11,10 @@ import com.example.test_android2.data.ChatData
 import com.example.test_android2.data.ResponseChat
 import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.databinding.FragmentUploadFileBinding
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.concurrent.thread
 
 class UploadFileFragment : Fragment() {
 
@@ -33,6 +33,7 @@ class UploadFileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initButtonClickEvent()
+        init()
 
     }
 
@@ -40,6 +41,13 @@ class UploadFileFragment : Fragment() {
         val chatWords = binding.etChatWords.text.toString()
         val chatData = ChatData(chatWords)
         chatNetwork(chatData)
+
+        showProgress(true)
+        binding.progressBar.bringToFront()
+        thread(start = true) {
+            Thread.sleep(3000)
+
+        }
     }
 
     private fun chatNetwork(chatInfo: ChatData) {
@@ -64,6 +72,16 @@ class UploadFileFragment : Fragment() {
             }
         })
     }
+
+    private fun init() {
+        showProgress(false)
+    }
+
+    private fun showProgress(isShow: Boolean) {
+        if (isShow) binding.progressBar.visibility = View.VISIBLE
+        else binding.progressBar.visibility = View.GONE
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
