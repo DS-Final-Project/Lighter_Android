@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/login_btn.xml" value="0.132" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_google.xml" value="0.2" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_googlelogin.xml" value="0.14175724637681159" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_kakaologin.xml" value="0.23596014492753623" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_main.xml" value="0.11911231884057971" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_sgin_up.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/circle_progressbar.xml" value="0.1365" />

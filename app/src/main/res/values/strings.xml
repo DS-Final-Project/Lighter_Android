@@ -8,6 +8,9 @@
     <string name="pw">비밀번호</string>
     <string name="signup_done">가입 완료</string>
     <string name="login">로그인</string>
+    <string name="kakaologin">혹시 나도? \n확인하고 싶을 땐,\n라-이터</string>
+    <string name="kakaotext">카카오 계정 연동으로 시작해보세요!</string>
+    <string name="googletext">구글 계정 연동으로 시작해보세요!</string>
     <string name="intro">라-이터에 오신 걸 \n환영합니다!</string>
     <string name="upload">채팅 등록</string>
     <string name="info">정보</string>
