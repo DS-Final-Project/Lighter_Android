@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.test_android2"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -52,6 +52,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.google.android.material:material:1.9.0'
+
+    //카드뷰 슬라이드
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
 
 
