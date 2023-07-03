@@ -1,31 +1,60 @@
 package com.example.test_android2
 
-import android.app.Activity
-import android.graphics.Color
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
-import android.widget.TextView
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import androidx.viewpager2.widget.ViewPager2
+import com.example.test_android2.databinding.ActivityMainBinding
 
-class MainActivity : Activity() {
-    // TextView 변수
-    lateinit var textView: TextView
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // 1. TextView 참조
-        textView = findViewById(R.id.textViewSpannable)
-        // 2. String 문자열 데이터 취득
-        val textData: String = textView.text.toString()
-        // 3. SpannableStringBuilder 타입으로 변환
-        val builder = SpannableStringBuilder(textData)
-        val colorBlueSpan = ForegroundColorSpan(Color.rgb(244,172,63))
-        builder.setSpan(colorBlueSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        // 5. TextView에 적용
-        textView.text = builder
+        initBottomNavi()
+
+    }
+
+    //화면 밖 클릭 시 키보드 내리기
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+
+        if (currentFocus is EditText) {
+            currentFocus!!.clearFocus()
+        }
+
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun initBottomNavi() {
+
+        supportFragmentManager.beginTransaction().replace(R.id.frm_main, UploadFragment()).commitAllowingStateLoss()
+
+        binding.bnvMain.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_upload -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frm_main, UploadFragment())
+                        .commitAllowingStateLoss()
+                    true
+                }
+                R.id.menu_info -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frm_main, InfoFragment())
+                        .commitAllowingStateLoss()
+                    true
+                }
+                else -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frm_main, MyPageFragment())
+                        .commitAllowingStateLoss()
+                    true
+                }
+            }
+        }
     }
 }

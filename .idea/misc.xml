@@ -7,8 +7,23 @@
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_main.xml" value="0.11911231884057971" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_sgin_up.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/circle_progressbar.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/shape_outlined_round_button.xml" value="0.121" />
+        <entry key="app/src/main/res/drawable/shape_round_button.xml" value="0.121" />
+        <entry key="app/src/main/res/drawable/shape_round_edittext.xml" value="0.121" />
+        <entry key="app/src/main/res/drawable/shape_round_item_notice.xml" value="0.1345" />
+        <entry key="app/src/main/res/layout/activity_googlelogin.xml" value="0.13796296296296295" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.20277777777777778" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21614990234375003" />
+        <entry key="app/src/main/res/layout/activity_result_analysis.xml" value="0.2074074074074074" />
         <entry key="app/src/main/res/layout/activity_sgin_up.xml" value="0.20277777777777778" />
+        <entry key="app/src/main/res/layout/fragment_info.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_my_page.xml" value="0.25104166666666666" />
+        <entry key="app/src/main/res/layout/fragment_upload.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_upload_file.xml" value="0.15331010452961671" />
+        <entry key="app/src/main/res/layout/fragment_upload_image.xml" value="0.19909502262443438" />
+        <entry key="app/src/main/res/layout/item_notice.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.1111111111111111" />
       </map>
     </option>
   </component>
