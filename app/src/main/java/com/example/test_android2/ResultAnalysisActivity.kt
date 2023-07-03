@@ -20,17 +20,15 @@ class ResultAnalysisActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultAnalysisBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val resultNum = intent.getStringExtra("resultNum")
-        //val resultNum = "67"
+        val resultNum = intent.getStringExtra("resultNum") //val resultNum = "67"
 
         if (resultNum != null) {
-            val percent = "$resultNum%"
-            //val percent = "67%"
+            val percent = "$resultNum%" //val percent = "67%"
             with(binding) {
                 tvPercent.text = percent
                 progressbar.progress = resultNum.toInt()
             }
-            if (resultNum.toInt() <=50){
+            if (resultNum.toInt() <= 50) {
                 with(binding) {
                     icNotice.setImageResource(R.drawable.ic_success)
                     tvNotice.text = "안전"
@@ -38,7 +36,7 @@ class ResultAnalysisActivity : AppCompatActivity() {
                     layoutNotice.background.setTint(getColor(color.support_success_light))
                 }
             }
-            if (resultNum.toInt() in 51..80){
+            if (resultNum.toInt() in 51..80) {
                 with(binding) {
                     icNotice.setImageResource(R.drawable.ic_warning)
                     tvNotice.text = "주의"
@@ -46,7 +44,7 @@ class ResultAnalysisActivity : AppCompatActivity() {
                     layoutNotice.background.setTint(getColor(color.support_warning_light))
                 }
             }
-            if (resultNum.toInt()>80){
+            if (resultNum.toInt() > 80) {
                 with(binding) {
                     icNotice.setImageResource(R.drawable.ic_danger)
                     tvNotice.text = "위험"
@@ -54,8 +52,7 @@ class ResultAnalysisActivity : AppCompatActivity() {
                     layoutNotice.background.setTint(getColor(color.support_error_light))
                 }
             }
-        }
-        else{
+        } else {
             Toast.makeText(this@ResultAnalysisActivity, "결과를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
         }
 
@@ -69,4 +66,5 @@ class ResultAnalysisActivity : AppCompatActivity() {
             finish()
         }
     }
+
 }

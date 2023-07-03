@@ -34,7 +34,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="41dp"
-                    android:lineSpacingExtra="-5dp"
                     android:text="@string/analysis_title"
                     android:textColor="@color/neutral_dark_darkest"
                     app:layout_constraintEnd_toEndOf="parent"

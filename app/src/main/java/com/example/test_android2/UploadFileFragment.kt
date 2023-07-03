@@ -32,8 +32,8 @@ class UploadFileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initButtonClickEvent()
         init()
+        initButtonClickEvent()
 
     }
 
