@@ -11,12 +11,11 @@ import com.example.test_android2.data.ChatData
 import com.example.test_android2.data.ResponseChat
 import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.databinding.FragmentUploadFileBinding
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UploadFileFragment : Fragment() {
+class UploadFileFragment : Fragment(), ConfirmDialogInterface {
 
     private var _binding: FragmentUploadFileBinding? = null
     private val binding get() = _binding!!
@@ -39,7 +38,7 @@ class UploadFileFragment : Fragment() {
     private fun initButtonClickEvent() = binding.btnAnalysis.setOnClickListener {
         val chatWords = binding.etChatWords.text.toString()
         val chatData = ChatData(chatWords)
-        chatNetwork(chatData)
+        showCustomDialog(chatData)
     }
 
     private fun chatNetwork(chatInfo: ChatData) {
@@ -63,6 +62,20 @@ class UploadFileFragment : Fragment() {
                 Log.d("문장 분석 실패", t.message.toString())
             }
         })
+    }
+
+    private fun showCustomDialog(chatData: ChatData) {
+        val dialog = RelationDialog(this,chatData)
+        dialog.show(childFragmentManager, "relation_dialog")
+    }
+
+    override fun onOkButtonClick(chatData: ChatData) {
+        chatNetwork(chatData)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 
