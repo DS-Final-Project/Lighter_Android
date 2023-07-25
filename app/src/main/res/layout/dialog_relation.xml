@@ -43,35 +43,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_description">
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_1"
             style="@style/TextAppearance.AppCompat.Headline.H5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/highlight_darkest"
             android:text="연인"
             android:textColor="@color/neutral_dark_light" />
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_2"
             style="@style/TextAppearance.AppCompat.Headline.H5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/highlight_darkest"
             android:text="친구"
             android:textColor="@color/neutral_dark_light" />
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_3"
             style="@style/TextAppearance.AppCompat.Headline.H5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/highlight_darkest"
             android:text="가족"
             android:textColor="@color/neutral_dark_light" />
 
-        <RadioButton
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_4"
             style="@style/TextAppearance.AppCompat.Headline.H5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/highlight_darkest"
             android:text="동료"
             android:textColor="@color/neutral_dark_light" />
     </RadioGroup>
@@ -79,8 +83,8 @@
     <Button
         android:id="@+id/btn_ok"
         style="@style/TextAppearance.AppCompat.Action.M"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="268dp"
+        android:layout_height="40dp"
         android:layout_marginTop="22dp"
         android:background="@drawable/shape_round_button"
         android:backgroundTint="@color/highlight_darkest"

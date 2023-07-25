@@ -43,7 +43,7 @@ class RelationDialog(
                     "가족" -> 4
                     else -> 0 //예외 처리
                 }
-                chatData.selectedOption = dataToSend
+                chatData.relation = dataToSend
                 confirmDialogInterface.onOkButtonClick(chatData)
             }
             dismiss()

@@ -41,12 +41,6 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
         val chatWords = binding.etChatWords.text.toString()
         val chatData = ChatData(chatWords)
         showCustomDialog(chatData)
-        showProgress(true)
-        binding.progressBar.bringToFront()
-        thread(start = true) {
-            Thread.sleep(3000)
-
-        }
     }
 
     private fun chatNetwork(chatInfo: ChatData) {
@@ -73,26 +67,34 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
     }
 
     private fun showCustomDialog(chatData: ChatData) {
-        val dialog = RelationDialog(this,chatData)
+        val dialog = RelationDialog(this, chatData)
         dialog.show(childFragmentManager, "relation_dialog")
     }
 
     override fun onOkButtonClick(chatData: ChatData) {
         chatNetwork(chatData)
+
+        showProgress(true)
+        binding.progressBar.bringToFront()
+        thread(start = true) {
+            Thread.sleep(3000)
+
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     private fun init() {
         showProgress(false)
     }
+
     private fun showProgress(isShow: Boolean) {
         if (isShow) binding.progressBar.visibility = View.VISIBLE
         else binding.progressBar.visibility = View.GONE
     }
-
 
 }
 
