@@ -13,10 +13,11 @@
         <entry key="app/src/main/res/drawable/shape_round_dialog.xml" value="0.1415" />
         <entry key="app/src/main/res/drawable/shape_round_edittext.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/shape_round_item_notice.xml" value="0.1345" />
+        <entry key="app/src/main/res/drawable/shape_round_textview.xml" value="0.1085" />
         <entry key="app/src/main/res/layout/activity_googlelogin.xml" value="0.13796296296296295" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.20277777777777778" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21614990234375003" />
-        <entry key="app/src/main/res/layout/activity_result_analysis.xml" value="0.2074074074074074" />
+        <entry key="app/src/main/res/layout/activity_result_analysis.xml" value="0.21796264648437502" />
         <entry key="app/src/main/res/layout/activity_sgin_up.xml" value="0.20277777777777778" />
         <entry key="app/src/main/res/layout/dialog_relation.xml" value="0.18888888888888888" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.25" />

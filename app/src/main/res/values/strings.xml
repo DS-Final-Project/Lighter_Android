@@ -20,4 +20,8 @@
     <string name="relation">관계 설정</string>
     <string name="relation_description">채팅 상대와의 관계를 설정해 주세요.\n관계를 기반으로 맞춤 솔루션을 제공해 드립니다.</string>
     <string name="btn_ok">확인</string>
+    <string name="type_title">나의 유형은?</string>
+    <string name="type_subtitle">자가 진단 테스트 결과를 확인하세요.</string>
+    <string name="avoid_score">회피 점수</string>
+    <string name="anxiety_score">불안 점수</string>
 </resources>
