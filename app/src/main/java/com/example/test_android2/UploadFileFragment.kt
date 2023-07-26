@@ -16,7 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.concurrent.thread
 
-class UploadFileFragment : Fragment() {
+class UploadFileFragment : Fragment(), ConfirmDialogInterface {
 
     private var _binding: FragmentUploadFileBinding? = null
     private val binding get() = _binding!!
@@ -40,14 +40,7 @@ class UploadFileFragment : Fragment() {
     private fun initButtonClickEvent() = binding.btnAnalysis.setOnClickListener {
         val chatWords = binding.etChatWords.text.toString()
         val chatData = ChatData(chatWords)
-        chatNetwork(chatData)
-
-        showProgress(true)
-        binding.progressBar.bringToFront()
-        thread(start = true) {
-            Thread.sleep(3000)
-
-        }
+        showCustomDialog(chatData)
     }
 
     private fun chatNetwork(chatInfo: ChatData) {
@@ -73,6 +66,27 @@ class UploadFileFragment : Fragment() {
         })
     }
 
+    private fun showCustomDialog(chatData: ChatData) {
+        val dialog = RelationDialog(this, chatData)
+        dialog.show(childFragmentManager, "relation_dialog")
+    }
+
+    override fun onOkButtonClick(chatData: ChatData) {
+        chatNetwork(chatData)
+
+        showProgress(true)
+        binding.progressBar.bringToFront()
+        thread(start = true) {
+            Thread.sleep(3000)
+
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun init() {
         showProgress(false)
     }
@@ -82,9 +96,5 @@ class UploadFileFragment : Fragment() {
         else binding.progressBar.visibility = View.GONE
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
 
