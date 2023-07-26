@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.test_android2.data.Chat
 import com.example.test_android2.data.ChatData
 import com.example.test_android2.data.ResponseChat
 import com.example.test_android2.data.ServiceCreator
@@ -37,6 +38,7 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
 
     }
 
+    //업로드 페이지에서 채팅 분석 버튼 클릭 시
     private fun initButtonClickEvent() = binding.btnAnalysis.setOnClickListener {
         val chatWords = binding.etChatWords.text.toString()
         val chatData = ChatData(chatWords)
@@ -53,8 +55,18 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         val resultNum = it.resultNum
+                        val doubtText1 = it.doubtText1
+                        val doubtText2 = it.doubtText2
+                        val doubtText3 = it.doubtText3
+                        val doubtText4 = it.doubtText4
+                        val doubtText5 = it.doubtText5
+                        val avoidScore = it.avoidScore
+                        val anxietyScore = it.anxietyScore
+                        val testType = it.testType
+
+                        var mychat = Chat(resultNum,doubtText1,doubtText2,doubtText3,doubtText4,doubtText5,avoidScore,anxietyScore,testType)
                         val intent = Intent(context, ResultAnalysisActivity::class.java)
-                        intent.putExtra("resultNum", resultNum.toString())
+                        intent.putExtra("mychat", mychat)
                         startActivity(intent)
                     }
                 }
@@ -66,11 +78,24 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
         })
     }
 
+    //로딩 바 초기 설정
+    private fun init() {
+        showProgress(false)
+    }
+
+    //로딩 바 보이기
+    private fun showProgress(isShow: Boolean) {
+        if (isShow) binding.progressBar.visibility = View.VISIBLE
+        else binding.progressBar.visibility = View.GONE
+    }
+
+    //다이얼로그 보이기
     private fun showCustomDialog(chatData: ChatData) {
         val dialog = RelationDialog(this, chatData)
         dialog.show(childFragmentManager, "relation_dialog")
     }
 
+    //다이얼로그에서 완료 버튼 클릭 시
     override fun onOkButtonClick(chatData: ChatData) {
         chatNetwork(chatData)
 
@@ -85,15 +110,6 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun init() {
-        showProgress(false)
-    }
-
-    private fun showProgress(isShow: Boolean) {
-        if (isShow) binding.progressBar.visibility = View.VISIBLE
-        else binding.progressBar.visibility = View.GONE
     }
 
 }
