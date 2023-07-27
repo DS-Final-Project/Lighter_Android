@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.test_android2.databinding.FragmentUploadBinding
@@ -51,8 +53,20 @@ class UploadFragment : Fragment() {
         }.attach()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨깁니다.
+        showProgress(false)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showProgress(isShow: Boolean) {
+        val activity = activity as? AppCompatActivity
+        activity?.findViewById<ProgressBar>(R.id.progressBar)?.visibility =
+            if (isShow) View.VISIBLE else View.GONE
     }
 }

@@ -107,6 +107,11 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
 
         }
     }
+    override fun onResume() {
+        super.onResume()
+        // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨깁니다.
+        showProgress(false)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
