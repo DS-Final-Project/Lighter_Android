@@ -53,16 +53,17 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
                 call: Call<ResponseChat>, response: Response<ResponseChat>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        val resultNum = it.resultNum
-                        val doubtText1 = it.doubtText1
-                        val doubtText2 = it.doubtText2
-                        val doubtText3 = it.doubtText3
-                        val doubtText4 = it.doubtText4
-                        val doubtText5 = it.doubtText5
-                        val avoidScore = it.avoidScore
-                        val anxietyScore = it.anxietyScore
-                        val testType = it.testType
+                    response.body()?.let { responseData ->
+                        val data = responseData.data
+                        val resultNum = data.resultNum
+                        val doubtText1 = data.doubtText1
+                        val doubtText2 = data.doubtText2
+                        val doubtText3 = data.doubtText3
+                        val doubtText4 = data.doubtText4
+                        val doubtText5 = data.doubtText5
+                        val avoidScore = data.avoidScore
+                        val anxietyScore = data.anxietyScore
+                        val testType = data.testType
 
                         var mychat = Chat(resultNum,doubtText1,doubtText2,doubtText3,doubtText4,doubtText5,avoidScore,anxietyScore,testType)
                         val intent = Intent(context, ResultAnalysisActivity::class.java)
@@ -105,6 +106,11 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
             Thread.sleep(3000)
 
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨깁니다.
+        showProgress(false)
     }
 
     override fun onDestroyView() {

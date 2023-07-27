@@ -1,6 +1,13 @@
 package com.example.test_android2.data
 
 data class ResponseChat(
+    val error: String,
+    val data: Data
+)
+
+data class Data(
+    val chatWords: String?,
+    var relation: Int?,
     val resultNum: Int?,
     val doubtText1: String?,
     val doubtText2: String?,
