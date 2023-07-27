@@ -16,6 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UploadImageFragment : Fragment() {
+    /*
 
     private var _binding: FragmentUploadImageBinding? = null
     private val binding get() = _binding!!
@@ -67,4 +68,6 @@ class UploadImageFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+     */
 }

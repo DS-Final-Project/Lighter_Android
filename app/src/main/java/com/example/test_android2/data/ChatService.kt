@@ -5,6 +5,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ChatService {
-    @POST("/chatAnalysis/file")
+    @POST("/chatupload/file")
     fun uploadChat(@Body chatInfo: ChatData): Call<ResponseChat>
 }

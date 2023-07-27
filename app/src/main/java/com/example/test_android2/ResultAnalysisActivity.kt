@@ -97,6 +97,15 @@ class ResultAnalysisActivity : AppCompatActivity() {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        hideProgress() //로딩 바 숨기기
+    }
+
+    private fun hideProgress() {
+        binding.progressbar.visibility = View.GONE
+    }
+
     //확인 버튼 클릭 시 이전 화면(채팅 등록)으로 이동
     private fun initButtonClickEvent() {
         binding.btnOk.setOnClickListener {
