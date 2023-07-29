@@ -1,7 +1,10 @@
 package com.example.test_android2
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,18 +33,30 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
 
     }
 
+    companion object {
+        private const val FILE_REQUEST_CODE = 1001
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         init()
         initButtonClickEvent()
+        uploadButtonClickEvent()
 
+    }
+
+    //+버튼 클릭 시
+    private fun uploadButtonClickEvent() =binding.btnUpload.setOnClickListener{
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"  // 모든 파일 타입 선택 가능하도록
+        startActivityForResult(intent, FILE_REQUEST_CODE)
     }
 
     //업로드 페이지에서 채팅 분석 버튼 클릭 시
     private fun initButtonClickEvent() = binding.btnAnalysis.setOnClickListener {
-        val chatWords = binding.etChatWords.text.toString()
-        val chatData = ChatData(chatWords)
+        val chatFile = binding.tvFileName.text.toString()
+        val chatData = ChatData(chatFile)
         showCustomDialog(chatData)
     }
 
@@ -107,9 +122,41 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
 
         }
     }
+
+    private fun getFileNameFromUri(uri: Uri): String? {
+        var fileName: String? = null
+        context?.contentResolver?.query(uri, null, null, null, null)?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                fileName = cursor.getString(displayNameIndex)
+            }
+        }
+        return fileName
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.data?.let { fileUri ->
+                val fileName = getFileNameFromUri(fileUri)
+                if (fileName != null) {
+                    // 파일 이름 받아와서 보여주기
+                    with (binding) {
+                        btnUpload.visibility = View.INVISIBLE
+                        imgFile.visibility = View.VISIBLE
+                        tvExplain1.visibility = View.INVISIBLE
+                        tvExplain2.visibility = View.INVISIBLE
+                        tvFileName.visibility = View.VISIBLE
+                        tvFileName.text = fileName
+                    }
+                }
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
-        // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨깁니다.
+        // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨김
         showProgress(false)
     }
 
