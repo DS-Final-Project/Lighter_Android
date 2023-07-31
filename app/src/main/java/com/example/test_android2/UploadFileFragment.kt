@@ -43,11 +43,12 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
         init()
         initButtonClickEvent()
         uploadButtonClickEvent()
+        deleteButtonClickEvent()
 
     }
 
     //+버튼 클릭 시
-    private fun uploadButtonClickEvent() =binding.btnUpload.setOnClickListener{
+    private fun uploadButtonClickEvent() = binding.btnUpload.setOnClickListener {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"  // 모든 파일 타입 선택 가능하도록
         startActivityForResult(intent, FILE_REQUEST_CODE)
@@ -58,6 +59,18 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
         val chatFile = binding.tvFileName.text.toString()
         val chatData = ChatData(chatFile)
         showCustomDialog(chatData)
+    }
+
+    //파일 삭제 버튼 클릭 시
+    private fun deleteButtonClickEvent() = binding.btnDelete.setOnClickListener {
+        with(binding) {
+            tvFileName.text = ""
+            layoutFile.visibility = View.INVISIBLE
+            tvFileName.visibility = View.INVISIBLE
+            btnUpload.visibility = View.VISIBLE
+            tvExplain1.visibility = View.VISIBLE
+            tvExplain2.visibility = View.VISIBLE
+        }
     }
 
     private fun chatNetwork(chatInfo: ChatData) {
@@ -80,7 +93,17 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
                         val anxietyScore = data.anxietyScore
                         val testType = data.testType
 
-                        var mychat = Chat(resultNum,doubtText1,doubtText2,doubtText3,doubtText4,doubtText5,avoidScore,anxietyScore,testType)
+                        var mychat = Chat(
+                            resultNum,
+                            doubtText1,
+                            doubtText2,
+                            doubtText3,
+                            doubtText4,
+                            doubtText5,
+                            avoidScore,
+                            anxietyScore,
+                            testType
+                        )
                         val intent = Intent(context, ResultAnalysisActivity::class.java)
                         intent.putExtra("mychat", mychat)
                         startActivity(intent)
@@ -123,6 +146,7 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
         }
     }
 
+    //파일 명을 보낼 경우 사용하는 함수
     private fun getFileNameFromUri(uri: Uri): String? {
         var fileName: String? = null
         context?.contentResolver?.query(uri, null, null, null, null)?.use { cursor ->
@@ -137,17 +161,15 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            data?.data?.let { fileUri ->
-                val fileName = getFileNameFromUri(fileUri)
-                if (fileName != null) {
-                    // 파일 이름 받아와서 보여주기
-                    with (binding) {
+            data?.data?.let { fileUri -> //val fileName = getFileNameFromUri(fileUri)
+                if (fileUri != null) { // 파일 이름 받아와서 보여주기
+                    with(binding) {
                         btnUpload.visibility = View.INVISIBLE
-                        imgFile.visibility = View.VISIBLE
+                        layoutFile.visibility = View.VISIBLE
                         tvExplain1.visibility = View.INVISIBLE
                         tvExplain2.visibility = View.INVISIBLE
                         tvFileName.visibility = View.VISIBLE
-                        tvFileName.text = fileName
+                        tvFileName.text = fileUri.toString()
                     }
                 }
             }
@@ -155,8 +177,7 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
     }
 
     override fun onResume() {
-        super.onResume()
-        // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨김
+        super.onResume() // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨김
         showProgress(false)
     }
 

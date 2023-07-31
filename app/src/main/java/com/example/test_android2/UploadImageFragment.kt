@@ -47,39 +47,46 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
         init()
         initButtonClickEvent()
         uploadButtonClickEvent()
+        deleteButtonClickEvent()
     }
 
     // +버튼 클릭 시
     private fun uploadButtonClickEvent() {
-        binding.btnUpload.setOnClickListener {
-            // Android 10 이상인 경우 권한 요청
+        binding.btnUpload.setOnClickListener { // Android 10 이상인 경우 권한 요청
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        requireContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE
                     ) == PackageManager.PERMISSION_GRANTED
                 ) {
                     openGallery()
                 } else {
                     ActivityCompat.requestPermissions(
-                        requireActivity(),
-                        arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        PERMISSION_Album
+                        requireActivity(), arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album
                     )
                 }
-            } else {
-                // Android 10 미만인 경우 갤러리 열기
+            } else { // Android 10 미만인 경우 갤러리 열기
                 openGallery()
             }
         }
     }
 
     //업로드 페이지에서 채팅 분석 버튼 클릭 시
-    private fun initButtonClickEvent() = binding.btnAnalysis.setOnClickListener {
-        //변수명 변경하기
+    private fun initButtonClickEvent() = binding.btnAnalysis.setOnClickListener { //변수명 변경하기
         val chatImage = binding.tvPhotoName.text.toString()
         val chatData = ChatData(chatImage)
         showCustomDialog(chatData)
+    }
+
+    //파일 삭제 버튼 클릭 시
+    private fun deleteButtonClickEvent() = binding.btnDelete.setOnClickListener {
+        with(binding) {
+            tvPhotoName.text = ""
+            layoutImage.visibility = View.INVISIBLE
+            tvPhotoName.visibility = View.INVISIBLE
+            btnUpload.visibility = View.VISIBLE
+            tvExplain1.visibility = View.VISIBLE
+            tvExplain2.visibility = View.VISIBLE
+        }
     }
 
     private fun chatNetwork(chatInfo: ChatData) {
@@ -134,9 +141,7 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
                 openGallery()
             } else {
                 Toast.makeText(
-                    requireContext(),
-                    "저장소 권한을 승인해야 앨범에서 이미지를 불러올 수 있습니다.",
-                    Toast.LENGTH_LONG
+                    requireContext(), "저장소 권한을 승인해야 앨범에서 이미지를 불러올 수 있습니다.", Toast.LENGTH_LONG
                 ).show()
             }
         }
@@ -157,7 +162,7 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
                     data?.data?.let { uri ->
                         with(binding) {
                             btnUpload.visibility = View.INVISIBLE
-                            imgPhoto.visibility = View.VISIBLE
+                            layoutImage.visibility = View.VISIBLE
                             tvExplain1.visibility = View.INVISIBLE
                             tvExplain2.visibility = View.INVISIBLE
                             tvPhotoName.visibility = View.VISIBLE
