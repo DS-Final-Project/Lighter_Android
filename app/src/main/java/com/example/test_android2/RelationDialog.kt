@@ -60,5 +60,4 @@ class RelationDialog(
 
 interface ConfirmDialogInterface {
     fun onOkButtonClick(chatData: ChatData)
-
 }
