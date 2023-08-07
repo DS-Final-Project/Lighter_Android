@@ -8,6 +8,6 @@ interface ChatService {
     @POST("/chatupload/file")
     fun uploadChat(@Body chatInfo: ChatData): Call<ResponseChat>
 
-    @POST("/chatupload/image")
+    @POST("/chatupload/img")
     fun uploadChatImage(@Body chatInfo: ChatData): Call<ResponseChat>
 }

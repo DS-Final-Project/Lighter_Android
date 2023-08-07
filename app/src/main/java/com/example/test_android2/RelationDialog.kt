@@ -39,8 +39,8 @@ class RelationDialog(
                 val dataToSend = when (radioButton.text.toString()) {
                     "연인" -> 1
                     "친구" -> 2
-                    "동료" -> 3
-                    "가족" -> 4
+                    "가족" -> 3
+                    "동료" -> 4
                     else -> 0 //예외 처리
                 }
                 chatData.relation = dataToSend
