@@ -2,6 +2,7 @@ package com.example.test_android2.data
 
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ChatService {
@@ -10,4 +11,7 @@ interface ChatService {
 
     @POST("/chatupload/img")
     fun uploadChatImage(@Body chatInfo: ChatData): Call<ResponseChat>
+
+    @GET("/mypage")
+    fun getItems(): Call<ResponseItem>
 }
