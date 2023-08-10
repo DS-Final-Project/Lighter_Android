@@ -12,6 +12,7 @@
     <color name="highlight_lightest">#FFF4E2</color>
     <color name="neutral_dark_darkest">#1E1E1E</color>
     <color name="neutral_dark_dark">#2F3036</color>
+    <color name="neutral_dark_medium">#494A50</color>
     <color name="neutral_dark_light">#71727A</color>
     <color name="neutral_dark_lightest">#8F9098</color>
     <color name="neutral_light_darkest">#C5C6CC</color>
