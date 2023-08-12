@@ -16,6 +16,7 @@ import com.example.test_android2.databinding.FragmentMyPageBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.concurrent.thread
 
 class MyPageFragment : Fragment() {
 
@@ -34,6 +35,13 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
+        showProgress(true)
+        binding.progressBar.bringToFront()
+        thread(start = true) {
+            Thread.sleep(3000)
+
+        }
         itemNetwork()
     }
 
@@ -44,6 +52,9 @@ class MyPageFragment : Fragment() {
             override fun onResponse(
                 call: Call<ResponseItem>, response: Response<ResponseItem>
             ) {
+                // 로딩 바 숨기기
+                showProgress(false)
+
                 if (response.isSuccessful) {
                     val responseData = response.body()
                     if(responseData != null){
@@ -95,6 +106,17 @@ class MyPageFragment : Fragment() {
 
         // 맵의 값들을 리스트로 변환하여 반환
         return itemMap.values.toMutableList()
+    }
+
+    //로딩 바 초기 설정
+    private fun init() {
+        showProgress(false)
+    }
+
+    //로딩 바 보이기
+    private fun showProgress(isShow: Boolean) {
+        if (isShow) binding.progressBar.visibility = View.VISIBLE
+        else binding.progressBar.visibility = View.GONE
     }
 
     override fun onDestroyView() {
