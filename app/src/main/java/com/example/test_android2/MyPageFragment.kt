@@ -40,7 +40,6 @@ class MyPageFragment : Fragment() {
         binding.progressBar.bringToFront()
         thread(start = true) {
             Thread.sleep(3000)
-
         }
         itemNetwork()
     }

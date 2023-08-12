@@ -85,8 +85,13 @@ class ExpandableAdapter(
         fun bind(itemData: ItemData, position: Int) {
             val yearMonthText = "${itemData.chatYearMonth.substring(0, 4)}년 ${itemData.chatYearMonth.substring(5, 7)}월"
             binding.tvDate.text = yearMonthText
+
+            val rotationDegree = if (itemData.isExpanded) 180f else 0f
+            binding.imgMore.rotation = rotationDegree
             binding.imgMore.setOnClickListener {
                 expandOrCollapseParentItem(itemData, position)
+                // 이미지 버튼 회전
+                binding.imgMore.animate().setDuration(200).rotation(rotationDegree)
             }
         }
     }
