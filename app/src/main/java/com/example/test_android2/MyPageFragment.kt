@@ -1,5 +1,6 @@
 package com.example.test_android2
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.test_android2.data.Chat
 import com.example.test_android2.data.ItemData
 import com.example.test_android2.data.ItemDetailData
+import com.example.test_android2.data.ResponseChat
 import com.example.test_android2.data.ResponseItem
 import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.databinding.FragmentMyPageBinding
@@ -79,8 +82,57 @@ class MyPageFragment : Fragment() {
         expandableAdapter = ExpandableAdapter(requireContext(), itemList)
         binding.recyclerList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerList.adapter = expandableAdapter
+
+        //아이템 클릭 시 이벤트
+        expandableAdapter.setOnItemClickListener { chatId ->
+            fetchChatData(chatId)
+        }
+
     }
 
+    private fun fetchChatData(chatId: String?) {
+        chatId?.let {
+            val call: Call<ResponseChat> = ServiceCreator.chatService.getChatResultData(chatId)
+
+            call.enqueue(object : Callback<ResponseChat> {
+                override fun onResponse(call: Call<ResponseChat>, response: Response<ResponseChat>) {
+                    if (response.isSuccessful) {
+                        response.body()?.let { responseData ->
+                            val data = responseData.data
+                            val resultNum = data.resultNum
+                            val doubtText1 = data.doubtText1
+                            val doubtText2 = data.doubtText2
+                            val doubtText3 = data.doubtText3
+                            val doubtText4 = data.doubtText4
+                            val doubtText5 = data.doubtText5
+                            val avoidScore = data.avoidScore
+                            val anxietyScore = data.anxietyScore
+                            val testType = data.testType
+
+                            val mychat = Chat(
+                                resultNum,
+                                doubtText1,
+                                doubtText2,
+                                doubtText3,
+                                doubtText4,
+                                doubtText5,
+                                avoidScore,
+                                anxietyScore,
+                                testType
+                            )
+                            val intent = Intent(context, ResultAnalysisActivity::class.java)
+                            intent.putExtra("mychat", mychat)
+                            startActivity(intent)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseChat>, t: Throwable) {
+                    Log.d("결과 불러오기 실패", t.message.toString())
+                }
+            })
+        }
+    }
 
     // 데이터를 적절한 형태로 가공하는 함수
     private fun processData(dataList: List<ResponseItem.Data>): MutableList<ItemData> {
@@ -92,6 +144,7 @@ class MyPageFragment : Fragment() {
                 val yearMonth = chatDate.substring(0, 7) // yyyy-MM 형태의 년월 추출
                 val item = itemMap.getOrPut(yearMonth) { ItemData(yearMonth) }
 
+                val chatId = data.chatId
                 val resultNum = data.resultNum ?: 0
                 val noticeText = when {
                     resultNum <= 50 -> "안전"
@@ -99,7 +152,7 @@ class MyPageFragment : Fragment() {
                     else -> "위험"
                 }
 
-                item.subList.add(ItemDetailData(chatDate, noticeText,resultNum)) // 년월에 해당하는 데이터 추가
+                item.subList.add(ItemDetailData(chatId, chatDate, noticeText,resultNum)) // 년월에 해당하는 데이터 추가
             }
         }
 

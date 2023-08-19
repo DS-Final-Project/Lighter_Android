@@ -11,8 +11,15 @@ import com.example.test_android2.databinding.ItemMypageDetailBinding
 import java.util.*
 
 class ExpandableAdapter(
-    var mContext: Context, private var itemList: MutableList<ItemData>
+    private val mContext: Context, private var itemList: MutableList<ItemData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    //아이템 클릭 리스너 설정 변수
+    private var itemClickListener: ((String) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (String) -> Unit) {
+        itemClickListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == Constants.PARENT) {
@@ -89,8 +96,7 @@ class ExpandableAdapter(
             val rotationDegree = if (itemData.isExpanded) 180f else 0f
             binding.imgMore.rotation = rotationDegree
             binding.imgMore.setOnClickListener {
-                expandOrCollapseParentItem(itemData, position)
-                // 이미지 버튼 회전
+                expandOrCollapseParentItem(itemData, position) // 이미지 버튼 회전
                 binding.imgMore.animate().setDuration(200).rotation(rotationDegree)
             }
         }
@@ -99,6 +105,7 @@ class ExpandableAdapter(
     inner class ChildViewHolder(private val binding: ItemMypageDetailBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(itemData: ItemData) {
             val singleService = itemData.subList.first()
+            val chatId = singleService.chatId
             val dateParts = singleService.chatDay.split("-") // "-"로 분리하여 리스트로 변환
             if (dateParts.size == 3) {
                 binding.tvDay.text = "${dateParts[2]}일"
@@ -108,6 +115,12 @@ class ExpandableAdapter(
                 binding.imgNotice.setImageResource(R.drawable.ic_mypage_notice_success)
             } else {
                 binding.imgNotice.setImageResource(R.drawable.ic_mypage_notice_danger)
+            }
+
+            binding.root.setOnClickListener {
+                if (chatId != null) {
+                    itemClickListener?.invoke(chatId)
+                }
             }
         }
     }

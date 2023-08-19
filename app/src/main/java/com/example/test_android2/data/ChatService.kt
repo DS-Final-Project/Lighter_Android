@@ -4,6 +4,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ChatService {
     @POST("/chatupload/file")
@@ -14,4 +15,7 @@ interface ChatService {
 
     @GET("/mypage")
     fun getItems(): Call<ResponseItem>
+
+    @GET("/mypage/chatResult/{chatId}")
+    fun getChatResultData(@Path("chatId") chatId: String): Call<ResponseChat>
 }
