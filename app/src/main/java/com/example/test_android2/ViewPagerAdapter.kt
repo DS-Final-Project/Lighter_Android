@@ -5,9 +5,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 
-class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
-    FragmentStateAdapter(fragmentActivity){
-    val fragments = mutableListOf<Fragment>()
+class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment){
+    private val fragments = mutableListOf<Fragment>()
 
     override fun getItemCount(): Int = fragments.size
 
