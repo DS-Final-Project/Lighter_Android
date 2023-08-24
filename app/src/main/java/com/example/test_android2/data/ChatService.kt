@@ -5,6 +5,9 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ChatService {
-    @POST("/chatAnalysis/justVariable")
+    @POST("/chatupload/file")
     fun uploadChat(@Body chatInfo: ChatData): Call<ResponseChat>
+
+    @POST("/chatupload/img")
+    fun uploadChatImage(@Body chatInfo: ChatData): Call<ResponseChat>
 }
