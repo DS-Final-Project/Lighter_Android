@@ -20,6 +20,7 @@ class TokenExchanger {
             request = LoginGoogleRequestModel(
                 grant_type = "authorization_code",
                 client_id = "990677384481-pr02jubof69av8ponrt46eok0c7grmrg.apps.googleusercontent.com",
+                //client_secret = "",
                 code = authCode
             )
         ).enqueue(object : Callback<LoginGoogleResponseModel> {

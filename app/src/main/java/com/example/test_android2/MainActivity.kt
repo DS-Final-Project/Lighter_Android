@@ -1,6 +1,7 @@
 package com.example.test_android2
 
 
+import InfoFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
