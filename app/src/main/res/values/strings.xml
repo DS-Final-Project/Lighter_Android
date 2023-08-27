@@ -24,4 +24,8 @@
     <string name="type_subtitle">자가 진단 테스트 결과를 확인하세요.</string>
     <string name="avoid_score">회피 점수</string>
     <string name="anxiety_score">불안 점수</string>
+    <string name="btn_upload">채팅 분석</string>
+    <string name="upload_title">채팅을 등록해 주세요</string>
+    <string name="upload_photo_subtitle">분석하고 싶은 채팅 사진을 불러와주세요.</string>
+    <string name="upload_file_subtitle">분석하고 싶은 채팅 파일을 불러와주세요.</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.test_android2
 
+import UploadImageFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,9 @@ class UploadFragment : Fragment() {
     private var _binding: FragmentUploadBinding? = null
     private val binding get() = _binding!!
 
+    // 최초 생성 여부를 나타내는 변수
+    private var isInitialCreation = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -27,13 +31,15 @@ class UploadFragment : Fragment() {
         viewPager = binding.vpUpload
         tabLayout = binding.tabUpload
         return binding.root
-
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupViewPager()
+    }
 
-        val pagerAdapter = ViewPagerAdapter(requireActivity())
+    private fun setupViewPager() {
+        val pagerAdapter = ViewPagerAdapter(this) // Fragment를 인자로 받도록 변경
 
         pagerAdapter.addFragment(UploadFileFragment())
         pagerAdapter.addFragment(UploadImageFragment())
@@ -42,6 +48,10 @@ class UploadFragment : Fragment() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+                // 최초 생성이 아닌 경우에만 로딩 바를 숨김
+                if (!isInitialCreation) {
+                    showProgress(false)
+                }
             }
         })
 
@@ -51,12 +61,9 @@ class UploadFragment : Fragment() {
                 1 -> tab.text = "사진"
             }
         }.attach()
-    }
 
-    override fun onResume() {
-        super.onResume()
-        // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨깁니다.
-        showProgress(false)
+        // 최초 생성 여부를 false로 설정합니다.
+        isInitialCreation = false
     }
 
     override fun onDestroyView() {
