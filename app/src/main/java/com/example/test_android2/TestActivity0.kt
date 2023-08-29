@@ -118,11 +118,11 @@ class TestActivity0 : AppCompatActivity(){
 
         //질문 변수에 담기
         val question = questionList[currentPosition]
-        val question1 = questionList[1]
-        val question2 = questionList[2]
-        val question3 = questionList[3]
-        val question4 = questionList[4]
-        val question5 = questionList[5]
+        val question1 = questionList[currentPosition+1]
+        val question2 = questionList[currentPosition+2]
+        val question3 = questionList[currentPosition+3]
+        val question4 = questionList[currentPosition+4]
+        val question5 = questionList[currentPosition+5]
 
         //상태바 위치
         binding.progressBar.progress = currentPosition

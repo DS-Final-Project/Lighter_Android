@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="24dp"
     android:background="@android:color/white"
-    tools:context=".TestActivity1">
+    tools:context=".TestActivity2">
 
     <LinearLayout
         android:id="@+id/progress_layout"
