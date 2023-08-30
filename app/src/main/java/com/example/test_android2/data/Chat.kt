@@ -7,7 +7,7 @@ import android.os.Parcelable.Creator
 class Chat(
     var resultNum: Int?, var doubtText1: String?, var doubtText2: String?
     , var doubtText3: String?, var doubtText4: String?, var doubtText5: String?
-    , var avoidScore: Float?, var anxietyScore: Float?, var testType: Int?
+    , var avoidScore: Float?, var anxietyScore: Float?, var testType: Int?, var relation: Int?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
@@ -18,6 +18,7 @@ class Chat(
         parcel.readString(),
         parcel.readValue(Float::class.java.classLoader) as? Float,
         parcel.readValue(Float::class.java.classLoader) as? Float,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int
     ) {
     }
@@ -32,6 +33,7 @@ class Chat(
         parcel.writeValue(avoidScore)
         parcel.writeValue(anxietyScore)
         parcel.writeValue(testType)
+        parcel.writeValue(relation)
     }
 
     override fun describeContents(): Int {
