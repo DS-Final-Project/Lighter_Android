@@ -6,8 +6,6 @@ data class ResponseChat(
 )
 
 data class Data(
-    val chatWords: String?,
-    var relation: Int?,
     val resultNum: Int?,
     val doubtText1: String?,
     val doubtText2: String?,
@@ -16,6 +14,7 @@ data class Data(
     val doubtText5: String?,
     val avoidScore: Float?,
     val anxietyScore: Float?,
-    val testType: Int?
+    val testType: Int?,
+    val relation: Int?
 )
 

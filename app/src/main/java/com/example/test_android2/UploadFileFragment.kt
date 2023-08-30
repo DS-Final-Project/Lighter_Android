@@ -92,6 +92,7 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
                         val avoidScore = data.avoidScore
                         val anxietyScore = data.anxietyScore
                         val testType = data.testType
+                        val relation = data.relation
 
                         var mychat = Chat(
                             resultNum,
@@ -102,7 +103,8 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
                             doubtText5,
                             avoidScore,
                             anxietyScore,
-                            testType
+                            testType,
+                            relation
                         )
                         val intent = Intent(context, ResultAnalysisActivity::class.java)
                         intent.putExtra("mychat", mychat)
