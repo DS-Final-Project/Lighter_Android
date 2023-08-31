@@ -22,12 +22,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
+<<<<<<< HEAD
             android:name=".ResultAnalysisActivity"
             android:exported="false" />
+=======
+            android:name=".TestStartActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+>>>>>>> selftest
         <activity
             android:name=".login.LogInActivity"
             android:exported="false" />
         <activity
+<<<<<<< HEAD
             android:name=".signup.SignUpActivity"
             android:exported="false" />
         <activity
@@ -39,6 +51,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+=======
+            android:name=".TestActivity0"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".TestActivity1"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".TestActivity2"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".TestResultActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".googleLogin.goo"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+>>>>>>> selftest
     </application>
 
 </manifest>

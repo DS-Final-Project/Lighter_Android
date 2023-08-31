@@ -1,6 +1,8 @@
 package com.example.test_android2
 
 import android.content.Context
+
+import InfoFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
