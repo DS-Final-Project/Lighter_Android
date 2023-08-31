@@ -30,4 +30,5 @@ object ServiceCreator {
     val userService: UserService = userRetrofit.create(UserService::class.java)
     val chatService: ChatService = userRetrofit.create(ChatService::class.java)
     val testService: TestService = userRetrofit.create(TestService::class.java)
+    val solutionService: SolutionService = userRetrofit.create(SolutionService::class.java)
 }

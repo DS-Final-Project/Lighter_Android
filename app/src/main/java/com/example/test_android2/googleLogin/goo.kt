@@ -1,5 +1,6 @@
 package com.example.test_android2.googleLogin
 
+import InfoFragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -56,12 +57,12 @@ class goo : AppCompatActivity() {
             val account = task?.getResult(ApiException::class.java)
             if (account != null) {
                 // 로그인 성공
-                val email = account.email
+                //val email = account.email
                 val displayName = account.displayName
                 idToken = account.idToken.toString()
 
                 // 여기서 서버로 idToken 등 필요한 정보를 전송하고 처리할 수 있습니다.
-                Log.w(TAG, "email: $email")
+                //Log.w(TAG, "email: $email")
                 Log.w(TAG, "idToken: $idToken")
                 //sendToServer(idToken.orEmpty())
 
@@ -82,8 +83,10 @@ class goo : AppCompatActivity() {
             val authCode: String? =
                 completedTask.getResult(ApiException::class.java)?.serverAuthCode
             LoginRepository().getAccessToken(authCode!!)
+            val account = completedTask?.getResult(ApiException::class.java)
+
+            // 로그인 성공
             if (authCode != null) {
-                // 로그인 성공
                 //completedTask.getResult(ApiException::class.java)?.serverAuthCode
                 //LoginRepository().sendAccessToken(authCode);
                 val Token = TokenData(idToken,authCode)
@@ -92,6 +95,15 @@ class goo : AppCompatActivity() {
                 Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@goo, MainActivity::class.java)
                 startActivity(intent)
+            }
+            if (account != null) {
+                var email = account.email.toString()
+                Log.w(TAG, "email: $email")
+
+                val intent = Intent(this@goo, InfoFragment::class.java)
+                intent.putExtra("email", email)
+                startActivity(intent)
+
             }
         } catch (e: ApiException) {
             Log.w(LoginGoogle.TAG, "handleSignInResult: error" + e.statusCode)

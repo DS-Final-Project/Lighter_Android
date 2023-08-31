@@ -1,39 +1,28 @@
 package com.example.test_android2
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.test_android2.data.*
 import com.example.test_android2.databinding.ActivityTestresultBinding
-import com.example.test_android2.googleLogin.LoginGoogle.Companion.TAG
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
+import com.example.test_android2.login.LogInActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 
 class TestResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTestresultBinding
     var avoidScore=0F
     var anxietyScore=0F
-    lateinit var intentResult: Intent
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTestresultBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.iv.setImageResource(R.drawable.ic_test_result)
-
-        intentResult = Intent(this, MainActivity::class.java)
 
         // Intent에서 점수 값을 받아옴
         avoidScore = intent.getFloatExtra("avoidScore", 0F)
@@ -71,14 +60,15 @@ class TestResultActivity : AppCompatActivity() {
                 call: Call<ResponseTest>, response: Response<ResponseTest>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        startActivity(intentResult)
-                    }
+                    val result = response.body()
+                    Log.d("자가진단 성공", "$result")
+                    val intent = Intent(this@TestResultActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
             }
 
             override fun onFailure(call: Call<ResponseTest>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.i(TAG,"Network request failed: ${t.message}")
             }
         })
     }

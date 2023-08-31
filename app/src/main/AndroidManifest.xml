@@ -31,11 +31,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".signup.SignUpActivity"
             android:exported="false" />
+
         <activity
             android:name=".TestActivity0"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
@@ -53,9 +59,7 @@
         <activity
             android:name=".googleLogin.goo"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

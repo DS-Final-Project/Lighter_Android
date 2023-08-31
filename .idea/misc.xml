@@ -5,12 +5,16 @@
       <map>
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_button_clicked.xml" value="0.1105" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_button_unclicked.xml" value="0.1105" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_dialog.xml" value="0.135" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_selector_button.xml" value="0.1105" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/login_btn.xml" value="0.132" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/login_edittext.xml" value="0.125" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/progress_bar.xml" value="0.125" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_outlined_round_button.xml" value="0.125" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round.xml" value="0.1" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_button.xml" value="0.16" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_button_border.xml" value="0.135" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_dialog.xml" value="0.1155" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_edittext.xml" value="0.183" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_textview.xml" value="0.176" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/test_button.xml" value="0.125" />
@@ -21,18 +25,28 @@
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_kakaologin.xml" value="0.23596014492753623" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_result_analysis.xml" value="0.12310030395136778" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_sgin_up.xml" value="0.1" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_solution.xml" value="0.176" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test.xml" value="0.264" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test0.xml" value="0.1" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test1.xml" value="0.12310030395136778" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test2.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_testresult.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_teststart.xml" value="0.1431159420289855" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/card_layout.xml" value="0.2" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_colleague.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_family.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_friend.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_layout.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_lover.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_none.xml" value="0.264" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_info.xml" value="0.2" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_login.xml" value="0.12310030395136778" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_my_page.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_upload.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_upload_file.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/info_dialog.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.167" />
       </map>
     </option>
