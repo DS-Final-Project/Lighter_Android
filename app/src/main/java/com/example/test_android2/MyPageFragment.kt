@@ -1,6 +1,25 @@
 package com.example.test_android2
 
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.test_android2.data.Chat
+import com.example.test_android2.data.ItemData
+import com.example.test_android2.data.ItemDetailData
+import com.example.test_android2.data.ResponseChat
+import com.example.test_android2.data.ResponseItem
+import com.example.test_android2.data.ServiceCreator
+import com.example.test_android2.databinding.FragmentMyPageBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.concurrent.thread
 
 class MyPageFragment : Fragment() {
 

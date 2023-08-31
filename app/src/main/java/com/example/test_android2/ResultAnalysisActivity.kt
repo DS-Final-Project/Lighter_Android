@@ -107,11 +107,7 @@ class ResultAnalysisActivity : AppCompatActivity() {
     //확인 버튼 클릭 시 이전 화면(채팅 등록)으로 이동
     private fun initButtonClickEvent() {
         binding.btnOk.setOnClickListener {
-            val fragment = UploadFragment()
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.layout_upload, fragment)
-            transaction.commit()
-
+            finish()
         }
     }
 
