@@ -11,13 +11,13 @@ import retrofit2.Response
 
 class LoginRepository {
     private val getAccessTokenBaseUrl = "https://www.googleapis.com"
-    private val sendAccessTokenBaseUrl = "server_base_url"
+    private val sendAccessTokenBaseUrl = "http://34.217.28.173:8080/google/login/redirect/"
 
     fun getAccessToken(authCode:String) {
         LoginService.loginRetrofit(getAccessTokenBaseUrl).getAccessToken(
             request = LoginGoogleRequestModel(
                 grant_type = "authorization_code",
-                client_id = "990677384481-pr02jubof69av8ponrt46eok0c7grmrg.apps.googleusercontent.com",
+                client_id = "945444302382-7b29vcb2rdqga8cmrnat5r48i4ri7ndu.apps.googleusercontent.com",
                 code = authCode.orEmpty()
             )
         ).enqueue(object : Callback<LoginGoogleResponseModel> {

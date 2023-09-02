@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_button_clicked.xml" value="0.1105" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_button_unclicked.xml" value="0.1105" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_dialog.xml" value="0.135" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_selector_button.xml" value="0.1105" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/login_btn.xml" value="0.132" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_main.xml" value="0.11911231884057971" />
@@ -35,7 +39,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
