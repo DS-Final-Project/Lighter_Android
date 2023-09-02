@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".TestStartActivity">
 
@@ -11,22 +11,22 @@
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_test_start"
         android:gravity="center"
         android:paddingTop="150dp"
+        android:src="@drawable/ic_test_start"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv_0"
+        style="@style/TextAppearance.AppCompat.Headline.H1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="24dp"
         android:paddingLeft="32dp"
-        style="@style/TextAppearance.AppCompat.Headline.H1"
         android:text="@string/start_tv0"
         app:layout_constraintBottom_toTopOf="@id/tv_1"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -39,26 +39,25 @@
         android:text="@string/start_tv1"
         android:textColor="@color/neutral_dark_light"
         app:layout_constraintBottom_toTopOf="@id/btn"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_default="wrap" />
 
     <Button
         android:id="@+id/btn"
+        style="@style/TextAppearance.AppCompat.Action.M"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/test_button"
+        android:stateListAnimator="@null"
         android:text="테스트 시작하기"
         android:textColor="@color/white"
-        style="@style/TextAppearance.AppCompat.Action.M"
-        android:background="@drawable/test_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"/>
-
-
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
