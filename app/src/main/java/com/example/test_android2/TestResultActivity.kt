@@ -37,10 +37,10 @@ class TestResultActivity : AppCompatActivity() {
 
         // 결과 계산
         val testType = when {
-            avoidScore < 2.33 && anxietyScore < 2.61 -> 1
-            avoidScore < 2.33 && anxietyScore >= 2.61 -> 2
-            avoidScore >= 2.33 && anxietyScore < 2.61 -> 3
-            avoidScore >= 2.33 && anxietyScore >= 2.61 -> 4
+            avoidScore < 2.33 && anxietyScore < 2.61 -> 1 // 안정형
+            avoidScore < 2.33 && anxietyScore >= 2.61 -> 2 //불안형
+            avoidScore >= 2.33 && anxietyScore < 2.61 -> 3 // 거부회피형
+            avoidScore >= 2.33 && anxietyScore >= 2.61 -> 4 //공포회피형
             else -> -1
         }
 
