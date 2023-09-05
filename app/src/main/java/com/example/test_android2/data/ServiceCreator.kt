@@ -27,6 +27,7 @@ object ServiceCreator {
             build()
         }
 
+    val tokenService: TokenService = userRetrofit.create(TokenService::class.java)
     val userService: UserService = userRetrofit.create(UserService::class.java)
     val chatService: ChatService = userRetrofit.create(ChatService::class.java)
     val testService: TestService = userRetrofit.create(TestService::class.java)
