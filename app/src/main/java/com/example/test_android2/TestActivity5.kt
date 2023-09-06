@@ -1,5 +1,6 @@
 package com.example.test_android2
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,20 +10,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.test_android2.data.TestData
 import com.example.test_android2.data.TestModel
-import com.example.test_android2.databinding.ActivityTest1Binding
+import com.example.test_android2.databinding.ActivityTest5Binding
 import com.example.test_android2.googleLogin.LoginGoogle
 
 
-class TestActivity1 : AppCompatActivity(){
+class TestActivity5 : AppCompatActivity(){
 
-    private lateinit var binding: ActivityTest1Binding
+    private lateinit var binding: ActivityTest5Binding
     private lateinit var questionList: ArrayList<TestModel>
-    private var currentPosition: Int = 6 //질문 위치
+    private var currentPosition: Int = 30 //질문 위치
     var isRadioGroupClickable = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTest1Binding.inflate(layoutInflater)
+        binding = ActivityTest5Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //질문 리스트 가져오기
@@ -68,11 +69,11 @@ class TestActivity1 : AppCompatActivity(){
                     val selectedText = selectedRadioButton.text.toString().trim()
 
                     when (selectedText) {
-                        "전혀 그렇지 않다" -> avoidScore += 1
-                        "그렇지 않다" -> avoidScore += 2
+                        "전혀 그렇지 않다" -> avoidScore += 5
+                        "그렇지 않다" -> avoidScore += 4
                         "보통 정도이다" -> avoidScore += 3
-                        "대체로 그렇다" -> avoidScore += 4
-                        "매우 그렇다" -> avoidScore += 5
+                        "대체로 그렇다" -> avoidScore += 2
+                        "매우 그렇다" -> avoidScore += 1
                     }
                 }
             }
@@ -99,8 +100,8 @@ class TestActivity1 : AppCompatActivity(){
             Log.d("ScoreLog", "Updated Anxiety Score: $anxietyScore")
 
 
-            if (currentPosition == 12) {
-                val intent = Intent(this, TestActivity2::class.java)
+            if (currentPosition == 36) {
+                val intent = Intent(this, TestResultActivity::class.java)
                 intent.putExtra("avoidScore", avoidScore)
                 intent.putExtra("anxietyScore", anxietyScore)
                 startActivity(intent)
@@ -135,11 +136,11 @@ class TestActivity1 : AppCompatActivity(){
         binding.progressText.text =  getString(R.string.count_label, currentPosition, questionList.size)
 
         //질문 표시
-        binding.questionNum0.text= "0"+question.id.toString()+"."
+        binding.questionNum0.text= question.id.toString()+"."
         binding.questionText0.text = question.question
-        binding.questionNum1.text="0"+question1.id.toString()+"."
+        binding.questionNum1.text= question1.id.toString()+"."
         binding.questionText1.text = question1.question
-        binding.questionNum2.text= "0"+question2.id.toString()+"."
+        binding.questionNum2.text= question2.id.toString()+"."
         binding.questionText2.text = question2.question
         binding.questionNum3.text= question3.id.toString()+"."
         binding.questionText3.text = question3.question
@@ -149,7 +150,7 @@ class TestActivity1 : AppCompatActivity(){
         binding.questionText5.text = question5.question
 
 
-        setSubmitBtn("다음")
+        setSubmitBtn("결과 확인하기")
 
     }
 

@@ -50,8 +50,11 @@ class TestActivity0 : AppCompatActivity(){
         binding.submitBtn.setOnClickListener {
             val avoidGroups = listOf(
                 binding.optionsGroup0,
-                binding.optionsGroup2,
                 binding.optionsGroup4
+            )
+
+            val avoidReverseGroups = listOf(
+                binding.optionsGroup2
             )
 
             val anxietyGroups = listOf(
@@ -61,7 +64,24 @@ class TestActivity0 : AppCompatActivity(){
             )
 
             for (radioGroup in avoidGroups) {
-                var selectedRadioButtonId = radioGroup.checkedRadioButtonId
+                val selectedRadioButtonId = radioGroup.checkedRadioButtonId
+
+                if (selectedRadioButtonId != -1) {
+                    val selectedRadioButton = radioGroup.findViewById<RadioButton>(selectedRadioButtonId)
+                    val selectedText = selectedRadioButton.text.toString().trim()
+
+                    when (selectedText) {
+                        "전혀 그렇지 않다" -> avoidScore += 1
+                        "그렇지 않다" -> avoidScore += 2
+                        "보통 정도이다" -> avoidScore += 3
+                        "대체로 그렇다" -> avoidScore += 4
+                        "매우 그렇다" -> avoidScore += 5
+                    }
+                }
+            }
+
+            for (radioGroup in avoidReverseGroups) {
+                val selectedRadioButtonId = radioGroup.checkedRadioButtonId
 
                 if (selectedRadioButtonId != -1) {
                     val selectedRadioButton = radioGroup.findViewById<RadioButton>(selectedRadioButtonId)
@@ -85,11 +105,11 @@ class TestActivity0 : AppCompatActivity(){
                     val selectedText = selectedRadioButton.text.toString().trim()
 
                     when (selectedText) {
-                        "전혀 그렇지 않다" -> anxietyScore += 5
-                        "그렇지 않다" -> anxietyScore += 4
+                        "전혀 그렇지 않다" -> anxietyScore += 1
+                        "그렇지 않다" -> anxietyScore += 2
                         "보통 정도이다" -> anxietyScore += 3
-                        "대체로 그렇다" -> anxietyScore += 2
-                        "매우 그렇다" -> anxietyScore += 1
+                        "대체로 그렇다" -> anxietyScore += 4
+                        "매우 그렇다" -> anxietyScore += 5
                     }
                 }
             }

@@ -1,4 +1,5 @@
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -19,6 +20,7 @@ import com.example.test_android2.R
 import com.example.test_android2.databinding.FragmentInfoBinding
 import com.example.test_android2.cardviewAdapter
 import com.example.test_android2.data.*
+import com.example.test_android2.googleLogin.goo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,7 +45,10 @@ class InfoFragment : Fragment() {
 
         val solutions: MutableList<ResponseSolution?> = mutableListOf() // Initialize with an empty list
 
-        val userEmail = arguments?.getString("email")
+        // 프래그먼트 내에서 SharedPreferences 객체 가져오기
+        val sharedPreferences = goo().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val userEmail = sharedPreferences.getString("email", "")
+        //val userEmail = arguments?.getString("email")
         val userId = SolutionData(userEmail)
         getCardView(userId)
 
@@ -133,6 +138,7 @@ class InfoFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
+                        //솔류션 리스트로 받으면 리스트 돌면서 addCardView하도록 짜기
                         val solution = response.body()
                         adapter.addCardView(solution)
                     }
