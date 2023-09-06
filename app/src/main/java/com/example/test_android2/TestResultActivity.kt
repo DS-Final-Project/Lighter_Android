@@ -58,28 +58,23 @@ class TestResultActivity : AppCompatActivity() {
     }
 
     private fun testNetwork(testInfo: TestResultData) {
-        if (email != null) {
-            val call: Call<ResponseTest> = ServiceCreator.testService.testResult(email, testInfo)
+        val call: Call<ResponseTest> = ServiceCreator.testService.testResult(email, testInfo)
 
-            call.enqueue(object : Callback<ResponseTest> {
-                override fun onResponse(
-                    call: Call<ResponseTest>, response: Response<ResponseTest>
-                ) {
-                    if (response.isSuccessful) {
-                        val result = response.body()
-                        Log.d("자가진단 성공", "$result")
-                        val intent = Intent(this@TestResultActivity, MainActivity::class.java)
-                        startActivity(intent)
-                    }
+        call.enqueue(object : Callback<ResponseTest> {
+            override fun onResponse(
+                call: Call<ResponseTest>, response: Response<ResponseTest>
+            ) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    Log.d("자가진단 성공", "$result")
+                    val intent = Intent(this@TestResultActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
+            }
 
-                override fun onFailure(call: Call<ResponseTest>, t: Throwable) {
-                    Log.i(TAG,"Network request failed: ${t.message}")
-                }
-            })
-        }else {
-            // 토큰이 null인 경우 처리
-            Log.d("자가진단 결과 전송 실패/ email:", "$email")
-        }
+            override fun onFailure(call: Call<ResponseTest>, t: Throwable) {
+                Log.i(TAG,"Network request failed: ${t.message}")
+            }
+        })
     }
 }

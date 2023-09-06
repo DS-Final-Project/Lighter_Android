@@ -1,14 +1,17 @@
 package com.example.test_android2.googleLogin
 
-import InfoFragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.test_android2.MainActivity
+import androidx.core.content.ContextCompat
 import com.example.test_android2.R
 import com.example.test_android2.TestStartActivity
 import com.example.test_android2.data.ResponseToken
@@ -32,9 +35,21 @@ class goo : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private val editor: SharedPreferences.Editor by lazy { sharedPreferences.edit() }
 
+    private lateinit var textView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_googlelogin)
+
+        //라-이터 부분에 색상 적용
+        textView = findViewById(R.id.tv_title)
+
+        val tvTitle: String = textView.text.toString()
+        val builder = SpannableStringBuilder(tvTitle)
+        val colorSpan = ForegroundColorSpan(ContextCompat.getColor(this, R.color.highlight_darkest))
+        builder.setSpan(colorSpan,16,19,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        textView.text = builder
 
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 

@@ -19,13 +19,17 @@
         <entry key="app/src/main/res/drawable/shape_round_upload_button.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable/test_selector_radio_button.xml" value="0.136" />
         <entry key="app/src/main/res/layout/activity_googlelogin.xml" value="0.13796296296296295" />
+        <entry key="app/src/main/res/layout/activity_kakaologin.xml" value="0.18703703703703703" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.20277777777777778" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21614990234375003" />
         <entry key="app/src/main/res/layout/activity_result_analysis.xml" value="0.21796264648437502" />
         <entry key="app/src/main/res/layout/activity_sgin_up.xml" value="0.20277777777777778" />
-        <entry key="app/src/main/res/layout/activity_test0.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_test0.xml" value="0.27061614990234373" />
         <entry key="app/src/main/res/layout/activity_test1.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_test2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_test2.xml" value="0.23132324218750003" />
+        <entry key="app/src/main/res/layout/activity_test3.xml" value="0.22037037037037038" />
+        <entry key="app/src/main/res/layout/activity_test4.xml" value="0.22037037037037038" />
+        <entry key="app/src/main/res/layout/activity_test5.xml" value="0.1824074074074074" />
         <entry key="app/src/main/res/layout/activity_testresult.xml" value="0.2111111111111111" />
         <entry key="app/src/main/res/layout/activity_teststart.xml" value="0.2111111111111111" />
         <entry key="app/src/main/res/layout/dialog_relation.xml" value="0.18888888888888888" />
