@@ -7,5 +7,5 @@ import retrofit2.http.POST
 
 interface TestService {
     @POST("/selftest/post")
-    fun testResult(@Header("email") email: String, @Body testInfo: TestResultData): Call<ResponseTest>
+    fun testResult(@Body testInfo: TestResultData): Call<ResponseTest>
 }

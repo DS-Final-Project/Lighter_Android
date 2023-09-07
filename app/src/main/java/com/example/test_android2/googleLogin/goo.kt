@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.test_android2.LighterApplication
 import com.example.test_android2.R
 import com.example.test_android2.TestStartActivity
 import com.example.test_android2.data.ResponseToken
@@ -47,7 +48,7 @@ class goo : AppCompatActivity() {
         val tvTitle: String = textView.text.toString()
         val builder = SpannableStringBuilder(tvTitle)
         val colorSpan = ForegroundColorSpan(ContextCompat.getColor(this, R.color.highlight_darkest))
-        builder.setSpan(colorSpan,16,19,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.setSpan(colorSpan,19,23,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         textView.text = builder
 
@@ -83,29 +84,21 @@ class goo : AppCompatActivity() {
             // 로그인 성공
             if (account != null) {
                 idToken = account.idToken.toString()
-                var email = account.email.toString()
+                val email = account.email.toString()
                 Log.w(TAG, "email: $email")
+
+                LighterApplication.getInstance()?.userEmail = email
 
                 //구글아이디 인포로 보내기
                 editor.putString("email", email)
                 editor.apply()
 
-                //토큰아이디 테스트결과엑티비티로 보내기
-                //editor.putString("idToken", idToken)
-                //editor.apply()
-
-//                val infoFragment = InfoFragment()
-//                val bundle = Bundle()
-//                bundle.putString("email", email)
-//                infoFragment.arguments = bundle
             }
 
-            if (authCode != null) {
-                val Token = TokenData(idToken,authCode)
-                sendToServer(Token)
-                Log.w(TAG, "IdToken: $idToken")
-                Log.w(TAG, "AccessToken: $authCode")
-            }
+            val Token = TokenData(idToken,authCode)
+            sendToServer(Token)
+            Log.w(TAG, "IdToken: $idToken")
+            Log.w(TAG, "AccessToken: $authCode")
         } catch (e: ApiException) {
             Log.w(LoginGoogle.TAG, "handleSignInResult: error" + e.statusCode)
         }

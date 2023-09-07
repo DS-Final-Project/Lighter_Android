@@ -18,8 +18,6 @@ class TestResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTestresultBinding
     var avoidScore=0F
     var anxietyScore=0F
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var email: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +30,8 @@ class TestResultActivity : AppCompatActivity() {
         anxietyScore = intent.getFloatExtra("anxietyScore", 0F)
 
         // 회피점수와 불안점수 계산
-        avoidScore = avoidScore/18
-        anxietyScore = anxietyScore/18
+        avoidScore /= 18
+        anxietyScore /= 18
 
         // 결과 계산
         val testType = when {
@@ -52,13 +50,11 @@ class TestResultActivity : AppCompatActivity() {
             Log.i(TAG, "anxietyScore: $anxietyScore")
             Log.i(TAG, "testType: $testType")
         }
-        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        email = sharedPreferences.getString("email", "").toString()
 
     }
 
     private fun testNetwork(testInfo: TestResultData) {
-        val call: Call<ResponseTest> = ServiceCreator.testService.testResult(email, testInfo)
+        val call: Call<ResponseTest> = ServiceCreator.testService.testResult(testInfo)
 
         call.enqueue(object : Callback<ResponseTest> {
             override fun onResponse(
@@ -69,6 +65,8 @@ class TestResultActivity : AppCompatActivity() {
                     Log.d("자가진단 성공", "$result")
                     val intent = Intent(this@TestResultActivity, MainActivity::class.java)
                     startActivity(intent)
+                } else {
+                    Log.e(TAG, "Server Error: ${response.errorBody()?.string()}")
                 }
             }
 

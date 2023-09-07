@@ -1,5 +1,7 @@
 package com.example.test_android2.data
 
+import com.example.test_android2.EmailInterceptor
+import com.example.test_android2.LighterApplication
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,7 +10,7 @@ import java.util.concurrent.*
 
 object ServiceCreator {
     //서버에서 준 URL 입력
-    private const val BASE_URL = "http://34.217.28.173:8080"
+    private const val BASE_URL = "http://172.20.22.48:8080"
 
     private val userRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -21,6 +23,7 @@ object ServiceCreator {
         .readTimeout(100,TimeUnit.SECONDS)
         .writeTimeout(100,TimeUnit.SECONDS)
         .run {
+            addInterceptor(EmailInterceptor())
             addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
