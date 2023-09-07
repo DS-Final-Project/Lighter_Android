@@ -1,6 +1,8 @@
 package com.example.test_android2
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import com.example.test_android2.data.ResponseChat
 import com.example.test_android2.data.ResponseItem
 import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.databinding.FragmentMyPageBinding
+import com.example.test_android2.googleLogin.goo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +27,7 @@ import kotlin.concurrent.thread
 class MyPageFragment : Fragment() {
 
     private lateinit var expandableAdapter: ExpandableAdapter
+    private lateinit var sharedPreferences: SharedPreferences
     private var _binding: FragmentMyPageBinding? = null
     private val binding get() = _binding!!
 
@@ -45,6 +49,12 @@ class MyPageFragment : Fragment() {
             Thread.sleep(3000)
         }
         itemNetwork()
+
+        sharedPreferences = activity?.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE) ?: return
+
+        binding.btnLogout.setOnClickListener {
+            logout()
+        }
     }
 
     private fun itemNetwork() {
@@ -171,6 +181,20 @@ class MyPageFragment : Fragment() {
     private fun showProgress(isShow: Boolean) {
         if (isShow) binding.progressBar.visibility = View.VISIBLE
         else binding.progressBar.visibility = View.GONE
+    }
+
+    //로그아웃
+    private fun logout() {
+        //SharedPreferences에서 이메일 제거
+        val editor = sharedPreferences.edit()
+        editor.remove("email")
+        editor.apply()
+
+        //로그아웃 시 로그인 화면으로 이동
+        val intent = Intent(context, goo::class.java)
+        startActivity(intent)
+
+        activity?.finish()
     }
 
     override fun onDestroyView() {

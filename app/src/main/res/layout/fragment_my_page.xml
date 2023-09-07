@@ -61,6 +61,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
 
         <Button
+            android:id="@+id/btn_logout"
             style="@style/TextAppearance.AppCompat.Caption.M"
             android:layout_width="66dp"
             android:layout_height="26dp"
