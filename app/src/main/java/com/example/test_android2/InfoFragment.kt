@@ -45,12 +45,7 @@ class InfoFragment : Fragment() {
 
         val solutions: MutableList<ResponseSolution?> = mutableListOf() // Initialize with an empty list
 
-        // 프래그먼트 내에서 SharedPreferences 객체 가져오기
-        val sharedPreferences = goo().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val userEmail = sharedPreferences.getString("email", "")
-        //val userEmail = arguments?.getString("email")
-        val userId = SolutionData(userEmail)
-        getCardView(userId)
+        getCardView()
 
         val dpValue = 54
         val d = resources.displayMetrics.density
@@ -129,8 +124,8 @@ class InfoFragment : Fragment() {
         _binding = null // 뷰 바인딩 해제
     }
 
-    private fun getCardView(solutionInfo: SolutionData) {
-        val call: Call<ResponseSolution> = ServiceCreator.solutionService.getSolution(solutionInfo)
+    private fun getCardView() {
+        val call: Call<ResponseSolution> = ServiceCreator.solutionService.getSolution()
 
         call.enqueue(object : Callback<ResponseSolution> {
             override fun onResponse(
@@ -146,7 +141,6 @@ class InfoFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ResponseSolution>, t: Throwable) {
-                TODO("Not yet implemented")
             }
         })
     }

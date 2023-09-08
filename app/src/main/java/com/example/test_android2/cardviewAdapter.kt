@@ -28,10 +28,10 @@ class cardviewAdapter(
     override fun getItemViewType(position: Int): Int {
         val relation = solutions[position]?.relation
         return when (relation) {
-            "friend" -> VIEW_TYPE_FRIEND
-            "lover" -> VIEW_TYPE_LOVER
-            "family" -> VIEW_TYPE_FAMILY
-            "colleague" -> VIEW_TYPE_COLLEAGUE
+            1 -> VIEW_TYPE_LOVER
+            2 -> VIEW_TYPE_FRIEND
+            3 -> VIEW_TYPE_FAMILY
+            4 -> VIEW_TYPE_COLLEAGUE
             else -> VIEW_TYPE_DEFAULT
         }
     }
