@@ -9,20 +9,24 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="highlight_darkest">#F4AC3F</color>
-    <color name="highlight_Lightest">#FFF4E2</color>
+    <color name="highlight_medium">#FFCF86</color>
+    <color name="highlight_lightest">#FFF4E2</color>
     <color name="neutral_dark_darkest">#1E1E1E</color>
     <color name="neutral_dark_dark">#2F3036</color>
     <color name="neutral_dark_light">#71727A</color>
     <color name="neutral_dark_lightest">#8F9098</color>
     <color name="neutral_light_darkest">#C5C6CC</color>
-    <color name="neutral_light_light">#F8F9FE</color>
+    <color name="neutral_light_light">#F2F4FD</color>
     <color name="neutral_light_medium">#E8E9F1</color>
     <color name="neutral_light_dark">#D4D6DD</color>
-
-    <color name="support_warning_light">#EDE7FF</color>
     <color name="support_warning_dark">#4200FD</color>
-    <color name="support_error_light">#FFE2E5</color>
+    <color name="support_warning_medium">#8459FF</color>
+    <color name="support_warning_light">#EDE7FF</color>
     <color name="support_error_dark">#ED3241</color>
-    <color name="support_success_light">#E7F4E8</color>
+    <color name="support_error_medium">#FF616D</color>
+    <color name="support_error_light">#FFE2E5</color>
     <color name="support_success_dark">#298267</color>
+    <color name="support_success_medium">#3AC0A0</color>
+    <color name="support_success_light">#E7F4E8</color>
+
 </resources>

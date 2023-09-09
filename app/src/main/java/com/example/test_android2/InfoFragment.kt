@@ -38,10 +38,10 @@ class InfoFragment : Fragment() {
         viewPager = binding.viewPager2 // 뷰 바인딩으로 뷰 참조
 
         val models: MutableList<String> = mutableListOf()
-        models.add("친구 간 대화방식이\n 고민인가요? ")
-        models.add("갈등으로 치우지지\n 않으려면?")
-        models.add("나는 왜 관계가\n 어려울까?")
-        models.add("불안정 애착\n 극복하기")
+        models.add("친구 간 대화방식이\n고민인가요? ")
+        models.add("갈등으로 치우지지\n않으려면?")
+        models.add("나는 왜 관계가\n어려울까?")
+        models.add("불안정 애착\n극복하기")
 
         val solutions: MutableList<ResponseSolution?> = mutableListOf() // Initialize with an empty list
 
@@ -66,7 +66,6 @@ class InfoFragment : Fragment() {
         val textData: String = textView.text.toString()
         val builder = SpannableStringBuilder(textData)
         val colorBlueSpan = ForegroundColorSpan(Color.rgb(244,172,63))
-
         builder.setSpan(colorBlueSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = builder
 

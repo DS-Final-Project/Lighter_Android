@@ -8,49 +8,34 @@
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_dialog.xml" value="0.135" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/info_selector_button.xml" value="0.1105" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/login_btn.xml" value="0.132" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/login_edittext.xml" value="0.125" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/progress_bar.xml" value="0.125" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_outlined_round_button.xml" value="0.125" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round.xml" value="0.1" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_button.xml" value="0.16" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_button_border.xml" value="0.135" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_dialog.xml" value="0.1155" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_edittext.xml" value="0.183" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/shape_round_textview.xml" value="0.176" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/test_button.xml" value="0.125" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/test_radiobutton.xml" value="0.126" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/drawable/test_selector_radio_button.xml" value="0.1035" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_google.xml" value="0.2" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_googlelogin.xml" value="0.14175724637681159" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_kakaologin.xml" value="0.23596014492753623" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.2" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_result_analysis.xml" value="0.12310030395136778" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_main.xml" value="0.11911231884057971" />
         <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_sgin_up.xml" value="0.1" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_solution.xml" value="0.176" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test.xml" value="0.264" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test0.xml" value="0.1" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test1.xml" value="0.12310030395136778" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test2.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test3.xml" value="0.15307971014492755" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test4.xml" value="0.2956204379562044" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_test5.xml" value="0.15307971014492755" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_testresult.xml" value="0.1716485507246377" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/activity_teststart.xml" value="0.1431159420289855" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/card_layout.xml" value="0.2" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_colleague.xml" value="0.2526041666666667" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_family.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_friend.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_layout.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_lover.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/cardview_none.xml" value="0.264" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_info.xml" value="0.2" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_login.xml" value="0.12310030395136778" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_my_page.xml" value="0.12158054711246201" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_upload.xml" value="0.12158054711246201" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/fragment_upload_file.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/layout/info_dialog.xml" value="0.12158054711246201" />
-        <entry key="..\:/Users/guswj/Test_Android2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/circle_progressbar.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/shape_mypage_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/shape_outlined_round_button.xml" value="0.121" />
+        <entry key="app/src/main/res/drawable/shape_result_analysis_solution.xml" value="0.22074890136718753" />
+        <entry key="app/src/main/res/drawable/shape_round_button.xml" value="0.121" />
+        <entry key="app/src/main/res/drawable/shape_round_dialog.xml" value="0.1415" />
+        <entry key="app/src/main/res/drawable/shape_round_edittext.xml" value="0.121" />
+        <entry key="app/src/main/res/drawable/shape_round_item_notice.xml" value="0.1345" />
+        <entry key="app/src/main/res/drawable/shape_round_textview.xml" value="0.1085" />
+        <entry key="app/src/main/res/drawable/shape_round_upload_button.xml" value="0.1385" />
+        <entry key="app/src/main/res/layout/activity_googlelogin.xml" value="0.13796296296296295" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.20277777777777778" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21614990234375003" />
+        <entry key="app/src/main/res/layout/activity_result_analysis.xml" value="0.21796264648437502" />
+        <entry key="app/src/main/res/layout/activity_sgin_up.xml" value="0.20277777777777778" />
+        <entry key="app/src/main/res/layout/dialog_relation.xml" value="0.18888888888888888" />
+        <entry key="app/src/main/res/layout/fragment_info.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_my_page.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_upload.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_upload_file.xml" value="0.284280868689773" />
+        <entry key="app/src/main/res/layout/fragment_upload_image.xml" value="0.19909502262443438" />
+        <entry key="app/src/main/res/layout/item_mypage.xml" value="0.23425925925925925" />
+        <entry key="app/src/main/res/layout/item_mypage_detail.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/item_notice.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.1111111111111111" />
       </map>
     </option>
   </component>

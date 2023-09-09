@@ -7,11 +7,15 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\guswj\.android\avd\lighter_API_30.avd" />
+            <value value="$USER_HOME$/.android/avd/Lighter_device_API_30.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
+<<<<<<< HEAD
     <timeTargetWasSelectedWithDropDown value="2023-09-05T09:32:19.840977200Z" />
+=======
+    <timeTargetWasSelectedWithDropDown value="2023-06-16T07:16:42.125060Z" />
+>>>>>>> AnalysisResult
   </component>
 </project>

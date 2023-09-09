@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/c_0"
+            android:id="@+id/layout_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="19dp"
@@ -26,7 +26,7 @@
 
 
             <TextView
-                android:id="@+id/tv_0"
+                android:id="@+id/tv_info"
                 style="@style/TextAppearance.AppCompat.Headline.H4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,8 +42,10 @@
             android:id="@+id/c_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="32dp"
-            app:layout_constraintTop_toBottomOf="@id/c_0">
+            android:layout_marginTop="24dp"
+            android:paddingStart="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_info">
 
             <TextView
                 android:id="@+id/tv_1"
@@ -51,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/info_tv_1"
+                android:text="라-이터 만의\n솔루션"
                 android:textColor="@color/neutral_dark_darkest"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,12 +65,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="라-이터로 확실해졌다면 상담까지 받아보세요"
+                android:text="라-이터가 제안하는 솔루션을 살펴보세요"
                 android:textColor="@color/neutral_dark_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_1"
-                app:layout_constraintWidth_default="wrap" />
+                app:layout_constraintTop_toBottomOf="@id/tv_1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -76,19 +77,20 @@
             android:id="@+id/c_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             app:layout_constraintTop_toBottomOf="@id/c_1">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:foregroundGravity="center"
                 android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -104,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="도움받기"
+                android:text="도움 받기"
                 android:textColor="@color/neutral_dark_darkest"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +136,6 @@
                 android:padding="16dp"
                 android:text="청소년 사이버상담센터"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_4"
                 tools:ignore="MissingConstraints" />
@@ -145,8 +146,10 @@
                 android:background="@drawable/info_selector_button"
                 android:layout_width="46dp"
                 android:layout_height="26dp"
-                android:layout_marginTop="41dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="41dp"
+                android:background="@drawable/shape_round_button"
+                android:backgroundTint="@color/highlight_darkest"
                 android:text="Call"
                 android:textColor="@drawable/info_selector_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -167,7 +170,6 @@
                 android:padding="16dp"
                 android:text="서울시 청소년 상담복지센터"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cen_1"
                 tools:ignore="MissingConstraints" />
@@ -178,8 +180,10 @@
                 android:background="@drawable/info_selector_button"
                 android:layout_width="46dp"
                 android:layout_height="26dp"
-                android:layout_marginTop="41dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="41dp"
+                android:background="@drawable/shape_round_button"
+                android:backgroundTint="@color/highlight_darkest"
                 android:text="Call"
                 android:textColor="@drawable/info_selector_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -200,7 +204,6 @@
                 android:padding="16dp"
                 android:text="한국 여성의 전화"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cen_2"
                 tools:ignore="MissingConstraints" />
@@ -218,8 +221,10 @@
                 android:background="@drawable/info_selector_button"
                 android:layout_width="46dp"
                 android:layout_height="26dp"
-                android:layout_marginTop="41dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="41dp"
+                android:background="@drawable/shape_round_button"
+                android:backgroundTint="@color/highlight_darkest"
                 android:text="Call"
                 android:textColor="@drawable/info_selector_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
