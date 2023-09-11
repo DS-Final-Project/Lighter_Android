@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- FrameLayout 등으로 뷰를 한번 wrapping 해줘야 화면에 정삭적으로 View가 보임-->
+    <LinearLayout
+        android:background="@drawable/shape_round_dialog"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Headline.H3"
+            android:text="센터" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Headline.H3"
+            android:text="번호" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/noBtn"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_round_button_border"
+                style="@style/TextAppearance.AppCompat.Action.M"
+                android:textColor="@color/highlight_darkest"
+                android:text="취소" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/yesBtn"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/highlight_darkest"
+                android:background="@drawable/shape_round_button"
+                style="@style/TextAppearance.AppCompat.Action.M"
+                android:textColor="@color/white"
+                android:text="통화" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
