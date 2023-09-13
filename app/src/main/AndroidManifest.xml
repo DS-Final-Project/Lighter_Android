@@ -42,6 +42,9 @@
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
+            android:name=".TestStartActivity"
+            android:exported="false" />
+        <activity
             android:name=".TestActivity0"
             android:exported="false" />
         <activity
@@ -67,6 +70,7 @@
             android:name=".TestResultActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
+
         <activity
             android:name=".TestStartActivity"
             android:exported="false" />

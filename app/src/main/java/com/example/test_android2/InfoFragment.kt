@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.test_android2.R
+import com.example.test_android2.ResultAnalysisActivity
+import com.example.test_android2.SolutionActivity
 import com.example.test_android2.databinding.FragmentInfoBinding
 import com.example.test_android2.cardviewAdapter
 import com.example.test_android2.data.*
@@ -43,7 +46,7 @@ class InfoFragment : Fragment() {
         models.add("나는 왜 관계가\n어려울까?")
         models.add("불안정 애착\n극복하기")
 
-        val solutions: MutableList<ResponseSolution?> = mutableListOf() // Initialize with an empty list
+        val solutions: MutableList<Solution?> = mutableListOf() // Initialize with an empty list
 
         getCardView()
 
@@ -132,15 +135,34 @@ class InfoFragment : Fragment() {
                 call: Call<ResponseSolution>, response: Response<ResponseSolution>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
+                    response.body()?.let { responseData ->
+                        val data = responseData.data
+                        val solutionId = data.solutionId
+                        val relation = data.relation
+                        val keyword = data.keyword
+                        val solutionTitle = data.solutionTitle
+                        val solutionContent = data.solutionContent
+
+                        var mysolution = Solution(
+                            solutionId,
+                            relation,
+                            keyword,
+                            solutionTitle,
+                            solutionContent
+                        )
                         //솔류션 리스트로 받으면 리스트 돌면서 addCardView하도록 짜기
-                        val solution = response.body()
-                        adapter.addCardView(solution)
+                        adapter.addCardView(mysolution)
+
+                        val intent = Intent(context, SolutionActivity::class.java)
+                        intent.putExtra("mysolution", mysolution)
+                        startActivity(intent)
                     }
                 }
             }
 
             override fun onFailure(call: Call<ResponseSolution>, t: Throwable) {
+                TODO("Not yet implemented")
+                Log.d("솔루션 실패", t.message.toString())
             }
         })
     }

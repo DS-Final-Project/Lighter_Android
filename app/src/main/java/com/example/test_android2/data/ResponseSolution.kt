@@ -1,8 +1,13 @@
 package com.example.test_android2.data
 
 data class ResponseSolution(
-    val solutionId: String?,
-    val relation: Int?,
+    val error: String,
+    val data: ResponseSolutionData
+)
+
+data class ResponseSolutionData(
+    val solutionId: Int?,
+    val relation: String?,
     val keyword: String?,
     val solutionTitle: String?,
     val solutionContent: String?

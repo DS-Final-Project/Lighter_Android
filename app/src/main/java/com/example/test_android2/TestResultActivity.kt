@@ -18,6 +18,10 @@ class TestResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTestresultBinding
     var avoidScore=0F
     var anxietyScore=0F
+    private lateinit var sharedPreferences: SharedPreferences
+    private val editor: SharedPreferences.Editor by lazy { sharedPreferences.edit() }
+    var TestFlag=false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,17 +60,20 @@ class TestResultActivity : AppCompatActivity() {
     private fun testNetwork(testInfo: TestResultData) {
         val call: Call<ResponseTest> = ServiceCreator.testService.testResult(testInfo)
 
-        call.enqueue(object : Callback<ResponseTest> {
-            override fun onResponse(
-                call: Call<ResponseTest>, response: Response<ResponseTest>
-            ) {
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    Log.d("자가진단 성공", "$result")
-                    val intent = Intent(this@TestResultActivity, MainActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Log.e(TAG, "Server Error: ${response.errorBody()?.string()}")
+            call.enqueue(object : Callback<ResponseTest> {
+                override fun onResponse(
+                    call: Call<ResponseTest>, response: Response<ResponseTest>
+                ) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        Log.d("자가진단 성공", "$result")
+                        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                        TestFlag=true
+                        editor.putBoolean("TestFlag",TestFlag)
+                        editor.apply()
+                        val intent = Intent(this@TestResultActivity, MainActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
 

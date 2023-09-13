@@ -32,6 +32,8 @@ class goo : AppCompatActivity() {
 
     private val RC_SIGN_IN = 1001
     private var idToken =""
+    var TestFlag: Boolean = false
+
 
     private lateinit var sharedPreferences: SharedPreferences
     private val editor: SharedPreferences.Editor by lazy { sharedPreferences.edit() }
@@ -53,6 +55,8 @@ class goo : AppCompatActivity() {
         textView.text = builder
 
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        TestFlag = intent.getBooleanExtra("TestFlag",false)
+
 
         val googleSignInButton: GoogleSignInButton = findViewById(R.id.googlelogin)
         googleSignInButton.setOnClickListener {
@@ -115,8 +119,14 @@ class goo : AppCompatActivity() {
                     val result = response.body()
                     Log.d("로그인 성공", "$result")
                     Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this@goo, TestStartActivity::class.java)
-                    startActivity(intent)
+
+                    if(TestFlag==false){
+                        val intent = Intent(this@goo, TestStartActivity::class.java)
+                        startActivity(intent)
+                    } else{
+                        val intent = Intent(this@goo, MainActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
 
