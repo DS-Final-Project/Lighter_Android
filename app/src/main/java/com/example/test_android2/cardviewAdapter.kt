@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.test_android2.data.Solution
 
 class cardviewAdapter(
-    var solutions: MutableList<Solution?>,
+    private var solutions: MutableList<Solution?>,
     var context: Context
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

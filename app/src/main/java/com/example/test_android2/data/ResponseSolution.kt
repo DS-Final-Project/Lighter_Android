@@ -7,7 +7,7 @@ data class ResponseSolution(
 
 data class ResponseSolutionData(
     val solutionId: Int?,
-    val relation: String?,
+    val relation: Int?,
     val keyword: String?,
     val solutionTitle: String?,
     val solutionContent: String?

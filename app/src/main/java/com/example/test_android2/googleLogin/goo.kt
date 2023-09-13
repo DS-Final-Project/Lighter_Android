@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.test_android2.LighterApplication
+import com.example.test_android2.MainActivity
 import com.example.test_android2.R
 import com.example.test_android2.TestStartActivity
 import com.example.test_android2.data.ResponseToken

@@ -161,7 +161,6 @@ class InfoFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ResponseSolution>, t: Throwable) {
-                TODO("Not yet implemented")
                 Log.d("솔루션 실패", t.message.toString())
             }
         })
