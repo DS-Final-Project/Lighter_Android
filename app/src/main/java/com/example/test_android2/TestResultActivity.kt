@@ -19,7 +19,10 @@ class TestResultActivity : AppCompatActivity() {
     var avoidScore=0F
     var anxietyScore=0F
     private lateinit var sharedPreferences: SharedPreferences
+    private val editor: SharedPreferences.Editor by lazy { sharedPreferences.edit() }
     private lateinit var email: String
+    var TestFlag=false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +71,10 @@ class TestResultActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val result = response.body()
                         Log.d("자가진단 성공", "$result")
+                        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                        TestFlag=true
+                        editor.putBoolean("TestFlag",TestFlag)
+                        editor.apply()
                         val intent = Intent(this@TestResultActivity, MainActivity::class.java)
                         startActivity(intent)
                     }

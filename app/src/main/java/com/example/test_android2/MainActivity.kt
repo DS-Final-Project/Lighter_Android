@@ -1,5 +1,6 @@
 package com.example.test_android2
 
+import InfoFragment
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

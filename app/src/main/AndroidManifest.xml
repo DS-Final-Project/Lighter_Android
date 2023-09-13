@@ -25,13 +25,44 @@
             android:name=".ResultAnalysisActivity"
             android:exported="false" />
         <activity
-            android:name=".login.LogInActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".signup.SignUpActivity"
             android:exported="false" />
+
         <activity
-            android:name=".MainActivity"
+            android:name=".TestStartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TestActivity0"
+            android:exported="false" />
+        <activity
+            android:name=".TestActivity1"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".TestActivity2"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".TestActivity3"
+            android:exported="false" />
+        <activity
+            android:name=".TestActivity4"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".TestActivity5"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".TestResultActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".googleLogin.goo"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
