@@ -25,6 +25,5 @@ class TestStartActivity : AppCompatActivity() {
             val intent = Intent(this, TestActivity0::class.java)
             startActivity(intent)
         }
-
     }
 }

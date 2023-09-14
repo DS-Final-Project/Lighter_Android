@@ -175,14 +175,9 @@ class InfoFragment : Fragment() {
                     }
                 }
             }
-
             override fun onFailure(call: Call<ResponseSolution>, t: Throwable) {
                 Log.d("솔루션 실패", t.message.toString())
             }
         })
     }
-
-
-
-
 }
