@@ -12,12 +12,20 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.test_android2.databinding.FragmentInfoBinding
 import com.example.test_android2.cardviewAdapter
+import com.example.test_android2.data.*
+import com.example.test_android2.googleLogin.goo
+import org.json.JSONArray
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class InfoFragment : Fragment() {
     private var _binding: FragmentInfoBinding? = null // 뷰 바인딩 변수 선언
     private val binding get() = _binding!! // 뷰 바인딩 가져오기
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: cardviewAdapter
+    var solutions: MutableList<Solution?> = mutableListOf() // Initialize with an empty list
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentInfoBinding.inflate(inflater, container, false) // 뷰 바인딩 인플레이트
@@ -30,6 +38,8 @@ class InfoFragment : Fragment() {
         models.add("갈등으로 치우지지\n않으려면?")
         models.add("나는 왜 관계가\n어려울까?")
         models.add("불안정 애착\n극복하기")
+
+        getCardView()
 
         val dpValue = 54
         val d = resources.displayMetrics.density
@@ -79,4 +89,62 @@ class InfoFragment : Fragment() {
         super.onDestroyView()
         _binding = null // 뷰 바인딩 해제
     }
+
+    private fun getCardView() {
+        val call: Call<ResponseSolution> = ServiceCreator.solutionService.getSolution()
+
+        call.enqueue(object : Callback<ResponseSolution> {
+            override fun onResponse(
+                call: Call<ResponseSolution>, response: Response<ResponseSolution>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { responseData ->
+                        val solutionData = responseData.data
+                        // JSON 문자열을 JSONObject로 파싱
+                        val jsonObject = JSONObject(responseData.data.toString())
+                        // "data" 필드를 JSONArray로 파싱
+                        val jsonArray = jsonObject.getJSONArray("data")
+
+                        // JSONArray 순회
+                        for (i in 0 until jsonArray.length()) {
+                            val solutionObject = jsonArray.getJSONObject(i)
+
+                            // 각 solutionObject에서 필요한 데이터 추출
+                            val solutionId = solutionObject.getInt("solutionId")
+                            val relation = solutionObject.getInt("relation")
+                            val keyword = solutionObject.getString("keyword")
+                            val solutionTitle = solutionObject.getString("solutionTitle")
+                            val solutionContent = solutionObject.getString("solutionContent")
+
+                            // 추출한 데이터를 사용하여 Solution 객체를 생성
+                            val mysolution = Solution(
+                                solutionId,
+                                relation,
+                                keyword,
+                                solutionTitle,
+                                solutionContent
+                            )
+
+                            // 생성한 Solution 객체를 리스트에 추가
+                            solutions.add(mysolution)
+
+                            // Solution 객체를 어댑터에 추가
+                            adapter.addCardView(mysolution)
+
+                            // Solution 객체의 정보를 로그에 출력
+                            Log.d("Solution", mysolution.toString())
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseSolution>, t: Throwable) {
+                Log.d("솔루션 실패", t.message.toString())
+            }
+        })
+    }
+
+
+
+
 }

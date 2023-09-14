@@ -16,6 +16,11 @@ class TestStartActivity : AppCompatActivity() {
 
         binding.iv.setImageResource(R.drawable.ic_test_start)
 
+        binding.skipBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.btn.setOnClickListener {
             val intent = Intent(this, TestActivity0::class.java)
             startActivity(intent)

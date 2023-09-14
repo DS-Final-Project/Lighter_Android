@@ -67,13 +67,7 @@
             android:name=".TestResultActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
-        <activity
-            android:name=".googleLogin.goo"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
->>>>>>> selftest
+
     </application>
 
 </manifest>
