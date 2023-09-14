@@ -24,6 +24,8 @@ import com.example.test_android2.databinding.FragmentInfoBinding
 import com.example.test_android2.cardviewAdapter
 import com.example.test_android2.data.*
 import com.example.test_android2.googleLogin.goo
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +35,7 @@ class InfoFragment : Fragment() {
     private val binding get() = _binding!! // 뷰 바인딩 가져오기
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: cardviewAdapter
+    var solutions: MutableList<Solution?> = mutableListOf() // Initialize with an empty list
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentInfoBinding.inflate(inflater, container, false) // 뷰 바인딩 인플레이트
@@ -45,8 +48,6 @@ class InfoFragment : Fragment() {
         models.add("갈등으로 치우지지\n않으려면?")
         models.add("나는 왜 관계가\n어려울까?")
         models.add("불안정 애착\n극복하기")
-
-        val solutions: MutableList<Solution?> = mutableListOf() // Initialize with an empty list
 
         getCardView()
 
@@ -64,6 +65,7 @@ class InfoFragment : Fragment() {
         val textData: String = textView.text.toString()
         val builder = SpannableStringBuilder(textData)
         val colorBlueSpan = ForegroundColorSpan(Color.rgb(244,172,63))
+
         builder.setSpan(colorBlueSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = builder
 
@@ -136,26 +138,41 @@ class InfoFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { responseData ->
-                        val data = responseData.data
-                        val solutionId = data.solutionId
-                        val relation = data.relation
-                        val keyword = data.keyword
-                        val solutionTitle = data.solutionTitle
-                        val solutionContent = data.solutionContent
+                        val solutionData = responseData.data
+                        // JSON 문자열을 JSONObject로 파싱
+                        val jsonObject = JSONObject(responseData.data.toString())
+                        // "data" 필드를 JSONArray로 파싱
+                        val jsonArray = jsonObject.getJSONArray("data")
 
-                        var mysolution = Solution(
-                            solutionId,
-                            relation,
-                            keyword,
-                            solutionTitle,
-                            solutionContent
-                        )
-                        //솔류션 리스트로 받으면 리스트 돌면서 addCardView하도록 짜기
-                        adapter.addCardView(mysolution)
+                        // JSONArray 순회
+                        for (i in 0 until jsonArray.length()) {
+                            val solutionObject = jsonArray.getJSONObject(i)
 
-                        val intent = Intent(context, SolutionActivity::class.java)
-                        intent.putExtra("mysolution", mysolution)
-                        startActivity(intent)
+                            // 각 solutionObject에서 필요한 데이터 추출
+                            val solutionId = solutionObject.getInt("solutionId")
+                            val relation = solutionObject.getInt("relation")
+                            val keyword = solutionObject.getString("keyword")
+                            val solutionTitle = solutionObject.getString("solutionTitle")
+                            val solutionContent = solutionObject.getString("solutionContent")
+
+                            // 추출한 데이터를 사용하여 Solution 객체를 생성
+                            val mysolution = Solution(
+                                solutionId,
+                                relation,
+                                keyword,
+                                solutionTitle,
+                                solutionContent
+                            )
+
+                            // 생성한 Solution 객체를 리스트에 추가
+                            solutions.add(mysolution)
+
+                            // Solution 객체를 어댑터에 추가
+                            adapter.addCardView(mysolution)
+
+                            // Solution 객체의 정보를 로그에 출력
+                            Log.d("Solution", mysolution.toString())
+                        }
                     }
                 }
             }
@@ -165,4 +182,8 @@ class InfoFragment : Fragment() {
             }
         })
     }
+
+
+
+
 }
