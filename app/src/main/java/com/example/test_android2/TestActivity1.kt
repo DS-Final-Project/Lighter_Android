@@ -68,11 +68,11 @@ class TestActivity1 : AppCompatActivity(){
                     val selectedText = selectedRadioButton.text.toString().trim()
 
                     when (selectedText) {
-                        "전혀 그렇지 않다" -> avoidScore += 5
-                        "그렇지 않다" -> avoidScore += 4
+                        "전혀 그렇지 않다" -> avoidScore += 1
+                        "그렇지 않다" -> avoidScore += 2
                         "보통 정도이다" -> avoidScore += 3
-                        "대체로 그렇다" -> avoidScore += 2
-                        "매우 그렇다" -> avoidScore += 1
+                        "대체로 그렇다" -> avoidScore += 4
+                        "매우 그렇다" -> avoidScore += 5
                     }
                 }
             }
@@ -85,11 +85,11 @@ class TestActivity1 : AppCompatActivity(){
                     val selectedText = selectedRadioButton.text.toString().trim()
 
                     when (selectedText) {
-                        "전혀 그렇지 않다" -> anxietyScore += 5
-                        "그렇지 않다" -> anxietyScore += 4
+                        "전혀 그렇지 않다" -> anxietyScore += 1
+                        "그렇지 않다" -> anxietyScore += 2
                         "보통 정도이다" -> anxietyScore += 3
-                        "대체로 그렇다" -> anxietyScore += 2
-                        "매우 그렇다" -> anxietyScore += 1
+                        "대체로 그렇다" -> anxietyScore += 4
+                        "매우 그렇다" -> anxietyScore += 5
                     }
                 }
             }

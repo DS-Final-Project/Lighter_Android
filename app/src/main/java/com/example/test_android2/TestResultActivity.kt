@@ -1,30 +1,26 @@
 package com.example.test_android2
 
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.test_android2.data.*
 import com.example.test_android2.databinding.ActivityTestresultBinding
-import com.example.test_android2.googleLogin.LoginGoogle.Companion.TAG
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 
 class TestResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTestresultBinding
     var avoidScore=0F
     var anxietyScore=0F
-    lateinit var intentResult: Intent
+    private lateinit var sharedPreferences: SharedPreferences
+    private val editor: SharedPreferences.Editor by lazy { sharedPreferences.edit() }
+    var TestFlag=false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,22 +29,20 @@ class TestResultActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.iv.setImageResource(R.drawable.ic_test_result)
 
-        intentResult = Intent(this, MainActivity::class.java)
-
         // Intent에서 점수 값을 받아옴
         avoidScore = intent.getFloatExtra("avoidScore", 0F)
         anxietyScore = intent.getFloatExtra("anxietyScore", 0F)
 
         // 회피점수와 불안점수 계산
-        avoidScore = avoidScore/18
-        anxietyScore = anxietyScore/18
+        avoidScore /= 18
+        anxietyScore /= 18
 
         // 결과 계산
         val testType = when {
-            avoidScore < 2.33 && anxietyScore < 2.61 -> 1
-            avoidScore < 2.33 && anxietyScore >= 2.61 -> 2
-            avoidScore >= 2.33 && anxietyScore < 2.61 -> 3
-            avoidScore >= 2.33 && anxietyScore >= 2.61 -> 4
+            avoidScore < 2.33 && anxietyScore < 2.61 -> 1 // 안정형
+            avoidScore < 2.33 && anxietyScore >= 2.61 -> 2 //불안형
+            avoidScore >= 2.33 && anxietyScore < 2.61 -> 3 // 거부회피형
+            avoidScore >= 2.33 && anxietyScore >= 2.61 -> 4 //공포회피형
             else -> -1
         }
 
@@ -71,16 +65,20 @@ class TestResultActivity : AppCompatActivity() {
                 call: Call<ResponseTest>, response: Response<ResponseTest>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        startActivity(intentResult)
-                    }
+                    val result = response.body()
+                    Log.d("자가진단 성공", "$result")
+                    sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    TestFlag = true
+                    editor.putBoolean("TestFlag", TestFlag)
+                    editor.apply()
+                    val intent = Intent(this@TestResultActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
             }
 
             override fun onFailure(call: Call<ResponseTest>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.i(TAG, "Network request failed: ${t.message}")
             }
         })
     }
-
 }

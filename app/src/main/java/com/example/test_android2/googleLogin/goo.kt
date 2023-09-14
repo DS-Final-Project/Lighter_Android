@@ -1,12 +1,23 @@
 package com.example.test_android2.googleLogin
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.test_android2.LighterApplication
 import com.example.test_android2.MainActivity
 import com.example.test_android2.R
+import com.example.test_android2.TestStartActivity
+import com.example.test_android2.data.ResponseToken
+import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.data.TokenData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -14,23 +25,39 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.shobhitpuri.custombuttons.GoogleSignInButton
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
-import java.io.IOException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class goo : AppCompatActivity() {
 
     private val RC_SIGN_IN = 1001
     private var idToken =""
+    var TestFlag: Boolean = false
+
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private val editor: SharedPreferences.Editor by lazy { sharedPreferences.edit() }
+
+    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_googlelogin)
+
+        //라-이터 부분에 색상 적용
+        textView = findViewById(R.id.tv_title)
+
+        val tvTitle: String = textView.text.toString()
+        val builder = SpannableStringBuilder(tvTitle)
+        val colorSpan = ForegroundColorSpan(ContextCompat.getColor(this, R.color.highlight_darkest))
+        builder.setSpan(colorSpan,19,23,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        textView.text = builder
+
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        TestFlag = intent.getBooleanExtra("TestFlag",false)
+
 
         val googleSignInButton: GoogleSignInButton = findViewById(R.id.googlelogin)
         googleSignInButton.setOnClickListener {
@@ -51,84 +78,71 @@ class goo : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun handleSignInResult(task: com.google.android.gms.tasks.Task<GoogleSignInAccount>?) {
+    fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account = task?.getResult(ApiException::class.java)
-            if (account != null) {
-                // 로그인 성공
-                val email = account.email
-                val displayName = account.displayName
-                idToken = account.idToken.toString()
+            val account = completedTask?.getResult(ApiException::class.java)
 
-                // 여기서 서버로 idToken 등 필요한 정보를 전송하고 처리할 수 있습니다.
-                Log.w(TAG, "email: $email")
-                Log.w(TAG, "idToken: $idToken")
-                //sendToServer(idToken.orEmpty())
-
-                Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
-                val intent = Intent(this@goo, MainActivity::class.java)
-                startActivity(intent)
-            }
-        } catch (e: ApiException) {
-            // 로그인 실패
-            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-            Toast.makeText(this, "구글 로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
-        }
-
-    }
-
-    fun handleSignInResult2(completedTask: Task<GoogleSignInAccount>) {
-        try {
             val authCode: String? =
                 completedTask.getResult(ApiException::class.java)?.serverAuthCode
             LoginRepository().getAccessToken(authCode!!)
-            if (authCode != null) {
-                // 로그인 성공
-                //completedTask.getResult(ApiException::class.java)?.serverAuthCode
-                //LoginRepository().sendAccessToken(authCode);
-                val Token = TokenData(idToken,authCode)
-                sendToServer(Token)
-                Log.w(TAG, "AccessToken: $authCode")
-                Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
-                val intent = Intent(this@goo, MainActivity::class.java)
-                startActivity(intent)
+
+            // 로그인 성공
+            if (account != null) {
+                idToken = account.idToken.toString()
+                val email = account.email.toString()
+                Log.w(TAG, "email: $email")
+
+                LighterApplication.getInstance()?.userEmail = email
+
+                //구글아이디 인포로 보내기
+                editor.putString("email", email)
+                editor.apply()
+
             }
+
+            val Token = TokenData(idToken,authCode)
+            sendToServer(Token)
+            Log.w(TAG, "IdToken: $idToken")
+            Log.w(TAG, "AccessToken: $authCode")
         } catch (e: ApiException) {
             Log.w(LoginGoogle.TAG, "handleSignInResult: error" + e.statusCode)
         }
     }
 
     private fun sendToServer(Token: TokenData) {
-        GlobalScope.launch(Dispatchers.IO) {
-            val okHttpClient = OkHttpClient()
+        val call: Call<ResponseToken> = ServiceCreator.tokenService.tokenResult(Token)
 
-            val json = """{"Token": "$Token"}"""
-            val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), json)
+        call.enqueue(object : Callback<ResponseToken> {
+            override fun onResponse(
+                call: Call<ResponseToken>, response: Response<ResponseToken>
+            ) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    Log.d("로그인 성공", "$result")
+                    Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
 
-            val request = Request.Builder()
-                .url("http://34.217.28.173:8080/google/login/redirect")
-                .post(requestBody)
-                .build()
-
-            try {
-                val response = okHttpClient.newCall(request).execute()
-                val responseBody = response.body?.string()
-                Log.i(TAG, "Signed in as: $responseBody")
-            } catch (e: IOException) {
-                Log.e(TAG, "Error sending ID token to backend.", e)
+                    if(TestFlag==false){
+                        val intent = Intent(this@goo, TestStartActivity::class.java)
+                        startActivity(intent)
+                    } else{
+                        val intent = Intent(this@goo, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
             }
-        }
+
+            override fun onFailure(call: Call<ResponseToken>, t: Throwable) {
+                Log.i(TAG,"Network request failed: ${t.message}")
+            }
+        })
     }
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            //handleSignInResult(task)
-            handleSignInResult2(task)
+            handleSignInResult(task)
         }
     }
 

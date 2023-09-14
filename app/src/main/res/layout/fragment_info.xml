@@ -2,10 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:id="@+id/scrollView"
-    tools:context=".InfoFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,19 +13,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/c_0"
+            android:id="@+id/layout_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
             android:paddingTop="19dp"
             android:paddingBottom="19dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="#FFFFFF"
-            android:elevation="2dp">
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <TextView
-                android:id="@+id/tv_0"
+                android:id="@+id/tv_info"
                 style="@style/TextAppearance.AppCompat.Headline.H4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,8 +41,10 @@
             android:id="@+id/c_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="32dp"
-            app:layout_constraintTop_toBottomOf="@id/c_0">
+            android:layout_marginTop="24dp"
+            android:paddingStart="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_info">
 
             <TextView
                 android:id="@+id/tv_1"
@@ -51,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/info_tv_1"
+                android:text="라-이터 만의\n솔루션"
                 android:textColor="@color/neutral_dark_darkest"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +76,7 @@
             android:id="@+id/c_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             app:layout_constraintTop_toBottomOf="@id/c_1">
 
             <androidx.viewpager2.widget.ViewPager2
@@ -128,7 +130,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_round_textview"
-                android:elevation="2dp"
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="청소년 사이버상담센터"
@@ -144,6 +145,7 @@
                 android:layout_width="46dp"
                 android:layout_height="26dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="41dp"
                 android:text="Call"
                 android:textColor="@drawable/info_selector_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +161,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_round_textview"
-                android:elevation="2dp"
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="서울시 청소년 상담복지센터"
@@ -175,6 +176,7 @@
                 android:layout_width="46dp"
                 android:layout_height="26dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="41dp"
                 android:text="Call"
                 android:textColor="@drawable/info_selector_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -190,7 +192,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_round_textview"
-                android:elevation="2dp"
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="한국 여성의 전화"
@@ -203,8 +204,8 @@
                 android:id="@+id/space_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
-                app:layout_constraintTop_toBottomOf="@id/cen_3"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cen_3" />
 
             <Button
                 android:id="@+id/call_3"
@@ -213,6 +214,7 @@
                 android:layout_width="46dp"
                 android:layout_height="26dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="41dp"
                 android:text="Call"
                 android:textColor="@drawable/info_selector_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
