@@ -31,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ResultAnalysisActivity"
             android:exported="false" />
@@ -62,6 +63,7 @@
             android:name=".TestActivity4"
             android:exported="false"
             tools:ignore="Instantiatable" />
+
         <activity
             android:name=".TestActivity5"
             android:exported="false"
@@ -70,11 +72,6 @@
             android:name=".TestResultActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
-
-        <activity
-            android:name=".TestStartActivity"
-            android:exported="false" />
-
     </application>
 
 </manifest>
