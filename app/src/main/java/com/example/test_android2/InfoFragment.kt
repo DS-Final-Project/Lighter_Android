@@ -65,7 +65,6 @@ class InfoFragment : Fragment() {
         val textData: String = textView.text.toString()
         val builder = SpannableStringBuilder(textData)
         val colorBlueSpan = ForegroundColorSpan(Color.rgb(244,172,63))
-
         builder.setSpan(colorBlueSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = builder
 
@@ -176,14 +175,9 @@ class InfoFragment : Fragment() {
                     }
                 }
             }
-
             override fun onFailure(call: Call<ResponseSolution>, t: Throwable) {
                 Log.d("솔루션 실패", t.message.toString())
             }
         })
     }
-
-
-
-
 }
