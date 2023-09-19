@@ -1,6 +1,7 @@
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +20,8 @@ import com.example.test_android2.data.ChatData
 import com.example.test_android2.data.ResponseChat
 import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.databinding.FragmentUploadImageBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -89,13 +92,36 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
         }
     }
 
-    private fun chatNetwork(chatInfo: ChatData) {
-        val call: Call<ResponseChat> = ServiceCreator.chatService.uploadChatImage(chatInfo)
+    private fun chatNetwork(relation: Int, imageUri: Uri) {
+        Log.d("ChatNetwork", "Sending relation value: $relation")
+
+        // 로딩 바 보이기
+        showProgress(true)
+
+        // 이미지 Uri로부터 InputStream을 가져옵니다.
+        val inputStream = context?.contentResolver?.openInputStream(imageUri)
+        // InputStream을 MultipartBody.Part로 변환합니다.
+        val requestFile = okhttp3.RequestBody.create(
+            "image/*".toMediaTypeOrNull(),
+            inputStream!!.readBytes()
+        )
+        val imagePart = MultipartBody.Part.createFormData("image", "uploaded_image.jpg", requestFile)
+
+        // relation 값을 RequestBody로 변환합니다.
+        val relationRequestBody = okhttp3.RequestBody.create(
+            "text/plain".toMediaTypeOrNull(),
+            relation.toString()
+        )
+
+        val call: Call<ResponseChat> = ServiceCreator.chatService.uploadChatImage(imagePart, relationRequestBody)
 
         call.enqueue(object : Callback<ResponseChat> {
             override fun onResponse(
                 call: Call<ResponseChat>, response: Response<ResponseChat>
             ) {
+                // 로딩 바 숨기기
+                showProgress(false)
+
                 if (response.isSuccessful) {
                     response.body()?.let { responseData ->
                         val data = responseData.data
@@ -130,6 +156,7 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
             }
 
             override fun onFailure(call: Call<ResponseChat>, t: Throwable) {
+                showProgress(true)
                 Log.d("문장 분석 실패", t.message.toString())
             }
         })
@@ -195,14 +222,8 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
 
     //다이얼로그에서 완료 버튼 클릭 시
     override fun onOkButtonClick(chatData: ChatData) {
-        chatNetwork(chatData)
-
-        showProgress(true)
-        binding.progressBar.bringToFront()
-        thread(start = true) {
-            Thread.sleep(3000)
-
-        }
+        val imageUri = Uri.parse(binding.tvPhotoName.text.toString())
+        chatNetwork(chatData.relation, imageUri)
     }
 
     override fun onResume() {
