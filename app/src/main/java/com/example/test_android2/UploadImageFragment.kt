@@ -93,8 +93,6 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
     }
 
     private fun chatNetwork(relation: Int, imageUri: Uri) {
-        Log.d("ChatNetwork", "Sending relation value: $relation")
-
         // 로딩 바 보이기
         showProgress(true)
 
@@ -156,7 +154,7 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
             }
 
             override fun onFailure(call: Call<ResponseChat>, t: Throwable) {
-                showProgress(true)
+                showProgress(false)
                 Log.d("문장 분석 실패", t.message.toString())
             }
         })

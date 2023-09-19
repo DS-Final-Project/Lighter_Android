@@ -64,7 +64,7 @@
         <Button
             android:id="@+id/btn_logout"
             style="@style/TextAppearance.AppCompat.Caption.M"
-            android:layout_width="66dp"
+            android:layout_width="0dp"
             android:layout_height="26dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/shape_round_button"
@@ -72,7 +72,8 @@
             android:text="@string/logout"
             android:textColor="@color/highlight_darkest"
             app:layout_constraintStart_toStartOf="@id/tv_mypage_description"
-            app:layout_constraintTop_toBottomOf="@id/tv_mypage_description" />
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_description"
+            app:layout_constraintWidth_percent="0.16" />
 
         <ImageView
             android:layout_width="0dp"

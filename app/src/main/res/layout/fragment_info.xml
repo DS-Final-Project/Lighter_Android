@@ -91,6 +91,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <Space
+                android:id="@+id/space_card"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_pager2" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,13 +134,14 @@
                 android:id="@+id/cen_1"
                 style="@style/TextAppearance.AppCompat.Headline.H4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_round_textview"
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="청소년 사이버상담센터"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.21"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_4"
                 tools:ignore="MissingConstraints" />
@@ -141,6 +149,7 @@
             <Button
                 android:id="@+id/call_1"
                 style="@style/TextAppearance.AppCompat.Caption.M"
+                android:background="@drawable/info_selector_button"
                 android:layout_width="46dp"
                 android:layout_height="26dp"
                 android:layout_gravity="center_vertical"
@@ -157,13 +166,14 @@
                 android:id="@+id/cen_2"
                 style="@style/TextAppearance.AppCompat.Headline.H4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_round_textview"
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="서울시 청소년 상담복지센터"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.21"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cen_1"
                 tools:ignore="MissingConstraints" />
@@ -171,6 +181,7 @@
             <Button
                 android:id="@+id/call_2"
                 style="@style/TextAppearance.AppCompat.Caption.M"
+                android:background="@drawable/info_selector_button"
                 android:layout_width="46dp"
                 android:layout_height="26dp"
                 android:layout_gravity="center_vertical"
@@ -187,13 +198,14 @@
                 android:id="@+id/cen_3"
                 style="@style/TextAppearance.AppCompat.Headline.H4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_round_textview"
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="한국 여성의 전화"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.21"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cen_2"
                 tools:ignore="MissingConstraints" />
@@ -208,6 +220,7 @@
             <Button
                 android:id="@+id/call_3"
                 style="@style/TextAppearance.AppCompat.Caption.M"
+                android:background="@drawable/info_selector_button"
                 android:layout_width="46dp"
                 android:layout_height="26dp"
                 android:layout_gravity="center_vertical"
