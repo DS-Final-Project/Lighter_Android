@@ -4,14 +4,14 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Solution (
-    var solutionId: Int?,
+    var solutionId: String?,
     var relation: Int?,
     var keyword: String?,
     var solutionTitle: String?,
     var solutionContent: String?
 ): Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
@@ -20,7 +20,7 @@ class Solution (
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeValue(solutionId)
+        parcel.writeString(solutionId)
         relation?.let { parcel.writeInt(it) }
         parcel.writeString(keyword)
         parcel.writeString(solutionTitle)
