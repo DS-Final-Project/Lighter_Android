@@ -72,6 +72,9 @@ class cardviewAdapter(
             is FriendViewHolder -> {
                 if (solution != null) {
                     holder.title.text = solution.solutionTitle
+                    holder.relation.text = "친구"
+                    holder.keyword.text = solution.keyword
+
                     holder.itemView.setOnClickListener {
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         // 예를 들어, 다음과 같이 Intent를 사용하여 다른 화면으로 이동할 수 있습니다.
@@ -84,7 +87,9 @@ class cardviewAdapter(
             is LoverViewHolder -> {
                 if (solution != null) {
                     holder.title.text = solution.solutionTitle
-                    // Bind other lover-specific views here
+                    holder.relation.text = "연인"
+                    holder.keyword.text = solution.keyword
+
                     holder.itemView.setOnClickListener {
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         val intent = Intent(context, SolutionActivity::class.java)
@@ -96,7 +101,9 @@ class cardviewAdapter(
             is FamilyViewHolder -> {
                 if (solution != null) {
                     holder.title.text = solution.solutionTitle
-                    // Bind other family-specific views here
+                    holder.relation.text = "가족"
+                    holder.keyword.text = solution.keyword
+
                     holder.itemView.setOnClickListener {
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         val intent = Intent(context, SolutionActivity::class.java)
@@ -108,7 +115,9 @@ class cardviewAdapter(
             is ColleagueViewHolder -> {
                 if (solution != null) {
                     holder.title.text = solution.solutionTitle
-                    // Bind other colleague-specific views here
+                    holder.relation.text = "동료"
+                    holder.keyword.text = solution.keyword
+
                     holder.itemView.setOnClickListener {
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         val intent = Intent(context, SolutionActivity::class.java)
@@ -128,27 +137,32 @@ class cardviewAdapter(
     fun addCardView(solution: Solution?) {
         if (solution != null) {
             solutions.add(solution)
+            notifyItemInserted(solutions.size - 1)
         }
-        notifyItemInserted(solutions.size - 1)
     }
 
     inner class FriendViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
+        val relation: TextView = view.findViewById(R.id.tag1)
+        val keyword: TextView = view.findViewById(R.id.tag2)
     }
 
     inner class LoverViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
-        // Declare other lover-specific views here
+        val relation: TextView = view.findViewById(R.id.tag1)
+        val keyword: TextView = view.findViewById(R.id.tag2)
     }
 
     inner class FamilyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
-        // Declare other family-specific views here
+        val relation: TextView = view.findViewById(R.id.tag1)
+        val keyword: TextView = view.findViewById(R.id.tag2)
     }
 
     inner class ColleagueViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
-        // Declare other colleague-specific views here
+        val relation: TextView = view.findViewById(R.id.tag1)
+        val keyword: TextView = view.findViewById(R.id.tag2)
     }
 
     inner class DefaultViewHolder(view: View) : RecyclerView.ViewHolder(view) {

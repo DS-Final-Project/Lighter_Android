@@ -10,7 +10,7 @@ import java.util.concurrent.*
 
 object ServiceCreator {
     //서버에서 준 URL 입력
-    private const val BASE_URL = "http://34.217.28.173:8080"
+    private const val BASE_URL = "http://52.35.184.250:8080"
 
     private val userRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

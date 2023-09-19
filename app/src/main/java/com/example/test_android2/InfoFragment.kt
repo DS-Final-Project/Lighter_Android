@@ -144,40 +144,44 @@ class InfoFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { responseData ->
-                        val solutionData = responseData.data
-                        // JSON 문자열을 JSONObject로 파싱
-                        val jsonObject = JSONObject(responseData.data.toString())
-                        // "data" 필드를 JSONArray로 파싱
-                        val jsonArray = jsonObject.getJSONArray("data")
+                        // "data" 필드를 가져옴
+                        val solutionsList = responseData?.data
 
-                        // JSONArray 순회
-                        for (i in 0 until jsonArray.length()) {
-                            val solutionObject = jsonArray.getJSONObject(i)
-
-                            // 각 solutionObject에서 필요한 데이터 추출
-                            val solutionId = solutionObject.getInt("solutionId")
-                            val relation = solutionObject.getInt("relation")
-                            val keyword = solutionObject.getString("keyword")
-                            val solutionTitle = solutionObject.getString("solutionTitle")
-                            val solutionContent = solutionObject.getString("solutionContent")
-
-                            // 추출한 데이터를 사용하여 Solution 객체를 생성
+                        if (solutionsList.isNullOrEmpty()) {
+                            // 만약 데이터가 비어있는 경우 기본 뷰 홀더를 추가
                             val mysolution = Solution(
-                                solutionId,
-                                relation,
-                                keyword,
-                                solutionTitle,
-                                solutionContent
+                                "none",
+                                0,
+                                "keyword",
+                                "solutionTitle",
+                                "solutionContent"
                             )
-
-                            // 생성한 Solution 객체를 리스트에 추가
-                            solutions.add(mysolution)
-
-                            // Solution 객체를 어댑터에 추가
                             adapter.addCardView(mysolution)
 
-                            // Solution 객체의 정보를 로그에 출력
-                            Log.d("Solution", mysolution.toString())
+                        } else {
+                            solutionsList?.forEach { solutionObject ->
+                                // 각 solutionObject에서 필요한 데이터 추출
+                                val solutionId = solutionObject.solutionId ?: ""
+                                val relation = solutionObject.relation ?: 0
+                                val keyword = solutionObject.keyword ?: ""
+                                val solutionTitle = solutionObject.solutionTitle ?: ""
+                                val solutionContent = solutionObject.solutionContent ?: ""
+
+                                // 추출한 데이터를 사용하여 Solution 객체를 생성
+                                val mysolution = Solution(
+                                    solutionId,
+                                    relation,
+                                    keyword,
+                                    solutionTitle,
+                                    solutionContent
+                                )
+
+                                // Solution 객체를 어댑터에 추가
+                                adapter.addCardView(mysolution)
+
+                                // Solution 객체의 정보를 로그에 출력
+                                Log.d("Solution", mysolution.toString())
+                            }
                         }
                     }
                 }
