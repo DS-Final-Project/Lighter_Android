@@ -32,9 +32,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_logout"
         android:layout_width="match_parent"
-        android:layout_height="332dp"
+        android:layout_height="0dp"
         android:background="@drawable/shape_mypage_layout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_mypage">
 
@@ -63,7 +64,7 @@
         <Button
             android:id="@+id/btn_logout"
             style="@style/TextAppearance.AppCompat.Caption.M"
-            android:layout_width="66dp"
+            android:layout_width="0dp"
             android:layout_height="26dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/shape_round_button"
@@ -71,24 +72,29 @@
             android:text="@string/logout"
             android:textColor="@color/highlight_darkest"
             app:layout_constraintStart_toStartOf="@id/tv_mypage_description"
-            app:layout_constraintTop_toBottomOf="@id/tv_mypage_description" />
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_description"
+            app:layout_constraintWidth_percent="0.16" />
 
         <ImageView
-            android:layout_width="302dp"
-            android:layout_height="280dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginEnd="-10dp"
             android:layout_marginBottom="-4dp"
             android:src="@drawable/img_mypage"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/layout_scrollview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_logout">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

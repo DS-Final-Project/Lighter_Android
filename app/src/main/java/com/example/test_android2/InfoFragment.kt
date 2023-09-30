@@ -2,12 +2,14 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +19,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.test_android2.R
+import com.example.test_android2.ResultAnalysisActivity
+import com.example.test_android2.SolutionActivity
 import com.example.test_android2.databinding.FragmentInfoBinding
 import com.example.test_android2.cardviewAdapter
 import com.example.test_android2.data.*
 import com.example.test_android2.googleLogin.goo
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +36,7 @@ class InfoFragment : Fragment() {
     private val binding get() = _binding!! // 뷰 바인딩 가져오기
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: cardviewAdapter
+    var solutions: MutableList<Solution?> = mutableListOf() // Initialize with an empty list
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentInfoBinding.inflate(inflater, container, false) // 뷰 바인딩 인플레이트
@@ -42,8 +49,6 @@ class InfoFragment : Fragment() {
         models.add("갈등으로 치우지지\n않으려면?")
         models.add("나는 왜 관계가\n어려울까?")
         models.add("불안정 애착\n극복하기")
-
-        val solutions: MutableList<ResponseSolution?> = mutableListOf() // Initialize with an empty list
 
         getCardView()
 
@@ -115,8 +120,14 @@ class InfoFragment : Fragment() {
         }
 
         dialog.show()
-        //직접 크기 조절
-        dialog.window?.setLayout(600, 500)
+        // 화면 넓이의 80%로 다이얼로그 크기 설정
+        val window = dialog.window
+        val size = Point()
+        val display = window?.windowManager?.defaultDisplay
+        display?.getSize(size)
+        val width = (size.x * 0.8).toInt()  // 화면 넓이의 80%
+
+        window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     override fun onDestroyView() {
@@ -132,15 +143,51 @@ class InfoFragment : Fragment() {
                 call: Call<ResponseSolution>, response: Response<ResponseSolution>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        //솔류션 리스트로 받으면 리스트 돌면서 addCardView하도록 짜기
-                        val solution = response.body()
-                        adapter.addCardView(solution)
+                    response.body()?.let { responseData ->
+                        // "data" 필드를 가져옴
+                        val solutionsList = responseData?.data
+
+                        if (solutionsList.isNullOrEmpty()) {
+                            // 만약 데이터가 비어있는 경우 기본 뷰 홀더를 추가
+                            val mysolution = Solution(
+                                "none",
+                                0,
+                                "keyword",
+                                "solutionTitle",
+                                "solutionContent"
+                            )
+                            adapter.addCardView(mysolution)
+
+                        } else {
+                            solutionsList?.forEach { solutionObject ->
+                                // 각 solutionObject에서 필요한 데이터 추출
+                                val solutionId = solutionObject.solutionId ?: ""
+                                val relation = solutionObject.relation ?: 0
+                                val keyword = solutionObject.keyword ?: ""
+                                val solutionTitle = solutionObject.solutionTitle ?: ""
+                                val solutionContent = solutionObject.solutionContent ?: ""
+
+                                // 추출한 데이터를 사용하여 Solution 객체를 생성
+                                val mysolution = Solution(
+                                    solutionId,
+                                    relation,
+                                    keyword,
+                                    solutionTitle,
+                                    solutionContent
+                                )
+
+                                // Solution 객체를 어댑터에 추가
+                                adapter.addCardView(mysolution)
+
+                                // Solution 객체의 정보를 로그에 출력
+                                Log.d("Solution", mysolution.toString())
+                            }
+                        }
                     }
                 }
             }
-
             override fun onFailure(call: Call<ResponseSolution>, t: Throwable) {
+                Log.d("솔루션 실패", t.message.toString())
             }
         })
     }

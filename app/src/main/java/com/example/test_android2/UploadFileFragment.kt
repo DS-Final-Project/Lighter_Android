@@ -15,6 +15,8 @@ import com.example.test_android2.data.ChatData
 import com.example.test_android2.data.ResponseChat
 import com.example.test_android2.data.ServiceCreator
 import com.example.test_android2.databinding.FragmentUploadFileBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,13 +75,29 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
         }
     }
 
-    private fun chatNetwork(chatInfo: ChatData) {
-        val call: Call<ResponseChat> = ServiceCreator.chatService.uploadChat(chatInfo)
+    private fun chatNetwork(relation: Int, fileUri: Uri) { // 로딩 바 보이기
+        showProgress(true)
+
+        // 파일 Uri로부터 InputStream을 가져옵니다.
+        val inputStream = context?.contentResolver?.openInputStream(fileUri) // InputStream을 MultipartBody.Part로 변환합니다.
+        val requestFile = okhttp3.RequestBody.create(
+            "text/plain".toMediaTypeOrNull(), inputStream!!.readBytes()
+        )
+        val filePart = MultipartBody.Part.createFormData("file", "uploaded_file.txt", requestFile)
+
+        // relation 값을 RequestBody로 변환합니다.
+        val relationRequestBody = okhttp3.RequestBody.create(
+            "text/plain".toMediaTypeOrNull(), relation.toString()
+        )
+
+        val call: Call<ResponseChat> = ServiceCreator.chatService.uploadChat(filePart, relationRequestBody)
 
         call.enqueue(object : Callback<ResponseChat> {
             override fun onResponse(
                 call: Call<ResponseChat>, response: Response<ResponseChat>
-            ) {
+            ) { // 로딩 바 숨기기
+                showProgress(false)
+
                 if (response.isSuccessful) {
                     response.body()?.let { responseData ->
                         val data = responseData.data
@@ -114,6 +132,7 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
             }
 
             override fun onFailure(call: Call<ResponseChat>, t: Throwable) {
+                showProgress(false)
                 Log.d("문장 분석 실패", t.message.toString())
             }
         })
@@ -138,14 +157,8 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
 
     //다이얼로그에서 완료 버튼 클릭 시
     override fun onOkButtonClick(chatData: ChatData) {
-        chatNetwork(chatData)
-
-        showProgress(true)
-        binding.progressBar.bringToFront()
-        thread(start = true) {
-            Thread.sleep(3000)
-
-        }
+        val fileUri = Uri.parse(binding.tvFileName.text.toString())
+        chatNetwork(chatData.relation, fileUri)
     }
 
     //파일 명을 보낼 경우 사용하는 함수
