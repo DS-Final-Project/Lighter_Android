@@ -6,8 +6,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="240dp"
-        android:layout_height="310dp"
+        android:layout_width="200dp"
+        android:layout_height="270dp"
         app:cardBackgroundColor="@color/support_error_light"
         app:cardCornerRadius="16dp"
         android:layout_marginTop="10dp"
@@ -23,16 +23,14 @@
             style="@style/TextAppearance.AppCompat.Caption.M"
             android:layout_width="46dp"
             android:layout_height="26dp"
-            android:layout_marginLeft="117dp"
             android:layout_marginTop="18dp"
+            android:visibility="invisible"
             android:background="@drawable/shape_round_button"
             android:backgroundTint="@color/support_error_dark"
             android:enabled="false"
             android:text="연인"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_explain2" />
+            app:layout_constraintEnd_toStartOf="@id/tag2"/>
 
         <Button
             android:id="@+id/tag2"
@@ -48,7 +46,7 @@
             android:text="대화"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tag1"
             app:layout_constraintTop_toBottomOf="@id/tv_explain2" />
 
         <TextView
