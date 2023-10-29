@@ -2,6 +2,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -113,8 +114,14 @@ class InfoFragment : Fragment() {
         }
 
         dialog.show()
-        //직접 크기 조절
-        dialog.window?.setLayout(600, 500)
+        // 화면 넓이의 80%로 다이얼로그 크기 설정
+        val window = dialog.window
+        val size = Point()
+        val display = window?.windowManager?.defaultDisplay
+        display?.getSize(size)
+        val width = (size.x * 0.8).toInt()  // 화면 넓이의 80%
+
+        window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     override fun onDestroyView() {

@@ -63,6 +63,7 @@
             android:name=".TestActivity4"
             android:exported="false"
             tools:ignore="Instantiatable" />
+
         <activity
             android:name=".TestActivity5"
             android:exported="false"

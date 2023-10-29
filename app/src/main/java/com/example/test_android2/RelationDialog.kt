@@ -52,6 +52,16 @@ class RelationDialog(
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        // Dialog의 너비를 화면 너비의 80%로 설정
+        dialog?.window?.let {
+            val width = (resources.displayMetrics.widthPixels * 0.8).toInt()
+            it.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -1,58 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- FrameLayout 등으로 뷰를 한번 wrapping 해줘야 화면에 정삭적으로 View가 보임-->
-    <LinearLayout
-        android:background="@drawable/shape_round_dialog"
-        android:layout_width="280dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_round_dialog"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_center"
+        style="@style/TextAppearance.AppCompat.Headline.H3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="센터" />
 
-        <TextView
-            android:id="@+id/tv_center"
+    <TextView
+        android:id="@+id/tv_num"
+        style="@style/TextAppearance.AppCompat.Headline.H3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_center"
+        tools:text="전화번호" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_num">
+
+        <Button
+            android:id="@+id/noBtn"
+            style="@style/TextAppearance.AppCompat.Action.M"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Headline.H3"
-            android:text="센터" />
+            android:background="@drawable/shape_round_button_border"
+            android:text="취소"
+            android:textColor="@color/highlight_darkest"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_num"
+        <Button
+            android:id="@+id/yesBtn"
+            style="@style/TextAppearance.AppCompat.Action.M"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Headline.H3"
-            android:text="번호" />
+            android:layout_marginStart="8dp"
+            android:background="@drawable/shape_round_button"
+            android:backgroundTint="@color/highlight_darkest"
+            android:text="통화"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/noBtn"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/noBtn"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:background="@drawable/shape_round_button_border"
-                style="@style/TextAppearance.AppCompat.Action.M"
-                android:textColor="@color/highlight_darkest"
-                android:text="취소" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Space
-                android:layout_width="8dp"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/yesBtn"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:backgroundTint="@color/highlight_darkest"
-                android:background="@drawable/shape_round_button"
-                style="@style/TextAppearance.AppCompat.Action.M"
-                android:textColor="@color/white"
-                android:text="통화" />
-        </LinearLayout>
-    </LinearLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

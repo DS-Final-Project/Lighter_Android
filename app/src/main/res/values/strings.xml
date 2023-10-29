@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test_Android2</string>
+    <string name="app_name">라-이터</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="signup">회원가입</string>
@@ -28,7 +28,7 @@
     <string name="result_tv">테스트 결과는 채팅 분석 결과와 함께 제공됩니다.</string>
     <string name="toMain">라-이터 시작하기</string>
     <string name="start_tv0">먼저 확인해볼까요?\n가스라이팅 자가진단</string>
-    <string name="start_tv1">자가진단 테스트를 통해 자신의 성향을 알아보세요.\n 채팅 분석 결과에 테스트 결과가 나타납니다.</string>
+    <string name="start_tv1">자가진단 테스트를 통해 자신의 성향을 알아보세요.\n채팅 분석 결과에 테스트 결과가 나타납니다.</string>
     <string name="card_tv1">솔루션이 보이지 않는다면?</string>
     <string name="card_tv2">채팅 등록 시 라-이터만의\n맞춤 솔루션을 제공해드려요!</string>
 
