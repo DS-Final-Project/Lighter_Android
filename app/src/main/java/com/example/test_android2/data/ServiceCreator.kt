@@ -10,7 +10,7 @@ import java.util.concurrent.*
 
 object ServiceCreator {
     //서버에서 준 URL 입력
-    private const val BASE_URL = "http://52.35.184.250:8080"
+    private const val BASE_URL = "http://172.20.10.4:8080"
 
     private val userRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -35,4 +35,5 @@ object ServiceCreator {
     val chatService: ChatService = userRetrofit.create(ChatService::class.java)
     val testService: TestService = userRetrofit.create(TestService::class.java)
     val solutionService: SolutionService = userRetrofit.create(SolutionService::class.java)
+    val solutionDetailService: SolutionDetailService = userRetrofit.create(SolutionDetailService::class.java)
 }

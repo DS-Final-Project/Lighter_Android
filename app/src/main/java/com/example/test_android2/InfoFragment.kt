@@ -43,15 +43,9 @@ class InfoFragment : Fragment() {
 
         viewPager = binding.viewPager2 // 뷰 바인딩으로 뷰 참조
 
-        val models: MutableList<String> = mutableListOf()
-        models.add("친구 간 대화방식이\n고민인가요? ")
-        models.add("갈등으로 치우지지\n않으려면?")
-        models.add("나는 왜 관계가\n어려울까?")
-        models.add("불안정 애착\n극복하기")
-
         getCardView()
 
-        val dpValue = 54
+        val dpValue = 44
         val d = resources.displayMetrics.density
         val margin = (dpValue * d).toInt()
 

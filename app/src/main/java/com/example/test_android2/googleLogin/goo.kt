@@ -105,7 +105,7 @@ class goo : AppCompatActivity() {
             Log.w(TAG, "IdToken: $idToken")
             Log.w(TAG, "AccessToken: $authCode")
         } catch (e: ApiException) {
-            Log.w(LoginGoogle.TAG, "handleSignInResult: error" + e.statusCode)
+            Log.w(TAG, "handleSignInResult: error" + e.statusCode)
         }
     }
 
@@ -121,11 +121,13 @@ class goo : AppCompatActivity() {
                     Log.d("로그인 성공", "$result")
                     Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
 
-                    if(TestFlag==false){
-                        val intent = Intent(this@goo, TestStartActivity::class.java)
+                    val relogin = sharedPreferences.getString("email", null)
+
+                    if(relogin!=null){
+                        val intent = Intent(this@goo, MainActivity::class.java)
                         startActivity(intent)
                     } else{
-                        val intent = Intent(this@goo, MainActivity::class.java)
+                        val intent = Intent(this@goo, TestStartActivity::class.java)
                         startActivity(intent)
                     }
                 }

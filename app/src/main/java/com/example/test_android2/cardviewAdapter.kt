@@ -79,7 +79,7 @@ class cardviewAdapter(
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         // 예를 들어, 다음과 같이 Intent를 사용하여 다른 화면으로 이동할 수 있습니다.
                         val intent = Intent(context, SolutionActivity::class.java)
-                        intent.putExtra("solution", solution) // 선택한 솔루션 데이터 전달
+                        intent.putExtra("clickSolution", solution) // 선택한 솔루션 데이터 전달
                         context.startActivity(intent)
                     }
                 }
@@ -93,7 +93,7 @@ class cardviewAdapter(
                     holder.itemView.setOnClickListener {
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         val intent = Intent(context, SolutionActivity::class.java)
-                        intent.putExtra("solution", solution) // 선택한 솔루션 데이터 전달
+                        intent.putExtra("clickSolution", solution) // 선택한 솔루션 데이터 전달
                         context.startActivity(intent)
                     }
                 }
@@ -107,7 +107,7 @@ class cardviewAdapter(
                     holder.itemView.setOnClickListener {
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         val intent = Intent(context, SolutionActivity::class.java)
-                        intent.putExtra("solution", solution) // 선택한 솔루션 데이터 전달
+                        intent.putExtra("clickSolution", solution) // 선택한 솔루션 데이터 전달
                         context.startActivity(intent)
                     }
                 }
@@ -121,7 +121,7 @@ class cardviewAdapter(
                     holder.itemView.setOnClickListener {
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         val intent = Intent(context, SolutionActivity::class.java)
-                        intent.putExtra("solution", solution) // 선택한 솔루션 데이터 전달
+                        intent.putExtra("clickSolution", solution) // 선택한 솔루션 데이터 전달
                         context.startActivity(intent)
                     }
                 }

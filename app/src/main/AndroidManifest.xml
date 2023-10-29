@@ -71,6 +71,10 @@
             android:name=".TestResultActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
+        <activity
+            android:name=".SolutionActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
     </application>
 
 </manifest>
