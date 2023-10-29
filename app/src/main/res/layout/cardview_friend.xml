@@ -23,8 +23,8 @@
             style="@style/TextAppearance.AppCompat.Caption.M"
             android:layout_width="36dp"
             android:layout_height="22dp"
-            android:layout_marginTop="12dp"
             android:layout_marginLeft="110dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/shape_round_button"
             android:backgroundTint="@color/highlight_darkest"
             android:enabled="false"
@@ -39,8 +39,8 @@
             style="@style/TextAppearance.AppCompat.Caption.M"
             android:layout_width="36dp"
             android:layout_height="22dp"
-            android:layout_marginTop="12dp"
             android:layout_gravity="right"
+            android:layout_marginTop="12dp"
             android:layout_marginRight="12dp"
             android:background="@drawable/shape_round_button"
             android:backgroundTint="@color/highlight_darkest"
@@ -63,6 +63,7 @@
             android:textColor="@color/white" />
 
     </androidx.cardview.widget.CardView>
+
     <Space
         android:id="@+id/space_card2"
         android:layout_width="match_parent"
