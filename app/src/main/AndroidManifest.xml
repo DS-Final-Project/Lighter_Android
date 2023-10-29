@@ -76,6 +76,14 @@
             android:name=".SolutionActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
+        <activity
+            android:name=".LoverActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".FriendActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
     </application>
 
 </manifest>

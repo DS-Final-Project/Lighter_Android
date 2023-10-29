@@ -2,7 +2,6 @@ package com.example.test_android2.data
 
 
 data class ResponseSolutionDetail(
-    val error: String?,
     val data: List<ResponseSolutionDetailData>?
 )
 

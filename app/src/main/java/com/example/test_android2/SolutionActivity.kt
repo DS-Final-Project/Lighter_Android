@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.test_android2.data.*
 import com.example.test_android2.data.ResponseSolutionDetail
 import com.example.test_android2.databinding.ActivitySolutionBinding
-import com.google.android.play.integrity.internal.t
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -48,7 +48,7 @@ class InfoFragment : Fragment() {
 
         val dpValue = 44
         val d = resources.displayMetrics.density
-        val margin = (dpValue * d).toInt()
+        val margin = (dpValue * d).toInt() //뷰페이저 양옆 마진
 
         adapter = cardviewAdapter(solutions, requireContext())
         viewPager.adapter = adapter
