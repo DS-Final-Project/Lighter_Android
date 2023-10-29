@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -30,7 +31,12 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        viewBinding true
         dataBinding true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
@@ -43,13 +49,37 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //구글
+    implementation 'com.google.gms:google-services:4.3.10'
+    implementation 'com.google.firebase:firebase-auth:22.0.0'
+    implementation 'com.google.firebase:firebase-bom:32.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
     implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.google.android.material:material:1.9.0'
+
+    //카드뷰 슬라이드
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Retrofit with Moshi Converter
+    implementation "com.squareup.retrofit2:converter-scalars:2.9.0"
 
     // OkHttp
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+    implementation "com.google.android.gms:play-services-auth:20.1.0" //google로그인
+    implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0' //xml 로고
+
+    // Dependencies for the REST API example
+    implementation 'com.google.api-client:google-api-client:1.30.5'
+    implementation 'com.google.api-client:google-api-client-android:1.30.5'
+    implementation 'com.google.apis:google-api-services-people:v1-rev99-1.22.0'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
 }
