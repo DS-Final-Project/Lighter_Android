@@ -7,10 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.test_android2.R
 import androidx.databinding.DataBindingUtil
-import com.example.test_android2.MainActivity
-import com.example.test_android2.data.ResponseData
-import com.example.test_android2.data.ServiceCreator
-import com.example.test_android2.data.UserData
+import com.example.test_android2.main.MainActivity
+import com.example.test_android2.ResponseData
+import com.example.test_android2.ServiceCreator
+import com.example.test_android2.UserData
 import com.example.test_android2.databinding.ActivityLoginBinding
 import com.example.test_android2.signup.SignUpActivity
 import retrofit2.Call

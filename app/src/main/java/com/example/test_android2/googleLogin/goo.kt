@@ -12,13 +12,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.test_android2.LighterApplication
-import com.example.test_android2.MainActivity
+import com.example.test_android2.main.LighterApplication
 import com.example.test_android2.R
-import com.example.test_android2.TestStartActivity
-import com.example.test_android2.data.ResponseToken
-import com.example.test_android2.data.ServiceCreator
-import com.example.test_android2.data.TokenData
+import com.example.test_android2.selftest.ui.TestStartActivity
+import com.example.test_android2.googleLogin.api.ResponseToken
+import com.example.test_android2.ServiceCreator
+import com.example.test_android2.googleLogin.api.TokenData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -123,13 +122,13 @@ class goo : AppCompatActivity() {
 
                     val relogin = sharedPreferences.getString("email", null)
 
-                    if(relogin!=null){
-                        val intent = Intent(this@goo, MainActivity::class.java)
-                        startActivity(intent)
-                    } else{
+                   // if(relogin!=null){
+                    //    val intent = Intent(this@goo, MainActivity::class.java)
+                    //    startActivity(intent)
+                    //} else{
                         val intent = Intent(this@goo, TestStartActivity::class.java)
                         startActivity(intent)
-                    }
+                    //}
                 }
             }
 

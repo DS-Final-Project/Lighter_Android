@@ -7,9 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.test_android2.R
-import com.example.test_android2.data.ResponseData
-import com.example.test_android2.data.ServiceCreator
-import com.example.test_android2.data.UserData
+import com.example.test_android2.ResponseData
+import com.example.test_android2.ServiceCreator
+import com.example.test_android2.UserData
 import com.example.test_android2.databinding.ActivitySginUpBinding
 import com.example.test_android2.login.LogInActivity
 import retrofit2.Call

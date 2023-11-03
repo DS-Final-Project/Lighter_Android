@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".LighterApplication"
+        android:name=".main.LighterApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -33,55 +33,55 @@
         </activity>
 
         <activity
-            android:name=".ResultAnalysisActivity"
+            android:name=".analysisresult.ui.ResultAnalysisActivity"
             android:exported="false" />
         <activity
             android:name=".login.LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".TestStartActivity"
+            android:name=".selftest.ui.TestStartActivity"
             android:exported="false" />
         <activity
-            android:name=".TestActivity0"
+            android:name=".selftest.ui.TestActivity0"
             android:exported="false" />
         <activity
-            android:name=".TestActivity1"
+            android:name=".selftest.ui.TestActivity1"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".TestActivity2"
+            android:name=".selftest.ui.TestActivity2"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".TestActivity3"
+            android:name=".selftest.ui.TestActivity3"
             android:exported="false" />
         <activity
-            android:name=".TestActivity4"
+            android:name=".selftest.ui.TestActivity4"
             android:exported="false"
             tools:ignore="Instantiatable" />
 
         <activity
-            android:name=".TestActivity5"
+            android:name=".selftest.ui.TestActivity5"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".TestResultActivity"
+            android:name=".selftest.ui.TestResultActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".SolutionActivity"
+            android:name=".info.ui.SolutionActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".LoverActivity"
+            android:name=".info.ui.LoverActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".FriendActivity"
+            android:name=".info.ui.FriendActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
     </application>
