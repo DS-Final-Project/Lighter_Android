@@ -65,6 +65,9 @@ class TestResultActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val result = response.body()
                     Log.d("자가진단 성공", "$result")
+
+                    updateSharedPreferences()
+
                     val intent = Intent(this@TestResultActivity, MainActivity::class.java)
                     startActivity(intent)
                 }
@@ -74,5 +77,12 @@ class TestResultActivity : AppCompatActivity() {
                 Log.i(TAG, "Network request failed: ${t.message}")
             }
         })
+    }
+
+    private fun updateSharedPreferences() {
+        val sharedPreferences = getSharedPreferences("SelfTestFlag", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("selfTestDone", true)
+        editor.apply()
     }
 }

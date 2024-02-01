@@ -1,6 +1,8 @@
 package com.example.test_android2.main
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 
 class LighterApplication : Application() {
     var userEmail: String? = null
