@@ -15,10 +15,11 @@ import androidx.core.content.ContextCompat
 import com.example.test_android2.LighterApplication
 import com.example.test_android2.MainActivity
 import com.example.test_android2.R
-import com.example.test_android2.TestStartActivity
-import com.example.test_android2.data.ResponseToken
-import com.example.test_android2.data.ServiceCreator
-import com.example.test_android2.data.TokenData
+import com.example.test_android2.selftest.ui.TestStartActivity
+import com.example.test_android2.googleLogin.api.ResponseToken
+import com.example.test_android2.ServiceCreator
+import com.example.test_android2.googleLogin.api.TokenData
+import com.example.test_android2.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -33,11 +34,6 @@ class goo : AppCompatActivity() {
 
     private val RC_SIGN_IN = 1001
     private var idToken =""
-    var TestFlag: Boolean = false
-
-
-    private lateinit var sharedPreferences: SharedPreferences
-    private val editor: SharedPreferences.Editor by lazy { sharedPreferences.edit() }
 
     private lateinit var textView: TextView
 
@@ -54,10 +50,6 @@ class goo : AppCompatActivity() {
         builder.setSpan(colorSpan,19,23,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         textView.text = builder
-
-        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        TestFlag = intent.getBooleanExtra("TestFlag",false)
-
 
         val googleSignInButton: GoogleSignInButton = findViewById(R.id.googlelogin)
         googleSignInButton.setOnClickListener {
@@ -93,11 +85,6 @@ class goo : AppCompatActivity() {
                 Log.w(TAG, "email: $email")
 
                 LighterApplication.getInstance()?.userEmail = email
-
-                //구글아이디 인포로 보내기
-                editor.putString("email", email)
-                editor.apply()
-
             }
 
             val Token = TokenData(idToken,authCode)
@@ -121,15 +108,7 @@ class goo : AppCompatActivity() {
                     Log.d("로그인 성공", "$result")
                     Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
 
-                    val relogin = sharedPreferences.getString("email", null)
-
-                    if(relogin!=null){
-                        val intent = Intent(this@goo, MainActivity::class.java)
-                        startActivity(intent)
-                    } else{
-                        val intent = Intent(this@goo, TestStartActivity::class.java)
-                        startActivity(intent)
-                    }
+                    isSelfTestDone()
                 }
             }
 
@@ -137,6 +116,20 @@ class goo : AppCompatActivity() {
                 Log.i(TAG,"Network request failed: ${t.message}")
             }
         })
+    }
+
+    private fun isSelfTestDone() {
+        val sharedPreferences = getSharedPreferences("SelfTestFlag", Context.MODE_PRIVATE)
+        val selfTestDone = sharedPreferences.getBoolean("selfTestDone", false)
+
+            if(selfTestDone){
+                val intent = Intent(this@goo, MainActivity::class.java)
+                startActivity(intent)
+            } else{
+                val intent = Intent(this@goo, TestStartActivity::class.java)
+                startActivity(intent)
+            }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

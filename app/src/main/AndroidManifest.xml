@@ -36,10 +36,7 @@
             android:name=".ResultAnalysisActivity"
             android:exported="false" />
         <activity
-            android:name=".login.LogInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
