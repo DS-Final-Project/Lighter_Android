@@ -1,7 +1,9 @@
 package com.example.test_android2.upload.ui
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -9,6 +11,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.test_android2.analysisresult.ui.ResultAnalysisActivity
 import com.example.test_android2.analysisresult.data.Chat
@@ -27,16 +32,38 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
     private var _binding: FragmentUploadFileBinding? = null
     private val binding get() = _binding!!
 
+    // 파일 open
+    private val requestPermissionLauncher: ActivityResultLauncher<String> =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                openFileStorage()
+            }
+        }
+
+    // 가져온 파일 uri 보여주기
+    private val pickFileLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                data?.data?.let { uri ->
+                    with(binding) {
+                        btnUpload.visibility = View.INVISIBLE
+                        layoutFile.visibility = View.VISIBLE
+                        tvExplain1.visibility = View.INVISIBLE
+                        tvExplain2.visibility = View.INVISIBLE
+                        tvFileName.visibility = View.VISIBLE
+                        tvFileName.text = uri.toString()
+                    }
+                }
+            }
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentUploadFileBinding.inflate(layoutInflater, container, false)
         return binding.root
 
-    }
-
-    companion object {
-        private const val FILE_REQUEST_CODE = 1001
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,9 +78,14 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
 
     //+버튼 클릭 시
     private fun uploadButtonClickEvent() = binding.btnUpload.setOnClickListener {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*"  // 모든 파일 타입 선택 가능하도록
-        startActivityForResult(intent, FILE_REQUEST_CODE)
+        if (ContextCompat.checkSelfPermission(
+                requireContext(), READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            openFileStorage()
+        } else {
+            requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)
+        }
     }
 
     //업로드 페이지에서 채팅 분석 버튼 클릭 시
@@ -138,6 +170,12 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
         })
     }
 
+    private fun openFileStorage() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "text/*"
+        pickFileLauncher.launch(intent)
+    }
+
     //로딩 바 초기 설정
     private fun init() {
         showProgress(false)
@@ -173,24 +211,6 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
         return fileName
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            data?.data?.let { fileUri -> //val fileName = getFileNameFromUri(fileUri)
-                if (fileUri != null) { // 파일 이름 받아와서 보여주기
-                    with(binding) {
-                        btnUpload.visibility = View.INVISIBLE
-                        layoutFile.visibility = View.VISIBLE
-                        tvExplain1.visibility = View.INVISIBLE
-                        tvExplain2.visibility = View.INVISIBLE
-                        tvFileName.visibility = View.VISIBLE
-                        tvFileName.text = fileUri.toString()
-                    }
-                }
-            }
-        }
-    }
-
     override fun onResume() {
         super.onResume() // Fragment가 다시 시작될 때 로딩 바(프로그레스 바)를 숨김
         showProgress(false)
@@ -202,4 +222,3 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
     }
 
 }
-
