@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UploadFileFragment">
+    tools:context=".upload.ui.UploadFileFragment">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -20,36 +20,40 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/btn_upload"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@drawable/shape_round_upload_button"
             android:elevation="2dp"
-            android:padding="34dp"
+            android:padding="24dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_upload"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.26" />
 
         <FrameLayout
             android:id="@+id/layout_file"
-            android:layout_width="111dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:visibility="invisible"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.26">
 
             <ImageView
                 android:id="@+id/img_file"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_file" />
 
@@ -101,8 +105,8 @@
         <Button
             android:id="@+id/btn_analysis"
             style="@style/TextAppearance.AppCompat.Action.M"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="44dp"
             android:background="@drawable/shape_round_button"
             android:backgroundTint="@color/highlight_darkest"
@@ -110,8 +114,10 @@
             android:text="@string/btn_upload"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.14"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_explain2" />
+            app:layout_constraintTop_toBottomOf="@id/tv_explain2"
+            app:layout_constraintWidth_percent="0.25"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
