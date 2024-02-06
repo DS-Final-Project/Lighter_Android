@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_round_button_border"
             android:text="취소"
+            android:stateListAnimator="@null"
             android:textColor="@color/highlight_darkest"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -60,6 +61,7 @@
             android:background="@drawable/shape_round_button"
             android:backgroundTint="@color/highlight_darkest"
             android:text="통화"
+            android:stateListAnimator="@null"
             android:textColor="@color/white"
             app:layout_constraintStart_toEndOf="@id/noBtn"
             app:layout_constraintTop_toTopOf="parent" />
