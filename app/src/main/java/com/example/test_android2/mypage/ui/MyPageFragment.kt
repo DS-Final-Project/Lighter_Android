@@ -25,7 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.concurrent.thread
 
-class MyPageFragment : Fragment() {
+class MyPageFragment : Fragment(), ConfirmDialogInterface {
 
     private lateinit var expandableAdapter: ExpandableAdapter
     private lateinit var sharedPreferences: SharedPreferences
@@ -201,6 +201,12 @@ class MyPageFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDeleteButtonClick(chatId: String) {
+        val position = expandableAdapter.removeItem(chatId)
+        // 리스트를 삭제한 후 리사이클러뷰 갱신
+        expandableAdapter.notifyDataSetChanged()
     }
 
 }

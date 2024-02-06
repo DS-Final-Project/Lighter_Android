@@ -1,14 +1,22 @@
 package com.example.test_android2.mypage.ui
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test_android2.R.drawable
+import com.example.test_android2.ServiceCreator
 import com.example.test_android2.mypage.data.ItemData
 import com.example.test_android2.mypage.data.ItemDetailData
 import com.example.test_android2.databinding.ItemMypageBinding
 import com.example.test_android2.databinding.ItemMypageDetailBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class ExpandableAdapter(
@@ -122,6 +130,55 @@ class ExpandableAdapter(
                 if (chatId != null) {
                     itemClickListener?.invoke(chatId)
                 }
+            }
+            // 리스트 삭제 버튼 클릭 시
+            binding.imgListDelete.setOnClickListener {
+                if (chatId != null) {
+                    showCustomDialog(chatId)
+                }
+            }
+        }
+    }
+
+    //다이얼로그 보이기
+    private fun showCustomDialog(chatId: String) {
+        val fragmentManager = (mContext as FragmentActivity).supportFragmentManager
+        val dialog = ListDeleteDialog(object : ConfirmDialogInterface {
+            override fun onDeleteButtonClick(chatId: String) {
+                deleteItem(chatId)
+            }
+        }, chatId)
+        dialog.show(fragmentManager, "ListDeleteDialog")
+    }
+
+    private fun deleteItem(chatId: String) {
+
+        val call: Call<Void> = ServiceCreator.chatService.deleteChatResult(chatId)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    removeItem(chatId)
+                } else {
+                    Toast.makeText(mContext, "삭제에 실패했습니다.", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("리스트 삭제 실패", t.message.toString())
+            }
+        })
+    }
+
+    fun removeItem(chatId: String) {
+        // itemList에서 해당 chatId를 가진 아이템을 제거
+        val iterator = itemList.iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (item.type == Constants.CHILD && item.subList.isNotEmpty() && item.subList[0].chatId == chatId) {
+                iterator.remove()
+                notifyItemRemoved(itemList.indexOf(item))
+                break
             }
         }
     }
