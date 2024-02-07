@@ -64,13 +64,12 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
         call.enqueue(object : Callback<ResponseItem> {
             override fun onResponse(
                 call: Call<ResponseItem>, response: Response<ResponseItem>
-            ) {
-                // 로딩 바 숨기기
+            ) { // 로딩 바 숨기기
                 showProgress(false)
 
                 if (response.isSuccessful) {
                     val responseData = response.body()
-                    if(responseData != null){
+                    if (responseData != null) {
                         binding.tvNickname.text = "반가워요,\n${responseData.name} 님"
 
                         responseData.data?.let { dataList ->
@@ -165,7 +164,7 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
                     else -> "위험"
                 }
 
-                item.subList.add(ItemDetailData(chatId, chatDate, noticeText,resultNum)) // 년월에 해당하는 데이터 추가
+                item.subList.add(ItemDetailData(chatId, chatDate, noticeText, resultNum)) // 년월에 해당하는 데이터 추가
             }
         }
 
@@ -185,8 +184,7 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
     }
 
     //로그아웃
-    private fun logout() {
-        //SharedPreferences에서 이메일 제거
+    private fun logout() { //SharedPreferences에서 이메일 제거
         val editor = sharedPreferences.edit()
         editor.remove("email")
         editor.apply()
@@ -204,8 +202,7 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
     }
 
     override fun onDeleteButtonClick(chatId: String) {
-        val position = expandableAdapter.removeItem(chatId)
-        // 리스트를 삭제한 후 리사이클러뷰 갱신
+        expandableAdapter.removeItem(chatId) // 리스트를 삭제한 후 리사이클러뷰 갱신
         expandableAdapter.notifyDataSetChanged()
     }
 

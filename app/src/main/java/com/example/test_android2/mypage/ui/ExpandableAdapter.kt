@@ -130,8 +130,7 @@ class ExpandableAdapter(
                 if (chatId != null) {
                     itemClickListener?.invoke(chatId)
                 }
-            }
-            // 리스트 삭제 버튼 클릭 시
+            } // 리스트 삭제 버튼 클릭 시
             binding.imgListDelete.setOnClickListener {
                 if (chatId != null) {
                     showCustomDialog(chatId)
@@ -170,8 +169,7 @@ class ExpandableAdapter(
         })
     }
 
-    fun removeItem(chatId: String) {
-        // itemList에서 해당 chatId를 가진 아이템을 제거
+    fun removeItem(chatId: String) { // itemList에서 해당 chatId를 가진 아이템을 제거
         val iterator = itemList.iterator()
         while (iterator.hasNext()) {
             val item = iterator.next()
