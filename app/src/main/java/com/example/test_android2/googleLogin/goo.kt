@@ -104,10 +104,19 @@ class goo : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val result = response.body()
+                    result?.let {
+                        if (it.loginStatus == true) {
+                            val intent = Intent(this@goo, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            val intent = Intent(this@goo, TestStartActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
                     Log.d("로그인 성공", "$result")
                     Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
-
-                    isSelfTestDone()
                 }
             }
 
