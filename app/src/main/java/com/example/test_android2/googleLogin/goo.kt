@@ -69,10 +69,35 @@ class goo : AppCompatActivity() {
         }
     }
 
-    private fun sendToServer(idToken: String) {
-        // 서버로 idToken 등 필요한 정보를 전송하고 처리하는 로직을 구현하세요.
-        // 이 부분에서 구글 로그인을 처리한 후 필요한 작업을 수행합니다.
-        // 예를 들어, 액세스 토큰을 서버로 전송하고 사용자 인증 등의 작업을 수행할 수 있습니다.
+    private fun sendToServer(Token: TokenData) {
+        val call: Call<ResponseToken> = ServiceCreator.tokenService.tokenResult(Token)
+
+        call.enqueue(object : Callback<ResponseToken> {
+            override fun onResponse(
+                call: Call<ResponseToken>, response: Response<ResponseToken>
+            ) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    result?.let {
+                        if (it.loginStatus == true) {
+                            val intent = Intent(this@goo, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            val intent = Intent(this@goo, TestStartActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
+                    Log.d("로그인 성공", "$result")
+                    Toast.makeText(this@goo, "로그인 되었습니다.", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseToken>, t: Throwable) {
+                Log.i(TAG,"Network request failed: ${t.message}")
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
