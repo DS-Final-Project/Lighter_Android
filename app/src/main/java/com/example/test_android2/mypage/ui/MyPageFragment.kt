@@ -72,10 +72,15 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
                     if (responseData != null) {
                         binding.tvNickname.text = "반가워요,\n${responseData.name} 님"
 
-                        responseData.data?.let { dataList ->
+                        if (responseData.data != null && responseData.data.isNotEmpty()) {
+                            val dataList = responseData.data
                             val processedData = processData(dataList)
                             setupAdapter(processedData)
+                        } else {
+                            Toast.makeText(context, "불러올 리스트가 없습니다.", Toast.LENGTH_SHORT).show()
                         }
+                    } else {
+                        Toast.makeText(context, "불러올 리스트가 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
