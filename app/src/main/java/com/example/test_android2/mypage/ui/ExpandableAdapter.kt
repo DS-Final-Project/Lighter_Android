@@ -23,7 +23,7 @@ class ExpandableAdapter(
     private val mContext: Context, private var itemList: MutableList<ItemData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    //아이템 클릭 리스너 설정 변수
+    // 아이템 클릭 리스너 설정 변수
     private var itemClickListener: ((String) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (String) -> Unit) {
@@ -68,7 +68,7 @@ class ExpandableAdapter(
         var nextPosition = position
         if (currentBoardingRow.type == Constants.PARENT) {
             services.forEach { service ->
-                val parentModel = ItemData(chatYearMonth = "")
+                val parentModel = ItemData(chatYearMonth = service.chatDay.substring(0, 7))
                 parentModel.type = Constants.CHILD
                 val subList: ArrayList<ItemDetailData> = ArrayList()
                 subList.add(service)
@@ -169,14 +169,34 @@ class ExpandableAdapter(
         })
     }
 
-    fun removeItem(chatId: String) { // itemList에서 해당 chatId를 가진 아이템을 제거
+    fun removeItem(chatId: String) {
+        var yearMonth: String? = null // 삭제할 자식 아이템의 날짜-월 초기화
+
         val iterator = itemList.iterator()
         while (iterator.hasNext()) {
             val item = iterator.next()
-            if (item.type == Constants.CHILD && item.subList.isNotEmpty() && item.subList[0].chatId == chatId) {
-                iterator.remove()
-                notifyItemRemoved(itemList.indexOf(item))
-                break
+            if (item.type == Constants.CHILD && item.subList.isNotEmpty()) {
+                val subList = item.subList
+                var removeIndex: Int? = null // 삭제할 아이템의 인덱스
+                for (i in 0 until subList.size) {
+                    val childItem = subList[i]
+                    if (childItem.chatId == chatId) {
+                        removeIndex = i
+                        yearMonth = childItem.chatDay.substring(0, 7)
+                        break
+                    }
+                }
+                removeIndex?.let { it ->
+                    subList.removeAt(it) // 삭제할 아이템 제거
+                    if (subList.isEmpty()) {
+                        iterator.remove() // sublist가 비어있는 경우에는 부모 아이템 제거
+                    }
+                    if (itemList.count { it.chatYearMonth == yearMonth } == 1) {
+                        itemList.removeAll { it.chatYearMonth == yearMonth } // 동일한 날짜-월을 가진 ItemData 삭제
+                    }
+                    notifyDataSetChanged()
+                    return
+                }
             }
         }
     }
