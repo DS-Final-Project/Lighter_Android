@@ -44,15 +44,17 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
         super.onViewCreated(view, savedInstanceState)
 
         init()
-        showProgress(true)
-        binding.progressBar.bringToFront()
-        thread(start = true) {
-            Thread.sleep(3000)
-        }
+        logoutButtonClickEvent()
         itemNetwork()
+    }
 
-        sharedPreferences = activity?.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE) ?: return
+    // 마이페이지 초기 설정
+    private fun init() {
+        showProgress(true)
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE) ?: return
+    }
 
+    private fun logoutButtonClickEvent() {
         binding.btnLogout.setOnClickListener {
             logout()
         }
@@ -69,25 +71,21 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
 
                 if (response.isSuccessful) {
                     val responseData = response.body()
-                    if (responseData != null) {
-                        binding.tvNickname.text = "반가워요,\n${responseData.name} 님"
+                    responseData?.let {
+                        binding.tvNickname.text = "반가워요,\n${it.name} 님"
 
-                        if (responseData.data != null && responseData.data.isNotEmpty()) {
-                            val dataList = responseData.data
-                            val processedData = processData(dataList)
-                            setupAdapter(processedData)
+                        if (it.data.isNullOrEmpty()) {
+                            showErrorToast("불러올 리스트가 없습니다.")
                         } else {
-                            Toast.makeText(context, "불러올 리스트가 없습니다.", Toast.LENGTH_SHORT).show()
+                            setupAdapter(processData(it.data))
                         }
-                    } else {
-                        Toast.makeText(context, "불러올 리스트가 없습니다.", Toast.LENGTH_SHORT).show()
-                    }
+                    } ?: showErrorToast("불러올 리스트가 없습니다.")
                 }
             }
 
             override fun onFailure(call: Call<ResponseItem>, t: Throwable) {
                 Log.e("NetworkTest", "error:$t")
-                Toast.makeText(context, "리스트를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                showErrorToast("리스트를 불러오지 못했습니다.")
             }
 
         })
@@ -98,7 +96,7 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
         binding.recyclerList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerList.adapter = expandableAdapter
 
-        //아이템 클릭 시 이벤트
+        // 아이템 클릭 시 이벤트
         expandableAdapter.setOnItemClickListener { chatId ->
             fetchChatData(chatId)
         }
@@ -108,37 +106,26 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
     private fun fetchChatData(chatId: String?) {
         chatId?.let {
             val call: Call<ResponseChat> = ServiceCreator.chatService.getChatResultData(chatId)
-
             call.enqueue(object : Callback<ResponseChat> {
                 override fun onResponse(call: Call<ResponseChat>, response: Response<ResponseChat>) {
                     if (response.isSuccessful) {
                         response.body()?.let { responseData ->
                             val data = responseData.data
-                            val resultNum = data.resultNum
-                            val doubtText1 = data.doubtText1
-                            val doubtText2 = data.doubtText2
-                            val doubtText3 = data.doubtText3
-                            val doubtText4 = data.doubtText4
-                            val doubtText5 = data.doubtText5
-                            val avoidScore = data.avoidScore
-                            val anxietyScore = data.anxietyScore
-                            val testType = data.testType
-                            val relation = data.relation
-
                             val mychat = Chat(
-                                resultNum,
-                                doubtText1,
-                                doubtText2,
-                                doubtText3,
-                                doubtText4,
-                                doubtText5,
-                                avoidScore,
-                                anxietyScore,
-                                testType,
-                                relation
+                                data.resultNum,
+                                data.doubtText1,
+                                data.doubtText2,
+                                data.doubtText3,
+                                data.doubtText4,
+                                data.doubtText5,
+                                data.avoidScore,
+                                data.anxietyScore,
+                                data.testType,
+                                data.relation
                             )
-                            val intent = Intent(context, ResultAnalysisActivity::class.java)
-                            intent.putExtra("mychat", mychat)
+                            val intent = Intent(context, ResultAnalysisActivity::class.java).apply {
+                                putExtra("mychat", mychat)
+                            }
                             startActivity(intent)
                         }
                     }
@@ -177,38 +164,34 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
         return itemMap.values.toMutableList()
     }
 
-    //로딩 바 초기 설정
-    private fun init() {
-        showProgress(false)
-    }
-
-    //로딩 바 보이기
+    // 로딩 바 보이기
     private fun showProgress(isShow: Boolean) {
         if (isShow) binding.progressBar.visibility = View.VISIBLE
         else binding.progressBar.visibility = View.GONE
     }
 
-    //로그아웃
-    private fun logout() { //SharedPreferences에서 이메일 제거
-        val editor = sharedPreferences.edit()
-        editor.remove("email")
-        editor.apply()
-
-        //로그아웃 시 로그인 화면으로 이동
-        val intent = Intent(context, goo::class.java)
-        startActivity(intent)
-
-        activity?.finish()
+    private fun showErrorToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    // 로그아웃
+    private fun logout() { // SharedPreferences에서 이메일 제거
+        sharedPreferences.edit().remove("email").apply()
+
+        // 로그아웃 시 로그인 화면으로 이동
+        val intent = Intent(context, goo::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     override fun onDeleteButtonClick(chatId: String) {
         expandableAdapter.removeItem(chatId) // 리스트를 삭제한 후 리사이클러뷰 갱신
         expandableAdapter.notifyDataSetChanged()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
