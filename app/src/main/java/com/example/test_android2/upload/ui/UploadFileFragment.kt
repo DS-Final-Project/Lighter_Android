@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -166,6 +167,7 @@ class UploadFileFragment : Fragment(), ConfirmDialogInterface {
             override fun onFailure(call: Call<ResponseChat>, t: Throwable) {
                 showProgress(false)
                 Log.d("문장 분석 실패", t.message.toString())
+                Toast.makeText(requireContext(), "분석에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show()
             }
         })
     }

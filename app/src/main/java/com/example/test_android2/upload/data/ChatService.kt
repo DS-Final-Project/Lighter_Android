@@ -4,6 +4,7 @@ import com.example.test_android2.analysisresult.data.ResponseChat
 import com.example.test_android2.mypage.data.ResponseItem
 import okhttp3.MultipartBody
 import retrofit2.Call
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -28,4 +29,7 @@ interface ChatService {
 
     @GET("/mypage/chatResult/{chatId}")
     fun getChatResultData(@Path("chatId") chatId: String): Call<ResponseChat>
+
+    @DELETE("/mypage/chatResult/{chatId}")
+    fun deleteChatResult(@Path("chatId") chatId: String): Call<Void>
 }
