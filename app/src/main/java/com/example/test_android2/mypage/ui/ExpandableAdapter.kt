@@ -19,6 +19,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
+object Constants {
+    const val PARENT = 0
+    const val CHILD = 1
+}
+
 class ExpandableAdapter(
     private val mContext: Context, private var itemList: MutableList<ItemData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -93,9 +98,7 @@ class ExpandableAdapter(
 
     override fun getItemViewType(position: Int): Int = itemList[position].type
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
+    override fun getItemId(position: Int): Long = position.toLong()
 
     inner class GroupViewHolder(private val binding: ItemMypageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(itemData: ItemData, position: Int) {
@@ -127,14 +130,10 @@ class ExpandableAdapter(
             }
 
             binding.root.setOnClickListener {
-                if (chatId != null) {
-                    itemClickListener?.invoke(chatId)
-                }
+                chatId?.let { itemClickListener?.invoke(it) }
             } // 리스트 삭제 버튼 클릭 시
             binding.imgListDelete.setOnClickListener {
-                if (chatId != null) {
-                    showCustomDialog(chatId)
-                }
+                chatId?.let { showCustomDialog(it) }
             }
         }
     }
@@ -151,7 +150,6 @@ class ExpandableAdapter(
     }
 
     private fun deleteItem(chatId: String) {
-
         val call: Call<Void> = ServiceCreator.chatService.deleteChatResult(chatId)
 
         call.enqueue(object : Callback<Void> {
@@ -178,7 +176,7 @@ class ExpandableAdapter(
             if (item.type == Constants.CHILD && item.subList.isNotEmpty()) {
                 val subList = item.subList
                 var removeIndex: Int? = null // 삭제할 아이템의 인덱스
-                for (i in 0 until subList.size) {
+                for (i in subList.indices) {
                     val childItem = subList[i]
                     if (childItem.chatId == chatId) {
                         removeIndex = i
@@ -191,8 +189,19 @@ class ExpandableAdapter(
                     if (subList.isEmpty()) {
                         iterator.remove() // sublist가 비어있는 경우에는 부모 아이템 제거
                     }
+
                     if (itemList.count { it.chatYearMonth == yearMonth } == 1) {
                         itemList.removeAll { it.chatYearMonth == yearMonth } // 동일한 날짜-월을 가진 ItemData 삭제
+                    } else { // 부모 ItemData에서도 해당하는 chatId를 가진 ItemDetailData를 삭제
+                        for (parentItem in itemList) {
+                            if (parentItem.type == Constants.PARENT && parentItem.chatYearMonth == yearMonth) {
+                                val parentDetail = parentItem.subList.find { it.chatId == chatId }
+                                if (parentDetail != null) {
+                                    parentItem.subList.remove(parentDetail)
+                                    break
+                                }
+                            }
+                        }
                     }
                     notifyDataSetChanged()
                     return
@@ -200,9 +209,4 @@ class ExpandableAdapter(
             }
         }
     }
-}
-
-object Constants {
-    const val PARENT = 0
-    const val CHILD = 1
 }
