@@ -1,10 +1,13 @@
 package com.example.test_android2.googleLogin
 
 import android.util.Log
+import com.example.test_android2.ServiceCreator
 import com.example.test_android2.googleLogin.model.LoginGoogleRequestModel
 import com.example.test_android2.googleLogin.model.LoginGoogleResponseModel
 import com.example.test_android2.googleLogin.model.SendAccessTokenModel
 import com.example.test_android2.googleLogin.api.LoginService
+import com.example.test_android2.googleLogin.api.ResponseToken
+import com.example.test_android2.googleLogin.api.TokenData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,6 +48,21 @@ class LoginRepository {
             }
             override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.e(TAG, "sendOnFailure: ${t.fillInStackTrace()}", )
+            }
+        })
+    }
+
+    fun sendToServer(token: TokenData, callback: (Response<ResponseToken>?) -> Unit) {
+        val call: Call<ResponseToken> = ServiceCreator.tokenService.tokenResult(token)
+        call.enqueue(object : Callback<ResponseToken> {
+            override fun onResponse(
+                call: Call<ResponseToken>, response: Response<ResponseToken>
+            ) {
+                callback(response)
+            }
+            override fun onFailure(call: Call<ResponseToken>, t: Throwable) {
+                Log.i(TAG,"Network request failed: ${t.message}")
+                callback(null)
             }
         })
     }
