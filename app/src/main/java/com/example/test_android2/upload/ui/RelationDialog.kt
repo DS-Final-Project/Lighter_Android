@@ -12,11 +12,9 @@ import com.example.test_android2.upload.data.ChatData
 import com.example.test_android2.databinding.DialogRelationBinding
 
 class RelationDialog(
-    private val confirmDialogInterface: ConfirmDialogInterface,
-    private val chatData: ChatData
+    private val confirmDialogInterface: ConfirmDialogInterface, private val chatData: ChatData
 ) : DialogFragment() {
 
-    // 뷰 바인딩 정의
     private var _binding: DialogRelationBinding? = null
     private val binding get() = _binding!!
 
@@ -24,42 +22,42 @@ class RelationDialog(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = DialogRelationBinding.inflate(inflater, container, false)
-        val view = binding.root
-
         // 레이아웃 배경을 투명하게
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogButtonClickEvent()
+        return binding.root
+    }
 
-        // 완료 버튼 클릭
+    private fun dialogButtonClickEvent() { // 완료 버튼 클릭
         binding.btnOk.setOnClickListener {
             val selectedRadioButtonId = binding.rgRelation.checkedRadioButtonId
-            if(selectedRadioButtonId != -1) {
-                val radioButton: RadioButton = view.findViewById(selectedRadioButtonId)
+            if (selectedRadioButtonId != -1) {
+                val radioButton = view?.findViewById<RadioButton>(selectedRadioButtonId)
 
                 //선택한 값에 따라 int 데이터 전달
-                val dataToSend = when (radioButton.text.toString()) {
-                    "연인" -> 1
-                    "친구" -> 2
-                    "가족" -> 3
-                    "동료" -> 4
-                    else -> 0 //예외 처리
+                radioButton?.let {
+                    val relationType = when (it.text.toString()) {
+                        "연인" -> 1
+                        "친구" -> 2
+                        "가족" -> 3
+                        "동료" -> 4
+                        else -> 0 // Default value
+                    }
+                    chatData.relation = relationType
+                    confirmDialogInterface.onOkButtonClick(chatData)
                 }
-                chatData.relation = dataToSend
-                confirmDialogInterface.onOkButtonClick(chatData)
             }
             dismiss()
         }
-
-        return view
     }
 
     override fun onStart() {
         super.onStart()
 
         // Dialog의 너비를 화면 너비의 80%로 설정
-        dialog?.window?.let {
-            val width = (resources.displayMetrics.widthPixels * 0.8).toInt()
-            it.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
-        }
+        dialog?.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.8).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 
     override fun onDestroyView() {

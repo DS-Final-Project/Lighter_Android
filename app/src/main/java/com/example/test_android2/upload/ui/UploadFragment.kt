@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class UploadFragment : Fragment() {
 
     private lateinit var viewPager: ViewPager2
-    private lateinit var tabLayout : TabLayout
+    private lateinit var tabLayout: TabLayout
 
     private var _binding: FragmentUploadBinding? = null
     private val binding get() = _binding!!
@@ -46,10 +46,9 @@ class UploadFragment : Fragment() {
         pagerAdapter.addFragment(UploadImageFragment())
 
         viewPager.adapter = pagerAdapter
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                // 최초 생성이 아닌 경우에만 로딩 바를 숨김
+                super.onPageSelected(position) // 최초 생성이 아닌 경우에만 로딩 바를 숨김
                 if (!isInitialCreation) {
                     showProgress(false)
                 }
@@ -57,13 +56,14 @@ class UploadFragment : Fragment() {
         })
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when(position) {
-                0 -> tab.text = "파일"
-                1 -> tab.text = "사진"
+            tab.text = when (position) {
+                0 -> "파일"
+                1 -> "사진"
+                else -> ""
             }
         }.attach()
 
-        // 최초 생성 여부를 false로 설정합니다.
+        // 최초 생성 여부를 false로 설정
         isInitialCreation = false
     }
 
@@ -73,8 +73,7 @@ class UploadFragment : Fragment() {
     }
 
     private fun showProgress(isShow: Boolean) {
-        val activity = activity as? AppCompatActivity
-        activity?.findViewById<ProgressBar>(R.id.progressBar)?.visibility =
-            if (isShow) View.VISIBLE else View.GONE
+        val progressBar = requireActivity().findViewById<ProgressBar>(R.id.progressBar)
+        progressBar.visibility = if (isShow) View.VISIBLE else View.GONE
     }
 }

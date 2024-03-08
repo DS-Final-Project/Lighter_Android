@@ -36,13 +36,11 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
     // 갤러리 open
     private val requestPermissionLauncher: ActivityResultLauncher<String> =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                openGallery()
-            }
+            if (isGranted) openGallery()
         }
 
     // 가져온 사진 uri 보여주기
-    private val pickImageLauncher: ActivityResultLauncher<Intent> =
+    private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val data: Intent? = result.data
@@ -69,18 +67,15 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        init()
         initButtonClickEvent()
-        uploadButtonClickEvent()
-        deleteButtonClickEvent()
     }
 
-    // +버튼 클릭 시
-    private fun uploadButtonClickEvent() {
+    private fun initButtonClickEvent() {
+
+        // +버튼 클릭 시
         binding.btnUpload.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    READ_EXTERNAL_STORAGE
+                    requireContext(), READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 openGallery()
@@ -88,38 +83,41 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
                 requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)
             }
         }
-    }
 
-    //업로드 페이지에서 채팅 분석 버튼 클릭 시
-    private fun initButtonClickEvent() = binding.btnAnalysis.setOnClickListener { //변수명 변경하기
-        val chatImage = binding.tvPhotoName.text.toString()
-        val chatData = ChatData(chatImage)
-        showCustomDialog(chatData)
-    }
+        // 채팅 분석 버튼 클릭 시
+        binding.btnAnalysis.setOnClickListener {
+            val chatImage = binding.tvPhotoName.text.toString()
+            val chatData = ChatData(chatImage)
+            showCustomDialog(chatData)
+        }
 
-    //파일 삭제 버튼 클릭 시
-    private fun deleteButtonClickEvent() = binding.btnDelete.setOnClickListener {
-        with(binding) {
-            tvPhotoName.text = ""
-            layoutImage.visibility = View.INVISIBLE
-            tvPhotoName.visibility = View.INVISIBLE
-            btnUpload.visibility = View.VISIBLE
-            tvExplain1.visibility = View.VISIBLE
-            tvExplain2.visibility = View.VISIBLE
+        // 이미지 삭제 버튼 클릭 시
+        binding.btnDelete.setOnClickListener {
+            with(binding) {
+                tvPhotoName.text = ""
+                layoutImage.visibility = View.INVISIBLE
+                tvPhotoName.visibility = View.INVISIBLE
+                btnUpload.visibility = View.VISIBLE
+                tvExplain1.visibility = View.VISIBLE
+                tvExplain2.visibility = View.VISIBLE
+            }
         }
     }
 
-    private fun chatNetwork(relation: Int, imageUri: Uri) { // 로딩 바 보이기
+    private fun chatNetwork(relation: Int, imageUri: Uri) {
+
+        // 로딩 바 보이기
         showProgress(true)
 
-        // 이미지 Uri로부터 InputStream을 가져옵니다.
-        val inputStream = context?.contentResolver?.openInputStream(imageUri) // InputStream을 MultipartBody.Part로 변환합니다.
+        // 이미지 Uri로부터 InputStream을 가져옴
+        val inputStream =
+            requireContext().contentResolver?.openInputStream(imageUri) // InputStream을 MultipartBody.Part로 변환합니다.
         val requestFile = okhttp3.RequestBody.create(
             "image/*".toMediaTypeOrNull(), inputStream!!.readBytes()
         )
         val imagePart = MultipartBody.Part.createFormData("image", "uploaded_image.jpg", requestFile)
 
-        // relation 값을 RequestBody로 변환합니다.
+        // relation 값을 RequestBody로 변환
         val relationRequestBody = okhttp3.RequestBody.create(
             "text/plain".toMediaTypeOrNull(), relation.toString()
         )
@@ -135,28 +133,17 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
                 if (response.isSuccessful) {
                     response.body()?.let { responseData ->
                         val data = responseData.data
-                        val resultNum = data.resultNum
-                        val doubtText1 = data.doubtText1
-                        val doubtText2 = data.doubtText2
-                        val doubtText3 = data.doubtText3
-                        val doubtText4 = data.doubtText4
-                        val doubtText5 = data.doubtText5
-                        val avoidScore = data.avoidScore
-                        val anxietyScore = data.anxietyScore
-                        val testType = data.testType
-                        val relation = data.relation
-
-                        var mychat = Chat(
-                            resultNum,
-                            doubtText1,
-                            doubtText2,
-                            doubtText3,
-                            doubtText4,
-                            doubtText5,
-                            avoidScore,
-                            anxietyScore,
-                            testType,
-                            relation
+                        val mychat = Chat(
+                            data.resultNum,
+                            data.doubtText1,
+                            data.doubtText2,
+                            data.doubtText3,
+                            data.doubtText4,
+                            data.doubtText5,
+                            data.avoidScore,
+                            data.anxietyScore,
+                            data.testType,
+                            data.relation
                         )
                         val intent = Intent(context, ResultAnalysisActivity::class.java)
                         intent.putExtra("mychat", mychat)
@@ -176,11 +163,6 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         pickImageLauncher.launch(intent)
-    }
-
-    //로딩 바 초기 설정
-    private fun init() {
-        showProgress(false)
     }
 
     //로딩 바 보이기
