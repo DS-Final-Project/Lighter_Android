@@ -52,11 +52,12 @@ dependencies {
     //구글
     implementation 'com.google.gms:google-services:4.3.10'
     implementation 'com.google.firebase:firebase-bom:32.0.0'
-
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.google.android.material:material:1.9.0'
+    implementation "com.google.android.gms:play-services-auth:20.7.0" //google로그인
+    implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0' //xml 로고
 
-    //카드뷰 슬라이드
+    // CardView ViewPager2
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
@@ -69,9 +70,6 @@ dependencies {
     // OkHttp
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
-
-    implementation "com.google.android.gms:play-services-auth:20.7.0" //google로그인
-    implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0' //xml 로고
 
     // Dependencies for the REST API example
     implementation 'com.google.api-client:google-api-client:1.30.5'

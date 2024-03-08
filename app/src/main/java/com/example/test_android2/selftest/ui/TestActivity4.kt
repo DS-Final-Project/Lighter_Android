@@ -1,6 +1,6 @@
 package com.example.test_android2.selftest.ui
 
-
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,24 +8,21 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.test_android2.R.id
 import com.example.test_android2.R.string
 import com.example.test_android2.selftest.data.TestData
 import com.example.test_android2.selftest.data.TestModel
-import com.example.test_android2.databinding.ActivityTest4Binding
-import com.example.test_android2.googleLogin.LoginGoogle
-
+import com.example.test_android2.databinding.ActivitySelftestBinding
 
 class TestActivity4 : AppCompatActivity(){
 
-    private lateinit var binding: ActivityTest4Binding
+    private lateinit var binding: ActivitySelftestBinding
     private lateinit var questionList: ArrayList<TestModel>
     private var currentPosition: Int = 24 //질문 위치
     var isRadioGroupClickable = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTest4Binding.inflate(layoutInflater)
+        binding = ActivitySelftestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //질문 리스트 가져오기
@@ -37,18 +34,12 @@ class TestActivity4 : AppCompatActivity(){
 
         //화면 셋팅
         getQuestionData()
-        val optionsGroup0: RadioGroup = findViewById(id.options_group0)
-        optionsGroup0.setOnCheckedChangeListener(radioGroupClickListener)
-        val optionsGroup1: RadioGroup = findViewById(id.options_group1)
-        optionsGroup1.setOnCheckedChangeListener(radioGroupClickListener)
-        val optionsGroup2: RadioGroup = findViewById(id.options_group2)
-        optionsGroup2.setOnCheckedChangeListener(radioGroupClickListener)
-        val optionsGroup3: RadioGroup = findViewById(id.options_group3)
-        optionsGroup3.setOnCheckedChangeListener(radioGroupClickListener)
-        val optionsGroup4: RadioGroup = findViewById(id.options_group4)
-        optionsGroup4.setOnCheckedChangeListener(radioGroupClickListener)
-        val optionsGroup5: RadioGroup = findViewById(id.options_group5)
-        optionsGroup5.setOnCheckedChangeListener(radioGroupClickListener)
+
+        // 라디오버튼 클릭리스너
+        for (i in 0 until 6) {
+            val optionsGroup: RadioGroup = findViewById(resources.getIdentifier("options_group$i", "id", packageName))
+            optionsGroup.setOnCheckedChangeListener(radioGroupClickListener)
+        }
 
         binding.submitBtn.setOnClickListener {
             val avoidGroups = listOf(
@@ -108,7 +99,7 @@ class TestActivity4 : AppCompatActivity(){
                 intent.putExtra("anxietyScore", anxietyScore)
                 startActivity(intent)
             } else {
-                Log.i(LoginGoogle.TAG, "미답변")
+                Log.i(TAG, "미답변")
                 Toast.makeText(this, "모든 질문에 답변을 해주세요.", Toast.LENGTH_SHORT).show()
                 avoidScore = intent.getFloatExtra("avoidScore", 0F)
                 anxietyScore = intent.getFloatExtra("anxietyScore", 0F)

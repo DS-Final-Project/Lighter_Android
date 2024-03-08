@@ -165,7 +165,7 @@ class InfoFragment : Fragment() {
                                 adapter.addCardView(mysolution)
 
                                 // Solution 객체의 정보를 로그에 출력
-                                Log.d("Solution", mysolution.toString())
+                                Log.d("Info페이지 Solution", mysolution.toString())
                             }
                         }
                     }
