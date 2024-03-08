@@ -19,11 +19,12 @@ import com.example.test_android2.analysisresult.data.ResponseChat
 import com.example.test_android2.mypage.data.ResponseItem
 import com.example.test_android2.ServiceCreator
 import com.example.test_android2.databinding.FragmentMyPageBinding
+import com.example.test_android2.googleLogin.LoginGoogle
+import com.example.test_android2.googleLogin.LoginGoogle.Companion.TAG
 import com.example.test_android2.googleLogin.LoginGoogleActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.concurrent.thread
 
 class MyPageFragment : Fragment(), ConfirmDialogInterface {
 
@@ -44,7 +45,7 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
         super.onViewCreated(view, savedInstanceState)
 
         init()
-        logoutButtonClickEvent()
+        initButtonClickEvent()
         itemNetwork()
     }
 
@@ -54,9 +55,13 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
         sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE) ?: return
     }
 
-    private fun logoutButtonClickEvent() {
+    private fun initButtonClickEvent() {
         binding.btnLogout.setOnClickListener {
             logout()
+        }
+
+        binding.btnSignout.setOnClickListener {
+            stateNetwork()
         }
     }
 
@@ -88,6 +93,26 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
                 showErrorToast("리스트를 불러오지 못했습니다.")
             }
 
+        })
+    }
+
+    private fun stateNetwork() {
+        val call: Call<Void> = ServiceCreator.tokenService.deleteAccount()
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    signout()
+                } else {
+                    Log.e(TAG, "Failed to send email to server")
+                    showErrorToast("회원 탈퇴에 실패했습니다.")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("NetworkTest", "error:$t")
+                showErrorToast("회원 탈퇴에 실패했습니다.")
+            }
         })
     }
 
@@ -178,10 +203,26 @@ class MyPageFragment : Fragment(), ConfirmDialogInterface {
     private fun logout() { // SharedPreferences에서 이메일 제거
         sharedPreferences.edit().remove("email").apply()
 
+        val loginGoogle = LoginGoogle(requireContext())
+        loginGoogle.signOut(requireContext())
+
         // 로그아웃 시 로그인 화면으로 이동
-        val intent = Intent(context, goo::class.java)
+        val intent = Intent(context, LoginGoogleActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
+    }
+
+    // 회원 탈퇴
+    private fun signout() {
+        val loginGoogle = LoginGoogle(requireContext())
+        loginGoogle.disconnect(requireContext()) { // 연동 해제가 성공한 경우에만 이후 작업 수행
+            sharedPreferences.edit().remove("email").apply()
+
+            // 회원탈퇴 시 로그인 화면으로 이동
+            val intent = Intent(context, LoginGoogleActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
     }
 
     override fun onDeleteButtonClick(chatId: String) {

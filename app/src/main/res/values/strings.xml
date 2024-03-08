@@ -9,6 +9,7 @@
     <string name="signup_done">가입 완료</string>
     <string name="login">로그인</string>
     <string name="logout">로그 아웃</string>
+    <string name="signout">회원 탈퇴</string>
     <string name="kakaologin">혹시 나도? \n확인하고 싶을 땐,\n라-이터</string>
     <string name="kakaotext">카카오 계정 연동으로 시작해보세요!</string>
     <string name="googletext">구글 계정 연동으로 시작해보세요!</string>
