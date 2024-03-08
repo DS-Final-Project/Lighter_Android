@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.test_android2">
+    package="com.example.test_android2"
+    tools:ignore="LockedOrientationActivity">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".main.LighterApplication"
@@ -34,44 +35,55 @@
 
         <activity
             android:name=".analysisresult.ui.ResultAnalysisActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.MainActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".selftest.ui.TestStartActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".selftest.ui.TestActivity0"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".selftest.ui.TestActivity1"
             android:exported="false"
+            android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".selftest.ui.TestActivity2"
             android:exported="false"
+            android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".selftest.ui.TestActivity3"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".selftest.ui.TestActivity4"
             android:exported="false"
+            android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />
 
         <activity
             android:name=".selftest.ui.TestActivity5"
             android:exported="false"
+            android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".selftest.ui.TestResultActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".info.ui.SolutionActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />
     </application>
 

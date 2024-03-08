@@ -1,10 +1,10 @@
 package com.example.test_android2.upload.ui
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -12,7 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.test_android2.analysisresult.ui.ResultAnalysisActivity
 import com.example.test_android2.analysisresult.data.Chat
@@ -31,16 +33,37 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
     private var _binding: FragmentUploadImageBinding? = null
     private val binding get() = _binding!!
 
+    // 갤러리 open
+    private val requestPermissionLauncher: ActivityResultLauncher<String> =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                openGallery()
+            }
+        }
+
+    // 가져온 사진 uri 보여주기
+    private val pickImageLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val data: Intent? = result.data
+                data?.data?.let { uri ->
+                    with(binding) {
+                        btnUpload.visibility = View.INVISIBLE
+                        layoutImage.visibility = View.VISIBLE
+                        tvExplain1.visibility = View.INVISIBLE
+                        tvExplain2.visibility = View.INVISIBLE
+                        tvPhotoName.visibility = View.VISIBLE
+                        tvPhotoName.text = uri.toString()
+                    }
+                }
+            }
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentUploadImageBinding.inflate(layoutInflater, container, false)
         return binding.root
-    }
-
-    companion object {
-        private const val PERMISSION_Album = 101 // 앨범 권한 처리
-        private const val REQUEST_STORAGE = 102 // 갤러리 요청 코드
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,20 +77,15 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
 
     // +버튼 클릭 시
     private fun uploadButtonClickEvent() {
-        binding.btnUpload.setOnClickListener { // Android 10 이상인 경우 권한 요청
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                if (ActivityCompat.checkSelfPermission(
-                        requireContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    openGallery()
-                } else {
-                    ActivityCompat.requestPermissions(
-                        requireActivity(), arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album
-                    )
-                }
-            } else { // Android 10 미만인 경우 갤러리 열기
+        binding.btnUpload.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 openGallery()
+            } else {
+                requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)
             }
         }
     }
@@ -91,23 +109,19 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
         }
     }
 
-    private fun chatNetwork(relation: Int, imageUri: Uri) {
-        // 로딩 바 보이기
+    private fun chatNetwork(relation: Int, imageUri: Uri) { // 로딩 바 보이기
         showProgress(true)
 
         // 이미지 Uri로부터 InputStream을 가져옵니다.
-        val inputStream = context?.contentResolver?.openInputStream(imageUri)
-        // InputStream을 MultipartBody.Part로 변환합니다.
+        val inputStream = context?.contentResolver?.openInputStream(imageUri) // InputStream을 MultipartBody.Part로 변환합니다.
         val requestFile = okhttp3.RequestBody.create(
-            "image/*".toMediaTypeOrNull(),
-            inputStream!!.readBytes()
+            "image/*".toMediaTypeOrNull(), inputStream!!.readBytes()
         )
         val imagePart = MultipartBody.Part.createFormData("image", "uploaded_image.jpg", requestFile)
 
         // relation 값을 RequestBody로 변환합니다.
         val relationRequestBody = okhttp3.RequestBody.create(
-            "text/plain".toMediaTypeOrNull(),
-            relation.toString()
+            "text/plain".toMediaTypeOrNull(), relation.toString()
         )
 
         val call: Call<ResponseChat> = ServiceCreator.chatService.uploadChatImage(imagePart, relationRequestBody)
@@ -115,8 +129,7 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
         call.enqueue(object : Callback<ResponseChat> {
             override fun onResponse(
                 call: Call<ResponseChat>, response: Response<ResponseChat>
-            ) {
-                // 로딩 바 숨기기
+            ) { // 로딩 바 숨기기
                 showProgress(false)
 
                 if (response.isSuccessful) {
@@ -155,49 +168,14 @@ class UploadImageFragment : Fragment(), ConfirmDialogInterface {
             override fun onFailure(call: Call<ResponseChat>, t: Throwable) {
                 showProgress(false)
                 Log.d("문장 분석 실패", t.message.toString())
+                Toast.makeText(requireContext(), "분석에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show()
             }
         })
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        if (requestCode == PERMISSION_Album) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openGallery()
-            } else {
-                Toast.makeText(
-                    requireContext(), "저장소 권한을 승인해야 앨범에서 이미지를 불러올 수 있습니다.", Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
-
-    fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = MediaStore.Images.Media.CONTENT_TYPE
-        startActivityForResult(intent, REQUEST_STORAGE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK) {
-            when (requestCode) {
-                REQUEST_STORAGE -> {
-                    data?.data?.let { uri ->
-                        with(binding) {
-                            btnUpload.visibility = View.INVISIBLE
-                            layoutImage.visibility = View.VISIBLE
-                            tvExplain1.visibility = View.INVISIBLE
-                            tvExplain2.visibility = View.INVISIBLE
-                            tvPhotoName.visibility = View.VISIBLE
-                            tvPhotoName.text = uri.toString()
-                        }
-                    }
-                }
-            }
-        }
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        pickImageLauncher.launch(intent)
     }
 
     //로딩 바 초기 설정
