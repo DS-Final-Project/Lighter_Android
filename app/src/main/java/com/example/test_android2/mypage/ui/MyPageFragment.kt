@@ -19,7 +19,7 @@ import com.example.test_android2.analysisresult.data.ResponseChat
 import com.example.test_android2.mypage.data.ResponseItem
 import com.example.test_android2.ServiceCreator
 import com.example.test_android2.databinding.FragmentMyPageBinding
-import com.example.test_android2.googleLogin.goo
+import com.example.test_android2.googleLogin.LoginGoogleActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
