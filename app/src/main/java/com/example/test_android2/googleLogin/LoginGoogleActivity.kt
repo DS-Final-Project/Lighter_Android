@@ -15,6 +15,7 @@ import com.example.test_android2.main.LighterApplication
 import com.example.test_android2.R
 import com.example.test_android2.googleLogin.api.TokenData
 import com.example.test_android2.main.MainActivity
+import com.example.test_android2.selftest.ui.TestStartActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
@@ -90,13 +91,21 @@ class LoginGoogleActivity : AppCompatActivity() {
                 if (res.isSuccessful) {
                     val result = res.body()
                     result?.let {
-                        if (it.loginStatus == true) {
-                            val intent = Intent(this@LoginGoogleActivity, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            // 로그인 실패 처리
-                            finish()
+                        when {
+                            it.loginStatus == true -> {
+                                val intent = Intent(this@LoginGoogleActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                            it.loginStatus == false -> {
+                                val intent = Intent(this@LoginGoogleActivity, TestStartActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                            else -> {
+                                // 로그인 실패 처리
+                                finish()
+                            }
                         }
                     }
                     Log.d("로그인 성공", "$result")
