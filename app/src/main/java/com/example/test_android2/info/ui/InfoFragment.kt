@@ -43,15 +43,9 @@ class InfoFragment : Fragment() {
 
         getCardView()
 
-        val dpValue = 44
-        val d = resources.displayMetrics.density
-        val margin = (dpValue * d).toInt() //뷰페이저 양옆 마진
-
         adapter = cardviewAdapter(solutions, requireContext())
         viewPager.adapter = adapter
         viewPager.setClipToPadding(false)
-        viewPager.setPadding(margin, 0, margin, 0)
-        //viewPager.pageMargin = margin/2;
 
         val textView = binding.tv1
         val textData: String = textView.text.toString()
@@ -171,7 +165,7 @@ class InfoFragment : Fragment() {
                                 adapter.addCardView(mysolution)
 
                                 // Solution 객체의 정보를 로그에 출력
-                                Log.d("Solution", mysolution.toString())
+                                Log.d("Info페이지 Solution", mysolution.toString())
                             }
                         }
                     }

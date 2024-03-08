@@ -24,9 +24,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
-            android:name=".googleLogin.goo"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:name=".googleLogin.LoginGoogleActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

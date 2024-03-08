@@ -2,6 +2,7 @@ package com.example.test_android2.info.ui
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,6 +97,7 @@ class cardviewAdapter(
                         // 클릭한 카드뷰의 내용을 보여주는 작업을 여기에 추가
                         val intent = Intent(context, SolutionActivity::class.java)
                         intent.putExtra("clickSolution", solution) // 선택한 솔루션 데이터 전달
+                        Log.d("연인 솔루션 클릭시 솔루션:", solution.solutionId.toString())
                         context.startActivity(intent)
                     }
                 }

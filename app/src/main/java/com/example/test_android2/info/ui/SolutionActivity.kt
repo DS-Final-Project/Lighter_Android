@@ -48,6 +48,7 @@ class SolutionActivity : AppCompatActivity()  {
             solutionTitle = mysolution?.solutionTitle.toString()
 
             if (solutionIdString != null) {
+                Log.d("Solution디테일 id", solutionIdString)
                 getSolutionDetail(solutionIdString)
             }
 
